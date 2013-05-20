@@ -1,0 +1,30 @@
+html, body {
+	border: 0;
+	padding: 0;
+}
+body {
+	margin: 10px;
+}
+*:focus {
+	outline: none;
+}
+#trackTemplate {
+	display: none;
+}
+@font-face { font-family: Digital; src: url('digital-7.ttf'); }
+
+@-webkit-keyframes blink {
+  from { opacity: 0.7; }
+  to { opacity: 0.0; }
+}
+
+.blink {
+  -webkit-animation-name: blink;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: cubic-bezier(1.0,0,0,1.0);
+  -webkit-animation-duration: 1s;
+}
+
+.ui-loader {
+	display: none;
+}

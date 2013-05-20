@@ -1,0 +1,422 @@
+
+#jukebox {
+	background: url(gfx/top.png) no-repeat;
+	width: 355px;
+	position: relative;
+}
+
+#jukebox header {
+	height: 165px;
+	position: relative;
+}
+
+#jukebox header .duration {
+	position: absolute;
+	bottom: 87px;
+	left: 34px;
+	font-family: Digital;
+	opacity: .7;
+	color: #fff;
+	font-size: 27px;
+	cursor: default;
+	padding: 0;
+	margin: 0;
+}
+
+#jukebox header .statusIndicator {
+	position: absolute;
+	top: 54px;
+	left: 25px;
+	height: 20px;
+	width: 7px;
+	opacity: .9;
+	background-image: url(gfx/status_indicator.png);
+	background-repeat: no-repeat;
+}
+#jukebox header .statusIndicator.play {
+	background-position: 0 -20px;
+}
+
+#jukebox header .statusIndicator.pause {
+	background-position: 0 -40px;
+}
+
+#jukebox header .title {
+	position: absolute;
+	top: 80px;
+	left: 20px;
+	width: 280px;
+	height: 14px;
+	font-family: Digital;
+	color: #fff;
+	font-size: 12px;
+	padding: 4px 0;
+	opacity: .7;
+}
+#jukebox header .title.play {
+	overflow: hidden;
+	overflow-x:-webkit-marquee;
+	-webkit-marquee-direction: backwards;
+	-webkit-marquee-style: scroll;
+	-webkit-marquee-speed: normal;
+	-webkit-marquee-increment: small;
+	-webkit-marquee-repetition: 0;
+}
+#jukebox header .playButtons {
+	position: absolute;
+	bottom: 5px;
+	margin-left: 5px;
+	padding:0;
+	font-size: 0;
+}
+
+#jukebox header .playButtons > span {
+	display: inline-block;
+	cursor: pointer;
+	width: 30px;
+	height: 33px;
+	background-image: url(gfx/buttons_active.png);
+	background-position: -10000px -10000px;
+	background-repeat: no-repeat;
+	font-size: 0;
+	margin: 0;
+	padding: 0;
+	background-color: rgba(255,255,255,.1);
+}
+
+#jukebox header .playButtons.stop > span[data-action="stop"] {
+	background-position: -88px 0px;
+}
+
+#jukebox header .playButtons.play > span[data-action="play"] {
+	background-position: -28px 0px;
+}
+
+#jukebox header .playButtons.paused > span[data-action="pause"] {
+	background-position: -58px 0px;
+}
+
+#jukebox header .playButtons.next > span[data-action="next"] {
+	background-position: -118px 0px;
+}
+
+#jukebox header .playButtons.prev > span[data-action="prev"] {
+	background-position: 2px 0px;
+}
+
+#jukebox header .songScrollButton {
+	position: absolute;
+	top: 110px;
+	left: 5px;
+	height: 15px;
+	width: 35px;
+	background: url(gfx/song_scroll_button.png) no-repeat;
+	z-index: 50;
+	pointer-events: none;
+}
+
+#jukebox header .songProgress {
+	position: absolute;
+	clip: rect(0 0 10px 0);
+	top: 110px;
+	height: 15px;
+	width: 260px;
+	background: url(gfx/track_progress_finished.png) no-repeat;
+	z-index: 40;
+}
+
+#jukebox header .loadProgress {
+	display: none;
+	position: absolute;
+	clip: rect(0 0 10px 0);
+	top: 110px;
+	height: 15px;
+	width: 260px;
+	background: url(gfx/track_progress_loaded.png) no-repeat;
+	z-index: 20;
+}
+
+#jukebox header .showMediaPlaylistButtons {
+	position: absolute;
+	top: 100px;
+	left: 260px;
+	width: 60px;
+	height: 30px;
+	padding-left: 30px;
+}
+
+#jukebox header .showMediaPlaylistButtons span {
+	display: inline-block;
+	height: inherit;
+	width: 25px;
+	margin-right: 1px;
+	font-size: 0;
+}
+
+#jukebox header .muteButton {
+	position: absolute;
+	top: 134px;
+	left: 160px;
+	height: 24px;
+	width: 24px;
+	background-repeat: no-repeat;
+	cursor: pointer;
+}
+
+#jukebox header .muteButton.muteOn {
+	background-image: url(gfx/mute_on.png);
+}
+
+#jukebox header .volumeIndicator {
+	position: absolute;
+	clip: rect(0 9px 10px 0);
+	top: 145px;
+	left: 183px;
+	height: 15px;
+	width: 87px;
+	background: url(gfx/volume_finished.png) no-repeat;
+}
+
+#jukebox header .volumeButton {
+	position: absolute;
+	top: 145px;
+	/* starts with 10% - 183 + 9 */
+	left: 192px;
+	height: 15px;
+	width: 35px;
+	background: url(gfx/volume_button.png) no-repeat;
+	z-index: 50;
+	pointer-events: none;
+}
+
+#jukebox header .config {
+	position: absolute;
+	top: 150px;
+	right: 40px;
+	width: 40px;
+	height: 10px;
+	font-size: 0;
+}
+
+#jukebox .playlistHeader {
+	height: 20px;
+	background: url(gfx/playlist-top.png) no-repeat;
+}
+#jukebox .playlistFooter {
+	height: 20px;
+	background: url(gfx/playlist-bottom.png) no-repeat;
+	border: 1p solid red;
+}
+#jukebox .playlistContainer {
+	padding: 3px 0px 3px 5px;
+	background: url(gfx/playlist-middle.png) repeat-y;
+	height: 300px;
+	min-height: 300px;
+	overflow: auto;
+}
+#jukebox .playlist > div,
+#jukebox .mediaLibrary .tracks > div,
+#jukebox .mediaLibrary .menu li,
+#jukebox .mediaLibrary .menu li a {
+	cursor: default;
+	font-size: 11px;
+	font-family: Arial;
+	text-shadow: 1px 1px 1px #000;
+	color: rgba(250, 250, 250, .7);
+	text-decoration: none;
+}
+
+#jukebox .mediaLibrary .menu li a {
+	display: block;
+}
+
+#jukebox .playlist > div {
+	padding: 3px 6px 3px 8px;
+	display: -webkit-box;
+	-webkit-box-orient: horizontal;
+}
+#jukebox .playlist > div:nth-child(odd), #jukebox .mediaLibrary .tracks > div:nth-child(odd) {
+	background-color: rgba(100,100,100,.1);
+}
+#jukebox .playlist > div.current {
+	color: #fff;
+}
+#jukebox .playlist > div.active, #jukebox .mediaLibrary .tracks > div.active {
+	background-color: rgba(220,220,220,.2);
+}
+#jukebox .playlist > div > span:nth-child(2) {
+	-webkit-box-flex: 1;
+	flex: 1;
+	display: block;
+	padding: 0 5px;
+}
+#jukebox .playlist > div > span, #jukebox .playlist > div > span:nth-child(2) {
+	display: inline-block;
+}
+
+#jukebox .mediaLibrary {
+	display: none;
+	position: absolute;
+	left: 365px;
+	width: 776px;
+	height: 364px;
+	background-image: url(gfx/media-library.jpg);
+}
+#jukebox .mediaLibrary .menu {
+	float: left;
+	width: 130px;
+	margin: 40px 0 0 5px;
+}
+#jukebox .mediaLibrary .menu ul {
+	list-style: none;
+	margin: 0;
+}
+#jukebox .mediaLibrary .menu > ul {
+	padding: 0;
+}
+#jukebox .mediaLibrary .menu > ul > li span,
+#jukebox .mediaLibrary .menu > ul > li a {
+	padding-left: 20px;
+}
+
+#jukebox .mediaLibrary .menu > ul > li {
+	position: relative;
+}
+
+#jukebox .mediaLibrary .menu > ul > li:before {
+	position: absolute;
+	top: 0px;
+	width: 20px;
+	height: 10px;
+	font-size: 0;
+	content: " ";
+	background: url(gfx/expand_collapse.jpg) no-repeat top right;
+}
+
+#jukebox .mediaLibrary .menu > ul li ul {
+	margin-left: 5px;
+	padding: 0;
+}
+#jukebox .mediaLibrary .menu > ul li ul {
+	display: none;
+}
+#jukebox .mediaLibrary .menu > ul > li.selected:before {
+	background-position: top left;
+}
+#jukebox .mediaLibrary .menu > ul li.selected > ul {
+	display: block;
+}
+#jukebox .mediaLibrary .menu > ul > li.selected ul li.active {
+	background-color: rgba(220,220,220,.2);
+}
+#jukebox .mediaLibrary .content > div {
+	position: absolute;
+	top: 40px;
+	left: 145px;
+	width: 624px;
+	height: 324px;
+	background-repeat: no-repeat;
+	display: none;
+}
+#jukebox .mediaLibrary .content input {
+	border: none;
+	background: transparent;
+	color: #fff;
+}
+#jukebox .mediaLibrary .content .local-media-audio {
+	background-image: url(gfx/local-media-audio.jpg);
+	display: block;
+}
+#jukebox .mediaLibrary .content .local-media-audio .search {
+	margin-top: 2px;
+}
+#jukebox .mediaLibrary .content .local-media-audio .search input {
+	width: 405px;
+	margin-left: 135px;
+}
+#jukebox .mediaLibrary .content .local-media-audio .search span {
+	display: inline-block;
+	width: 75px;
+	height: 15px;
+	font-size: 0;
+	margin-left: 5px;
+}
+
+#jukebox .mediaLibrary .content .local-media-audio .tracks {
+	width: 610px;
+	height: 234px;
+	overflow: auto;
+	margin-top: 35px;
+	margin-left: 10px;
+}
+
+#jukebox .mediaLibrary .content .services-video-download {
+	background-image: url(gfx/services-video-download.jpg);
+}
+#jukebox .mediaLibrary .content .services-video-download .url {
+	margin-left: 45px;
+	margin-top: 2px;
+}
+
+#jukebox .mediaLibrary .content .services-video-download .url input {
+	width: 405px;
+}
+
+#jukebox .mediaLibrary .content .services-video-download .url span {
+	display: inline-block;
+	width: 75px;
+	height: 15px;
+	font-size: 0;
+	margin-left: 80px;
+}
+
+#jukebox .mediaLibrary .content .services-video-download iframe {
+	width: 614px;
+	height: 250px;
+	margin-top: 13px;
+	margin-left: 7px;
+}
+
+#jukebox .mediaLibrary .content .services-video-download .bottom span[data-action="getvideo"] {
+	display: inline-block;
+	width: 75px;
+	height: 20px;
+	font-size: 0;
+}
+
+/* commons defined with playlist */
+#jukebox .mediaLibrary .tracks > div {
+	padding: 3px;
+}
+
+#jukebox .mediaLibrary .tracks > div > span {
+	display: inline-block;
+	vertical-align: top;
+}
+#jukebox .mediaLibrary .tracks > div > span:nth-child(1) {
+	width: 180px;
+}
+
+#jukebox .mediaLibrary .tracks > div > span:nth-child(2) {
+	width: 135px;
+}
+
+#jukebox .mediaLibrary .tracks > div > span:nth-child(3) {
+	width: 208px;
+}
+
+.qrCode {
+	position: absolute;
+	display: none;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0,0,0,.5);
+	z-index: 1000;
+	text-align: center;
+}
+
+.qrCode img {
+	margin-top: 100px;
+}

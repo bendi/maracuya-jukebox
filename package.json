@@ -1,0 +1,35 @@
+{
+  "name": "node-jukebox",
+  "description": "nodejs jukebox app",
+  "version": "0.1.2",
+  "private": true,
+  "dependencies": {
+    "express": "~3.x",
+    "sqlite3": ">=2.0.0",
+    "sequelize": "1.5.x",
+    "optimist" : "~0.3.5",
+    "socket.io": "~0.9.6",
+    "requireindex": "~1.0.0",
+    "node-ffprobe": "~1.2.1",
+    "youtube-dl": "~1.2.7",
+    "fluent-ffmpeg": "1.3.3",
+    "mkdirp" : "0.3.4",
+    "node-promise" : "0.5.4",
+    "npmlog": "*",
+    "npm" : "*",
+    "grace" : "0.2.5",
+    "mpg123n" : "*"
+  },
+
+  "devDependencies": {
+    "grunt-image-embed": "~0.2.0",
+    "grunt-contrib-requirejs": "~0.3.0",
+    "grunt-contrib-compress": "~0.3.0",
+    "grunt-contrib-copy": "~0.3.1",
+    "grunt-rm": "~0.0.4",
+    "grunt-preprocess" : "~1.3.0",
+    "grunt-zipstream" : "~0.1.0",
+    "grunt-clean": "~0.4.0",
+    "node-gyp" : "*"
+  }
+}
