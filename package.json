@@ -1,6 +1,6 @@
 {
-  "name": "node-jukebox",
-  "description": "nodejs jukebox app",
+  "name": "maracuya-jukebox",
+  "description": "Maracuyá is a javascript based virutal mp3 player that lets you control your playlist from a browser. It goes on IE, Safari, Firefox, Chrome under different operating systems: Windows, Linux, Mac OS",
   "version": "0.1.2",
   "private": true,
   "dependencies": {
