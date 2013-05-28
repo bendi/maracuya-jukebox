@@ -4,21 +4,20 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks("grunt-image-embed");
   grunt.loadNpmTasks('grunt-rm');
   grunt.loadNpmTasks('grunt-preprocess');
   grunt.loadNpmTasks('grunt-zipstream');
-  grunt.loadNpmTasks('grunt-clean');
+  grunt.loadNpmTasks('grunt-contrib-clean');
 
   // Project configuration.
   grunt.initConfig({
     pkg: '<json:package.json>',
-    lint: {
-      all: ['src/routes/*.js', 'src/util/*.js', 'src/*.js', 'src/public/scripts/**']
-    },
 
     // js linting options
     jshint : {
+      all: ['src/routes/*.js', 'src/util/*.js', 'src/*.js', 'src/public/scripts/**'],
       options : {
         curly : true,
         eqeqeq : true,
@@ -30,22 +29,23 @@ module.exports = function(grunt) {
         undef : true,
         eqnull : true,
         browser : true,
-        nomen : false
+        nomen : false,
+
+        globals : {
+          require : true,
+          define : true,
+          $ : true,
+          alert : true,
+          console : true,
+          module : true,
+          process : true,
+          __dirname : true
+        }
       },
-      globals : {
-        require : true,
-        define : true,
-        $ : true,
-        alert : true,
-        console : true,
-        module : true,
-        process : true,
-        __dirname : true
-      }
     },
 
     clean: {
-      folder: "build"
+      build: "build"
     },
 
     copy: {
@@ -64,7 +64,7 @@ module.exports = function(grunt) {
     },
 
     requirejs: {
-      compile: {
+      app: {
         options: {
           appDir: "src/public",
           baseUrl: "scripts",
@@ -75,6 +75,7 @@ module.exports = function(grunt) {
             "jquery": "../external/jquery-1.8.3.min",
             "jqm": "../external/jquery.mobile-1.2.0",
             "editinplace": "../external/jquery.editinplace",
+            "qr": "../external/jquery.qrcode.min",
             "app": "../app",
             "io" : "empty:"
           },
@@ -96,7 +97,40 @@ module.exports = function(grunt) {
             }
           ]
         }
-      }
+      },
+      demoApp: {
+          options: {
+            appDir: "src/public",
+            baseUrl: "scripts",
+            dir: "build/src/public",
+            paths: {
+              "underscore": "../external/lodash-1.0.0-rc.3",
+              "domReady": "../external/plugins/domReady-2.0.1",
+              "jquery": "../external/jquery-1.8.3.min",
+              "jqm": "../external/jquery.mobile-1.2.0",
+              "editinplace": "../external/jquery.editinplace",
+              "qr": "../external/jquery.qrcode.min",
+              "app": "demoApp",
+            },
+            removeCombined: true,
+            shim: {
+              jqm: {
+                deps: ['jquery'],
+                exports: 'jQuery.mobile'
+              },
+              editinplace: {
+                deps: ['jquery']
+              }
+            },
+
+
+            modules: [
+              {
+                name: "app"
+              }
+            ]
+          }
+        }
     },
 
     preprocess : {
@@ -132,7 +166,7 @@ module.exports = function(grunt) {
   });
 
   // Default task.
-  grunt.registerTask('default', 'lint');
-  grunt.registerTask('build', 'lint clean copy requirejs imageEmbed preprocess rm');
-  grunt.registerTask('package', 'lint clean copy requirejs imageEmbed preprocess rm zip');
+  grunt.registerTask('default', 'jshint');
+  grunt.registerTask('build', ['jshint', 'clean', 'copy', 'requirejs', 'imageEmbed', 'preprocess', 'rm']);
+  grunt.registerTask('package', ['jshint', 'clean', 'copy', 'requirejs', 'imageEmbed', 'preprocess', 'rm', 'zip']);
 };

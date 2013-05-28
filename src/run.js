@@ -16,7 +16,7 @@ var myArgs = require('optimist')
   app = require('./modules/app'),
   insert = require('./modules/insert'),
   grace = require('grace'),
-  status = require("./util/StatusNotifier")(myArgs.s);
+  statusNotifier = require("./util/StatusNotifier")(myArgs.s);
 
 // using grace module for handling
 // cross-platform CTRL + C
@@ -29,7 +29,7 @@ graceApp.on('error', function(err) {
 
 graceApp.on('start', function() {
 
-  status.updateStatus('starting');
+  statusNotifier.updateStatus('starting');
 
   model.init(db);
 
@@ -52,7 +52,7 @@ graceApp.on('start', function() {
       break;
   }
 
-  status.updateStatus('running');
+  statusNotifier.updateStatus('running');
 
   stdin.resume();
   stdin.setEncoding('utf8');
@@ -67,13 +67,13 @@ graceApp.on('start', function() {
 
 graceApp.on("shutdown", function(cb){
   console.log ("shutting down");
-  status.updateStatus("closing");
+  statusNotifier.updateStatus("closing");
   cb();
 });
 
 graceApp.on("exit", function (code) {
   console.log("bye (" + code + ")");
-  status.updateStatus("closed");
+  statusNotifier.updateStatus("closed");
 });
 
 graceApp.timeout(1000, function (){
