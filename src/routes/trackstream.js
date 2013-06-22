@@ -1,6 +1,5 @@
 var TrackDao = require('../db/dao/TrackDao'),
-  fs = require('fs'),
-  ffmpeg = require('fluent-ffmpeg');
+  fs = require('fs');
 
 var MEDIA_TYPE = {
   mp3: 'audio/mpeg',
@@ -98,22 +97,7 @@ function index(req, res) {
           file.pipe(res);
         }
       } else {
-        console.log("Media type: " + mediaType);
-
-        res.writeHead(200, {
-          'Content-Type': mediaType
-        });
-
-        new ffmpeg({ source: track.path, priority: 10})
-          .withAudioCodec('libvorbis')
-          .toFormat('ogg')
-          // save to stream
-          .writeToStream(res, function(retcode, error) {
-            if (error) {
-              return console.log(error);
-            }
-            console.log('file has been converted succesfully');
-          });
+        res.send(415, 'Unsupported media type.');
       }
   });
 }

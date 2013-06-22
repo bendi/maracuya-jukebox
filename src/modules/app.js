@@ -45,7 +45,6 @@ var initParams = {
 
 routes.currentlyplaying.init(initParams);
 routes.upload.init(initParams);
-routes.getvideo.init(initParams);
 
 app.get('/playlist/:id', routes.playlist.index);
 
@@ -58,8 +57,6 @@ app.get('/searchtracks', routes.searchtracks.index);
 app.post('/upload', routes.upload.post);
 
 app.get('/track/stream/:id.:type', routes.trackstream.index);
-
-app.post('/getvideo/:service/:videoid', routes.getvideo.index);
 
 routes.options(app.routes, function(){app.options.apply(app, arguments);});
 

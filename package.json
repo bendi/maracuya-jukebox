@@ -1,5 +1,5 @@
 {
-  "name": "node-jukebox",
+  "name": "maracuya-jukebox",
   "description": "nodejs jukebox app",
   "version": "0.1.2",
   "private": true,
@@ -10,15 +10,12 @@
     "optimist" : "~0.3.5",
     "socket.io": "~0.9.6",
     "requireindex": "~1.0.0",
-    "node-ffprobe": "~1.2.1",
-    "youtube-dl": "~1.2.7",
-    "fluent-ffmpeg": "1.3.3",
     "mkdirp" : "0.3.4",
     "node-promise" : "0.5.4",
-    "npmlog": "*",
-    "npm" : "*",
     "grace" : "0.2.5",
-    "mpg123n" : "*"
+    "mpg123n" : "*",
+    "mp3info" : "*",
+    "id3" : "~0.0.2"
   },
 
   "devDependencies": {
