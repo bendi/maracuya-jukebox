@@ -1,0 +1,4 @@
+node_modules/*
+.settings/*
+status.txt
+.project

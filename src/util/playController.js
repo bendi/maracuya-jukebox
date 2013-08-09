@@ -1,5 +1,5 @@
 var Track = require('../db/model').Track,
-  Player = require('./Player');
+  Player = require('./PlayerParent');
 
 var currentlyPlaying,
   startTime,
