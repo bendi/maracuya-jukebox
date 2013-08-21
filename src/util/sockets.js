@@ -128,7 +128,7 @@ function socketConnected(playController, mBus, socket) {
   socket.on('unmute', function() {
     playController.unmute();
     emit('unmute');
-    });
+  });
 }
 
 module.exports = function(io, mBus) {
