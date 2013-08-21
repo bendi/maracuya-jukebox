@@ -31,6 +31,14 @@ function getPlayedFor(resume) {
   return 0;
 }
 
+function songFinished(data) {
+  var currentId = currentlyPlaying.id;
+  currentlyPlaying = null;
+  startTime = null;
+  pauseTime = null;
+  this.emit('end', currentId);
+}
+
 function PlayController() {
   this.player = new Player();
 }
@@ -41,6 +49,7 @@ PlayController.prototype.stop = function() {
   currentlyPlaying = null;
   startTime = null;
   this.player.removeAllListeners('end');
+  this.player.removeAllListeners('error');
   this.player.stop();
 };
 
@@ -52,12 +61,11 @@ PlayController.prototype.play = function(track) {
 
   var that = this;
   this.player.removeAllListeners('end');
-  this.player.once('end', function (data) {
-    var currentId = currentlyPlaying.id;
-    currentlyPlaying = null;
-    startTime = null;
-    pauseTime = null;
-    that.emit('end', currentId);
+  this.player.removeAllListeners('error');
+  this.player.once('end', songFinished.bind(that));
+  this.player.once('error', function(data) {
+    console.log("ERROR: error when playing song, ", data);
+    songFinished.call(that);
   });
 
   this.player.volume(volume);

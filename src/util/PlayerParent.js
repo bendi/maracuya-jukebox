@@ -16,7 +16,7 @@ function start() {
 			});
 		}
 	});
-};
+}
 
 function message(evt, data) {
 	console.log("sending event", {evt: evt, args: data});
