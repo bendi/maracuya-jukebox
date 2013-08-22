@@ -1,7 +1,8 @@
 define([
-    'underscore'
+    'underscore',
+    'console'
   ],
-  function(_) {
+  function(_, console) {
 
   var routes = {},
     currentRoute;

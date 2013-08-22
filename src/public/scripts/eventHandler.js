@@ -1,10 +1,11 @@
 define([
     'jquery',
     'jqm',
+    'console',
     'mbusRouter',
     'common'
   ],
-  function($, jqm, router, common) {
+  function($, jqm, console, router, common) {
 
   // constants
   var PROGRES_LENGTH = 260,

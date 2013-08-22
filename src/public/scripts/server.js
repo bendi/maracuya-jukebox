@@ -1,6 +1,7 @@
 define([
     'jquery',
     'underscore',
+    'console',
     'io',
     'config',
     'player',
@@ -8,7 +9,7 @@ define([
     'mbusRouter',
     'eventHandler',
     'playlist'
-  ], function($, _, io, config, player, mediaLibrary, router, eventHandler, playlist) {
+  ], function($, _, console, io, config, player, mediaLibrary, router, eventHandler, playlist) {
 
   // FIXME - should be moved into common
   var PROGRES_LENGTH = 260,

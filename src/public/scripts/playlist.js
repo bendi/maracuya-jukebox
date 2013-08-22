@@ -1,8 +1,9 @@
 define([
     'underscore',
     'config',
-    'common'
-  ], function(_, config, common) {
+    'common',
+    'console'
+  ], function(_, config, common, console) {
 
   var PAGE_SIZE = config('playlistPageSize'),
     pagesLoaded = [],

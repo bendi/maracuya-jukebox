@@ -1,4 +1,4 @@
-define(function() {
+define(['console'], function(console) {
 
   function uploadFiles(url, files, listener) {
     console.log("got files: ", files);

@@ -1,10 +1,11 @@
 define([
     'jquery',
     'jqm',
+    'console',
     'underscore',
     'config',
     'upload'
-  ], function($, jqm, _, config, upload) {
+  ], function($, jqm, console, _, config, upload) {
 
   var PAGE_SIZE = config('playlistPageSize'),
     homeUrl = config('homeUrl');

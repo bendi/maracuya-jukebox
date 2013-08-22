@@ -1,12 +1,13 @@
 define([
   'jquery',
   'underscore',
+  'console',
   'config',
   'player',
   'mbusRouter',
   'eventHandler',
   'playlist'
-  ], function($, _, config, player, router, eh, playlist) {
+  ], function($, _, console, config, player, router, eh, playlist) {
 
   var mBus = router.getRoute('demo'),
     startTime,

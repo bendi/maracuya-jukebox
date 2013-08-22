@@ -1,13 +1,14 @@
 define([
     'jquery',
     'underscore',
+    'console',
     'config',
     'player',
     'mediaLibrary',
     'mbusRouter',
     'eventHandler',
     'playlist'
-  ], function($, _, config, player, mediaLibrary, router, eh, playlist) {
+  ], function($, _, console, config, player, mediaLibrary, router, eh, playlist) {
 
   var stop, play, pause, resume, jump, volume, mute, unmute,
     PROGRES_LENGTH = 260,

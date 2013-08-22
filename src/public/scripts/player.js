@@ -1,9 +1,10 @@
 define([
     'underscore',
+    'console',
     'common',
     'playlist'
   ],
-  function(_, common, playlist) {
+  function(_, console, common, playlist) {
 
 var PROGRES_LENGTH = 260,
   VOLUME_LENGTH = 87,
