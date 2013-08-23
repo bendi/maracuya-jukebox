@@ -37,6 +37,9 @@ define(function() {
     },
     isFirefox: function() {
       return firefox;
+    },
+    isIE: function() {
+      return document.all !== undefined;
     }
   };
 });

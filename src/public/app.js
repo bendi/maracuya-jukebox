@@ -43,7 +43,13 @@ define([
       }
 
       if (starting) {
-        $('.qrCode').qrcode("This plugin is great!");
+        var settings = {
+          text: "This plugin is great!"
+        };
+        if (common.isIE()) {
+          settings.render = "table";
+        }
+        $('.qrCode').qrcode(settings);
       }
     }
   };
