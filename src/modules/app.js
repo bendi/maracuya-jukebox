@@ -25,6 +25,8 @@ module.exports = function(model, db) {
 var server = require('http').createServer(app),
   io = socketio.listen(server);
 
+io.set('log level', 1);
+
 sockets(io, mBus);
 
 app.configure(function() {

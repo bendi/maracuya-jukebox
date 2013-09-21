@@ -19,7 +19,7 @@ function start() {
     this.child.removeAllListeners('exit');
     delete this.child;
   }
-  this.child = require('child_process').fork("./src/util/PlayerChild.js");
+  this.child = require('child_process').fork(__dirname + "/PlayerChild.js");
   this.child.on('message', handleMessage.bind(self));
   this.child.on('exit', handleExit.bind(self, start.bind(self)));
 }
