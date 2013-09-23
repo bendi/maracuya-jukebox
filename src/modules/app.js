@@ -25,7 +25,11 @@ module.exports = function(model, db) {
 var server = require('http').createServer(app),
   io = socketio.listen(server);
 
-io.set('log level', 1);
+io.configure(function() {
+	io.set('log level', 1);
+	io.set('transports', ['flashsocket', 'websocket', 'xhr-polling']);
+	io.set('polling duration', 10);
+});
 
 sockets(io, mBus);
 

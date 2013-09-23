@@ -1,5 +1,8 @@
 var inherits = require('util').inherits,
-  EventEmitter = require('events').EventEmitter;
+  EventEmitter = require('events').EventEmitter,
+  pwd=__dirname;
+
+console.log("PWD: ", pwd);
 
 function handleMessage(data) {
   this.emit(data.event, data.data);
@@ -19,7 +22,8 @@ function start() {
     this.child.removeAllListeners('exit');
     delete this.child;
   }
-  this.child = require('child_process').fork(__dirname + "/PlayerChild.js");
+  console.log("Restarting child module: ", pwd);
+  this.child = require('child_process').fork(pwd + "/PlayerChild.js");
   this.child.on('message', handleMessage.bind(self));
   this.child.on('exit', handleExit.bind(self, start.bind(self)));
 }
