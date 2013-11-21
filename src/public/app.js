@@ -5,12 +5,13 @@ define([
     'editinplace',
     'underscore',
     'config',
+    'eventHandler',
     'server',
     'stream',
     'mbusRouter',
     'common'
   ],
-  function($, jqm, qr, editinplace, _, config, server, stream, router, common) {
+  function($, jqm, qr, editinplace, _, config, eventHandler, server, stream, router, common) {
 
   var MODULE_SERVER = 'server',
     MODULE_STREAM = 'stream';
@@ -30,7 +31,11 @@ define([
         $('.playlistContainer').css({overflow:'',height:'auto'});
       }
 
-      router.useRoute(module);
+      var mBus = router.useRoute(module);
+      
+      mBus.addEventListener('appReady', function(data) {
+    	eventEmitter.init(data.paused);
+      });
 
       var starting = currentModule ? false : true;
 

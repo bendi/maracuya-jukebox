@@ -126,6 +126,7 @@ define([
     },
     useRoute: function(routeName) {
       currentRoute = routes[routeName];
+      return currentRoute;
     },
     getAllRoutes: function() {
       return _.keys(routes);

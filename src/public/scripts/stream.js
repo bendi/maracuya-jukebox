@@ -5,9 +5,8 @@ define([
     'player',
     'mediaLibrary',
     'mbusRouter',
-    'eventHandler',
     'playlist'
-  ], function($, _, console, player, mediaLibrary, router, eh, playlist) {
+  ], function($, _, console, player, mediaLibrary, router, playlist) {
 
   var stop, play, pause, resume, jump, volume, mute, unmute,
     PROGRES_LENGTH = 260,
@@ -44,7 +43,7 @@ define([
     playlist.init(mBus);
     // FIXME - playlist id should be fetched from server
     playlist.setCurrentPlaylistId(1);
-    playlist.load()
+    return playlist.load()
       .done(function() {
         var firstDisplayed = playlist.displayTracks.apply(playlist, arguments);
         player.updateSongToPlay(firstDisplayed);
@@ -246,7 +245,10 @@ define([
         console.log('canplay');
       });
 
-      init();
+      init()
+        .done(function() {
+          mBus.notify('appReady');
+        });
     },
     destroy: function() {
       $("#jukebox header .loadProgress").hide();

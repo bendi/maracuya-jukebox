@@ -6,9 +6,8 @@ define([
     'player',
     'mediaLibrary',
     'mbusRouter',
-    'eventHandler',
     'playlist'
-  ], function($, _, console, io, player, mediaLibrary, router, eventHandler, playlist) {
+  ], function($, _, console, io, player, mediaLibrary, router, playlist) {
 
   // FIXME - should be moved into common
   var PROGRES_LENGTH = 260,
@@ -35,9 +34,9 @@ define([
       loadTracks = function() {
         return $.get('/currentlyplaying', {pageSize:PAGE_SIZE})
           .done(playlist.displayTracks)
-          .done(function() {
-            eventHandler.init(track.paused);
+          .then(function() {
             onPlay(track);
+            return $.when({paused: track.paused ? true : false});
           });
       };
     } else {
@@ -53,7 +52,7 @@ define([
     player.updateVolume(data.volume);
     player.mute(!data.mute);
 
-    loadTracks();
+    return loadTracks();
   }
 
   function handleVolume(offset) {
@@ -132,7 +131,10 @@ define([
       socket.on('connected', function(data) {
         console.log("Connected event received!");
 
-        connected(data);
+        connected(data)
+          .done(function(data) {
+            mBus.notify('appReady', {paused: data.paused});
+          });
       });
 
       socket.on('play', function(track) {
