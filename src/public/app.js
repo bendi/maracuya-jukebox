@@ -4,12 +4,13 @@ define([
     'qr',
     'editinplace',
     'underscore',
+    'config',
     'server',
     'stream',
     'mbusRouter',
     'common'
   ],
-  function($, jqm, qr, editinplace, _, server, stream, router, common) {
+  function($, jqm, qr, editinplace, _, config, server, stream, router, common) {
 
   var MODULE_SERVER = 'server',
     MODULE_STREAM = 'stream';
@@ -35,7 +36,10 @@ define([
 
       switch(module) {
       case MODULE_SERVER:
-        currentModule = server.init();
+        currentModule = server.init({
+          homeUrl: config('homeUrl'),
+          pageSize: config('playlistPageSize')
+        });
         break;
       case MODULE_STREAM:
         currentModule = stream.init();

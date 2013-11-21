@@ -3,22 +3,20 @@ define([
     'underscore',
     'console',
     'io',
-    'config',
     'player',
     'mediaLibrary',
     'mbusRouter',
     'eventHandler',
     'playlist'
-  ], function($, _, console, io, config, player, mediaLibrary, router, eventHandler, playlist) {
+  ], function($, _, console, io, player, mediaLibrary, router, eventHandler, playlist) {
 
   // FIXME - should be moved into common
   var PROGRES_LENGTH = 260,
     VOLUME_LENGTH = 87,
     VOLUME_OFFSET_LEFT = 195;
 
-  var homeUrl = config('homeUrl'),
-    socket = io.connect(homeUrl),
-    PAGE_SIZE = config('playlistPageSize'),
+  var socket,
+    PAGE_SIZE,
     mBus = router.getRoute('server');
 
   function jumpHandler(fn){
@@ -124,10 +122,12 @@ define([
   });
 
   return {
-    init: function() {
+    init: function(opts) {
+      PAGE_SIZE = opts.pageSize;
+
       playlist.init(mBus);
 
-      socket = io.connect(homeUrl);
+      socket = io.connect(opts.homeUrl);
 
       socket.on('connected', function(data) {
         console.log("Connected event received!");
