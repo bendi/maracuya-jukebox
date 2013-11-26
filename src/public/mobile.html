@@ -9,8 +9,13 @@
 <script src="cordova.js"></script>
 <script src="external/requirejs-2.1.2.js"></script>
 
-<link rel="stylesheet" href="style/style.css">
+<link rel="stylesheet" href="skins/jqm/jquery.mobile-1.3.2.min.css" />
+<style>
+input.ui-input-text, textarea.ui-input-text {
+	padding: .4em 0;
+}
 
+</style>
 <!--[if lt IE 9]>
 <script src="external/html5shiv.js"></script>
 <![endif]-->
@@ -24,7 +29,8 @@ require.config({
       "domReady": "../external/plugins/domReady-2.0.1",
       "jquery": "../external/jquery-1.8.3.min",
       "jqm": "../external/jquery.mobile-1.2.0",
-      "mobile": "../mobile"
+      "mobile": "../mobile",
+      "playlist": "mobilePlaylist"
       <!-- @endexclude -->
   }
   <!-- @exclude -->
@@ -56,9 +62,20 @@ require(['mobile'], function(mobile) {
 </head>
 
 <body>
-<input type="text" id="connectUrl" />
-<input type="button" id="connect" value="connect" />
-<input type="button" id="pause" value="pause"/>
-<input type="button" id="resume" value="resume"/>
+<div data-role="page" id="main">
+	<input type="text" id="connectUrl" value="http://localhost:8280" />
+	<input type="button" id="connect" value="connect" />
+</div>
+<div data-role="page" id="player">
+	<ui data-role="listview" id="playlist">
+	</ui>
+	<div data-role="footer" data-position="fixed">
+		<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+			<a href="index.html" data-role="button" data-icon="arrow-u" data-iconpos="notext">Up</a>
+			<a href="index.html" data-role="button" data-icon="arrow-d" data-iconpos="notext">Down</a>
+			<a href="index.html" data-role="button" data-icon="delete" data-iconpos="notext">Delete</a>
+		</div>	
+	</div>
+</div>
 </body>
 </html>

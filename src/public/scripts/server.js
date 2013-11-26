@@ -124,7 +124,7 @@ define([
     init: function(opts) {
       PAGE_SIZE = opts.pageSize;
 
-      playlist.init(mBus);
+      playlist.init(mBus, opts.homeUrl);
 
       socket = io.connect(opts.homeUrl);
 

@@ -27,7 +27,12 @@ define([
     	  mBus.notify('resume');
       });
       
+      var connectUrl;
       mBus.addListener("connect", function(url) {
+    	  $.mobile.loading('show', {
+    		  text: "connecting",
+    		  textVisible: true
+    	  });
     	  $.get = _.wrap($.get, function(get) {
     		  var args = _.rest(arguments);
     		  args[0] = url + args[0];
@@ -41,7 +46,11 @@ define([
       });
       
       mBus.addListener("appReady", function(data) {
-    	  alert("i'm in!");
+    	  $.mobile.loading('hide');
+
+    	  $.mobile.changePage("#player", {
+    		  
+    	  });
       });
     }
   };
