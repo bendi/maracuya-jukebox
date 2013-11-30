@@ -33,7 +33,7 @@ define([
 
       var mBus = router.useRoute(module);
       
-      mBus.addEventListener('appReady', function(data) {
+      mBus.addListener('appReady', function(data) {
     	eventEmitter.init(data.paused);
       });
 
