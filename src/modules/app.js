@@ -42,7 +42,7 @@ var server = require('http').createServer(app),
 io.configure(function() {
 	io.set('log level', 1);
 	io.set('transports', ['flashsocket', 'websocket', 'xhr-polling']);
-	io.set('polling duration', 10);
+	io.set('polling duration', 2);
 });
 
 sockets(io, mBus);
