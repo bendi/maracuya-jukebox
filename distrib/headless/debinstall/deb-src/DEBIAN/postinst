@@ -1,0 +1,5 @@
+#!/bin/bash
+
+update-rc.d maracuya-jukebox defaults
+
+service maracuya-jukebox start

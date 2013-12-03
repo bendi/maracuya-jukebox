@@ -1,0 +1,38 @@
+#! /bin/sh
+# /etc/init.d/maracuya-jukebox
+ 
+### BEGIN INIT INFO
+# Provides:          maracuya-jukebox
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+### END INIT INFO
+ 
+# change this to wherever your node app lives # 
+#path_to_node_app=/home/pi/maracuya/maracuya-jukebox/src/run.js 
+path_to_node_app=/opt/maracuya/maracuya-jukebox/srcrun.js
+opts="-d /home/pi/.virtual-jukebox"
+node=/usr/local/bin/node
+app_name=maracuya-jukebox
+log_file=/var/log/$app_name.log
+ 
+# Carry out specific functions when asked to by the system
+case "$1" in
+  start)
+    echo "* starting $app_name * "
+    echo "* starting $app_name * [`date`]" >> $log_file
+    $node $path_to_node_app $opts >> $log_file 2>&1&
+    ;;
+  stop)
+    echo "* stopping $app_name * "
+    echo "* stopping $app_name * [`date`]" >> $log_file
+    killall $node
+    ;;
+  *)
+    echo "Usage: /etc/init.d/maracuya-jukebox {start|stop}"
+    exit 1
+    ;;
+esac
+ 
+exit 0
