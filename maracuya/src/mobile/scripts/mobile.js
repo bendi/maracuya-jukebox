@@ -26,6 +26,10 @@ define([
       $(document).on('vclick', '#resume', function(e) {
     	  mBus.notify('resume');
       });
+	  
+	  _.defer(function() {
+		mBus.notify('connect', 'http://localhost:8280'); 
+	  });
       
       var connectUrl;
       mBus.addListener("connect", function(url) {

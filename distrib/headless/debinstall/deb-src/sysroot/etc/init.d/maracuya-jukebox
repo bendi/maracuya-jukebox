@@ -11,7 +11,7 @@
  
 # change this to wherever your node app lives # 
 #path_to_node_app=/home/pi/maracuya/maracuya-jukebox/src/run.js 
-path_to_node_app=/opt/maracuya/maracuya-jukebox/srcrun.js
+path_to_node_app=/opt/maracuya/maracuya-jukebox/src/run.js
 opts="-d /home/pi/.virtual-jukebox"
 node=/usr/local/bin/node
 app_name=maracuya-jukebox
