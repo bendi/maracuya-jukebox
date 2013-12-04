@@ -16,11 +16,11 @@ mkdir -p ${DIST}/
 
 rm -rf ${SRC}
 rsync -a deb-src/ ${SRC}/
-mkdir -p ${SYSROOT}/opt/
+mkdir -p ${SYSROOT}/opt/maracuya/maracuya-jukebox/
 
 rsync -a ../../../maracuya/ ${SYSROOT}/opt/maracuya/maracuya-jukebox/ --delete
 
-pushd ${SYSROOT}/opt/maracuya-jukebox/
+pushd ${SYSROOT}/opt/maracuya/maracuya-jukebox/
 npm install --production
 popd
 
