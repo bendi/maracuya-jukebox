@@ -13,7 +13,7 @@
 #path_to_node_app=/home/pi/maracuya/maracuya-jukebox/src/run.js 
 path_to_node_app=/opt/maracuya/maracuya-jukebox/src/run.js
 opts="-d /home/pi/.virtual-jukebox"
-node=/usr/local/bin/node
+node=`which node`
 app_name=maracuya-jukebox
 log_file=/var/log/$app_name.log
  

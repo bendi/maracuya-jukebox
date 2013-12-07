@@ -12,8 +12,10 @@ then
   ARCH="x64"
 fi
 
+NODE=`which node`
+
 # TODO test version
-if [ ! -f /usr/local/bin/node ]
+if [ ! -n "$NODE" ]
 then
   pushd /tmp
   wget -c "http://nodejs.org/dist/v${VER}/node-v${VER}-linux-${ARCH}.tar.gz"

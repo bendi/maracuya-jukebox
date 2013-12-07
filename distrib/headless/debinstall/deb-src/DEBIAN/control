@@ -7,3 +7,4 @@ Installed-Size: $SIZE
 Depends:
 Maintainer: Marek Bedkowski <marek@bedkowski.pl>
 Description: maracuyá is an mp3 player that can be controlled from a browser. You need one machine where you can dump all your music and let all users control it from their own desktops! You can have unlimited number of songs and playlists
+

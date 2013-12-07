@@ -1,5 +1,9 @@
 #!/bin/bash
 
+chown -R root:root /opt/maracuya
+
+chmod 0755 /etc/init.d/maracuya-jukebox
+
 update-rc.d maracuya-jukebox defaults
 
 service maracuya-jukebox start
