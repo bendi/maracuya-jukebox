@@ -11,12 +11,11 @@ DIST=/tmp/maracuya-jukebox-deb-dist
 SYSROOT=${SRC}/sysroot
 DEBIAN=${SRC}/DEBIAN
 
-ARCH=i386
-if [ ! -n "$1" ]; then
-	ARCH=$1
-fi
+ARCH=`dpkg --print-architecture`
 
-VERSION=$2
+VERSION=$1
+
+echo "Building Maracuya Jukebox for arch: $ARCH, version: $VERSION"
 
 rm -rf ${DIST}
 mkdir -p ${DIST}/
