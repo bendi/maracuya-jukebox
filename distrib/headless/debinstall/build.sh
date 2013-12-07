@@ -53,6 +53,6 @@ echo 2.0 > ./debian-binary
 find ${DIST}/ -type d -exec chmod 0755 {} \;
 find ${DIST}/ -type f -exec chmod go-w {} \;
 
-ar r ${DIST}/maracuya-jukebox-1.deb debian-binary control.tar.gz data.tar.gz
+ar r ${DIST}/maracuya-jukebox-${VERSION}-${ARCH}.deb debian-binary control.tar.gz data.tar.gz
 popd
-rsync -a ${DIST}/maracuya-jukebox-1.deb ./
+rsync -a ${DIST}/maracuya-jukebox-${VERSION}-${ARCH}.deb ./
