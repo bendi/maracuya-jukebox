@@ -10,7 +10,13 @@ SRC=/tmp/maracuya-jukebox-deb-src
 DIST=/tmp/maracuya-jukebox-deb-dist
 SYSROOT=${SRC}/sysroot
 DEBIAN=${SRC}/DEBIAN
+
 ARCH=i386
+if [ ! -n "$1" ]; then
+	ARCH=$1
+fi
+
+VERSION=$2
 
 rm -rf ${DIST}
 mkdir -p ${DIST}/
@@ -34,8 +40,8 @@ tar czf ${DIST}/data.tar.gz [a-z]*
 popd
 
 sed s"/\$SIZE/${SIZE}/" -i ${DEBIAN}/control
-sed s"/\$VERSION/0.1.4/" -i ${DEBIAN}/control
-sed s"/\$ARCH/$ARCH/" -i ${DEBIAN}/control
+sed s"/\$VERSION/${VERSION}/" -i ${DEBIAN}/control
+sed s"/\$ARCH/${ARCH}/" -i ${DEBIAN}/control
 
 pushd ${DEBIAN}
 tar czf ${DIST}/control.tar.gz *
