@@ -23,14 +23,14 @@ NODE=`which node`
 if [ ! -n "$NODE" ]
 then
   pushd /tmp
-  wget -c "http://nodejs.org/dist/v${VER}/node-v${VER}-linux-${ARCH}.tar.gz"
-  rm -rf /tmp/node-v${VER}-linux-${ARCH}
-  tar xf node-v${VER}-linux-${ARCH}.tar.gz -C /tmp/
+  wget -c "http://nodejs.org/dist/${VER}/node-${VER}-linux-${ARCH}.tar.gz"
+  rm -rf /tmp/node-${VER}-linux-${ARCH}
+  tar xf node-${VER}-linux-${ARCH}.tar.gz -C /tmp/
   if [ ! -d /opt ] ; then
 	mkdir /opt
   fi
-  mv /tmp/node-v${VER}-linux-${ARCH} /opt
-  ln -s /opt/node-v${VER}-linux-${ARCH} /opt/node
+  mv /tmp/node-${VER}-linux-${ARCH} /opt
+  ln -s /opt/node-${VER}-linux-${ARCH} /opt/node
   ln -s /opt/node/bin/node /usr/local/bin/node 
   ln -s /opt/node/bin/npm /usr/local/bin/npm
 fi
