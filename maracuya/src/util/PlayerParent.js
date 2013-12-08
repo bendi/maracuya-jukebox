@@ -20,12 +20,14 @@ function start() {
   if (this.child) {
     this.child.removeAllListeners('message');
     this.child.removeAllListeners('exit');
+    this.child.removeAllListeners('uncaughtException');
     delete this.child;
   }
   console.log("Restarting child module: ", pwd);
   this.child = require('child_process').fork(pwd + "/PlayerChild.js");
   this.child.on('message', handleMessage.bind(self));
   this.child.on('exit', handleExit.bind(self, start.bind(self)));
+  this.child.on('uncaughtException', handleExit.bind(self, start.bind(self)));
 }
 
 function message(evt, data) {
