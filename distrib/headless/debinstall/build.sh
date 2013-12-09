@@ -10,6 +10,7 @@ SRC=/tmp/maracuya-jukebox-deb-src
 DIST=/tmp/maracuya-jukebox-deb-dist
 SYSROOT=${SRC}/sysroot
 DEBIAN=${SRC}/DEBIAN
+NODE_VERSION=`node -v`
 
 ARCH=`dpkg --print-architecture`
 
@@ -41,7 +42,8 @@ popd
 sed s"/\$SIZE/${SIZE}/" -i ${DEBIAN}/control
 sed s"/\$VERSION/${VERSION}/" -i ${DEBIAN}/control
 sed s"/\$ARCH/${ARCH}/" -i ${DEBIAN}/control
-
+sed s"/\@NODE_VERSION/${NODE_VERSION}/" -i ${DEBIAN}/preinst
+ 
 pushd ${DEBIAN}
 tar czf ${DIST}/control.tar.gz *
 popd

@@ -5,11 +5,16 @@
 # Don't steamroll over a previously installed node version
 # TODO provide a local version of node?
 
-VER="0.10.4"
+VER="@NODE_VERSION"
 ARCH="x86"
 if [ `arch | grep 64` ]
 then
   ARCH="x64"
+fi
+
+if [ `arch | grep arm` ]
+then
+  ARCH="arm-pi"
 fi
 
 NODE=`which node`
