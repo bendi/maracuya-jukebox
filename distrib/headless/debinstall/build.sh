@@ -6,54 +6,45 @@
 set -u
 set -e
 
-SRC=/tmp/maracuya-jukebox-deb-src
-DIST=/tmp/maracuya-jukebox-deb-dist
-SYSROOT=${SRC}/sysroot
-DEBIAN=${SRC}/DEBIAN
 NODE_VERSION=`node -v`
 
 ARCH=`dpkg --print-architecture`
 
 VERSION=$1
 
+APP_NAME=maracuya-jukebox-${VERSION}-${ARCH}
+SRC=/tmp/${APP_NAME}
+SYSROOT=${SRC}/
+DEBIAN=${SRC}/DEBIAN
+
 echo "Building Maracuya Jukebox for arch: $ARCH, version: $VERSION"
 
-rm -rf ${DIST}
-mkdir -p ${DIST}/
-
 rm -rf ${SRC}
-rsync -a deb-src/ ${SRC}/
+rsync -a deb-src/DEBIAN ${SRC}/
+rsync -a deb-src/sysroot/* ${SRC}/
 mkdir -p ${SYSROOT}/opt/maracuya/maracuya-jukebox/
 
 rsync -a ../../../maracuya/ ${SYSROOT}/opt/maracuya/maracuya-jukebox/ --delete
 
 pushd ${SYSROOT}/opt/maracuya/maracuya-jukebox/
 npm install --production
+find . -name *.o | xargs rm
 popd
-
-find ${SRC}/ -type d -exec chmod 0755 {} \;
-find ${SRC}/ -type f -exec chmod go-w {} \;
 
 let SIZE=`du -s ${SYSROOT} | sed s'/\s\+.*//'`+8
-pushd ${SYSROOT}/
-tar czf ${DIST}/data.tar.gz [a-z]*
-popd
 
 sed s"/\$SIZE/${SIZE}/" -i ${DEBIAN}/control
 sed s"/\$VERSION/${VERSION}/" -i ${DEBIAN}/control
 sed s"/\$ARCH/${ARCH}/" -i ${DEBIAN}/control
 sed s"/\@NODE_VERSION/${NODE_VERSION}/" -i ${DEBIAN}/preinst
+
+chmod 755 ${DEBIAN}/*
  
-pushd ${DEBIAN}
-tar czf ${DIST}/control.tar.gz *
+pushd /tmp/${APP_NAME}
+echo 2.0 > ${DEBIAN}/debian-binary
 popd
 
-pushd ${DIST}/
-echo 2.0 > ./debian-binary
+fakeroot dpkg-deb --build /tmp/${APP_NAME}
 
-find ${DIST}/ -type d -exec chmod 0755 {} \;
-find ${DIST}/ -type f -exec chmod go-w {} \;
+rsync -a /tmp/${APP_NAME}.deb ./
 
-ar r ${DIST}/maracuya-jukebox-${VERSION}-${ARCH}.deb debian-binary control.tar.gz data.tar.gz
-popd
-rsync -a ${DIST}/maracuya-jukebox-${VERSION}-${ARCH}.deb ./
