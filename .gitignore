@@ -3,3 +3,4 @@
 status.txt
 .project
 .externalToolBuilders/
+distrib/headless/debinstall/bin/maracuya-jukebox-*.deb
