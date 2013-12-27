@@ -11,7 +11,10 @@ function handleMessage(data) {
 function handleExit(fn, code, signal) {
   if (code) {
     console.log("Player crashed - restarting.");
+    this.emit("error");
     process.nextTick(fn);
+  } else {
+    console.log("Player shutdown");
   }
 }
 

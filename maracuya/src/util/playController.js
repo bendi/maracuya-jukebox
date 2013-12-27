@@ -41,6 +41,7 @@ function songFinished(data) {
 
 function PlayController() {
   this.player = new Player();
+  this.isMute = false;
 }
 
 require('util').inherits(PlayController, require('events').EventEmitter);
@@ -68,7 +69,11 @@ PlayController.prototype.play = function(track) {
     songFinished.call(that);
   });
 
-  this.player.volume(volume);
+  if (!this.isMute) {
+    this.player.volume(volume);
+  } else {
+    this.player.volume(0);
+  }
   this.player.play(track.path);
 
   return currentlyPlaying;

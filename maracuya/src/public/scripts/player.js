@@ -142,7 +142,7 @@ Player.prototype.onPlay = function(jumpHandler, track, resumed) {
 
   var that = this;
   this.interval = setInterval(function() {
-    played = Math.ceil((new Date().getTime() - startTime)/1000),
+    played = Math.ceil((new Date().getTime() - startTime)/1000);
     elapsed = track.duration - played;
 
     console.log("played: ", played);

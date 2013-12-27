@@ -34,7 +34,7 @@ define([
       var mBus = router.useRoute(module);
       
       mBus.addListener('appReady', function(data) {
-    	eventEmitter.init(data.paused);
+        eventHandler.init(data.paused);
       });
 
       var starting = currentModule ? false : true;
