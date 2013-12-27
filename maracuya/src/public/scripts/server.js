@@ -58,6 +58,7 @@ define([
   function handleVolume(offset) {
     var percent = Math.round((offset/VOLUME_LENGTH) * 100);
     player.updateVolume(percent);
+    player.mute(true);
     socket.emit('volume', percent);
   }
 
@@ -159,6 +160,7 @@ define([
       });
 
       socket.on('volume', function(percent) {
+        player.mute(true);
         player.updateVolume(percent);
       });
 
