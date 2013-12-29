@@ -18,10 +18,6 @@ function($, jqm, _, config, server, router, common, eventHandler, scanner) {
             scanner.init(mBus);
             eventHandler.init(mBus);
 
-            _.defer(function() {
-                mBus.notify('connect', 'http://localhost:8280');
-            });
-
             var connectUrl;
             mBus.addListener("connect", function(url) {
                 $.mobile.loading('show', {
@@ -47,6 +43,8 @@ function($, jqm, _, config, server, router, common, eventHandler, scanner) {
                 $.mobile.changePage("#player", {
                 });
             });
+
+            return mBus;
         }
     };
 });
