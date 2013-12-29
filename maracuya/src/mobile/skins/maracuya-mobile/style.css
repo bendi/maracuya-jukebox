@@ -1,0 +1,28 @@
+input.ui-input-text, textarea.ui-input-text {
+	padding: .4em 0;
+}
+
+.ui-icon-maracuya-prev {
+	background-image: url('images/media-rewind.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.ui-icon-maracuya-next {
+	background-image: url('images/media-fast-forward.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.ui-icon-maracuya-play {
+	background-image: url('images/media-play.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.ui-icon-maracuya-stop {
+	background-image: url('images/media-stop.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+

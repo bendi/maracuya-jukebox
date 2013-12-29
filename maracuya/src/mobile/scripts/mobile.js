@@ -6,28 +6,17 @@ define([
     'server',
     'mbusRouter',
     'common',
+    'eventHandler',
     'scanner'
   ],
-  function($, jqm, _, config, server, router, common, scanner) {
+  function($, jqm, _, config, server, router, common, eventHandler, scanner) {
 	
   return {
 	  
     init: function() {
       var mBus = router.useRoute('server');
       scanner.init(mBus);
-
-      $(document).on('vclick', '#connect', function(e) {
-    	 var url = $('#connectUrl').val();
-    	 mBus.notify('connect', url); 
-      });
-      
-      $(document).on('vclick', '#pause', function(e) {
-    	  mBus.notify('pause');
-      });
-      
-      $(document).on('vclick', '#resume', function(e) {
-    	  mBus.notify('resume');
-      });
+      eventHandler.init(mBus);
 	  
 	  _.defer(function() {
 		mBus.notify('connect', 'http://localhost:8280'); 
@@ -50,19 +39,7 @@ define([
           pageSize: config('playlistPageSize')
         });
       });
-	  
-	  // JZ: Code responsible for qr code scanner
-	  $(document).on('vclick', '#scan', function(e) {
-		//alert("JZ: lets try");
-        mBus.notify('scanConfigCode');
-	  });
-	  
-	  mBus.addListener("codeScanned", function(code) {
-		$('#connectUrl').val(code);
-      });
-	  
-	  // JZ end;
-      
+
       mBus.addListener("appReady", function(data) {
     	  $.mobile.loading('hide');
 

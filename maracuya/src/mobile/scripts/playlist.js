@@ -24,7 +24,6 @@ define(['common', 'mbusRouter'], function(common, router) {
     	$(document).on('vclick', '#playlist a', function(e) {
     		e.preventDefault();
 		    router.notify('play', {id:$(this).data('id')});
-    		return false;
     	});
     },
     setCurrentPlaylistId: function(id) {
@@ -61,18 +60,18 @@ define(['common', 'mbusRouter'], function(common, router) {
 	    	.addClass("ui-btn-up-c")
 	    	.addClass('ui-btn-hover-c');
 	    
-	    $('#playlist a[data-id="' + trackId + '"]')
-	    	.parents('li')
-	    	.attr("data-theme", "b")
-	    	.removeClass("ui-btn-up-c")
-	    	.removeClass('ui-btn-hover-c')
-	    	.addClass("ui-btn-up-b")
-	    	.addClass('ui-btn-hover-b');
-	    
-
+		if (trackId) {
+			$('#playlist a[data-id="' + trackId + '"]')
+				.parents('li')
+				.attr("data-theme", "b")
+				.removeClass("ui-btn-up-c")
+				.removeClass('ui-btn-hover-c')
+				.addClass("ui-btn-up-b")
+				.addClass('ui-btn-hover-b');
+		}
     },
     stop: function() {
-    	
+		this.updateCurrentTrack();
     }
   };
 });
