@@ -44,15 +44,15 @@ require.config({
 
 require(['app'], function(mobile) {
 
-	function init() {
-		mobile.init();
-	}
-	
-	if (window.cordova) {
-		document.addEventListener('deviceready', init);
-	} else {
-		$(init);
-	}
+    function init() {
+        mobile.init();
+    }
+
+    if (window.cordova) {
+        document.addEventListener('deviceready', init);
+    } else {
+        $(init);
+    }
 });
 
 </script>
@@ -60,20 +60,20 @@ require(['app'], function(mobile) {
 
 <body>
 <div data-role="page" id="main">
-	<input type="text" id="connectUrl" value="http://localhost:8280" />
-	<input type="button" id="connect" value="connect" />
+    <input type="text" id="connectUrl" value="http://localhost:8280" />
+    <input type="button" id="connect" value="connect" />
 </div>
 <div data-role="page" id="player">
-	<ui data-role="listview" id="playlist">
-	</ui>
-	<div id="footer" data-role="footer" data-position="fixed">
-		<div data-role="controlgroup" data-type="horizontal">
-			<input type="button" data-action="prev" data-icon="maracuya-prev" data-iconpos="notext" data-inline="true" value="Previous">
-			<input type="button" data-action="stop" data-icon="maracuya-stop" data-iconpos="notext" data-inline="true" value="Stop">
-			<input type="button" data-action="play" data-icon="maracuya-play" data-iconpos="notext" data-inline="true" value="Play">
-			<input type="button" data-action="next" data-icon="maracuya-next" data-iconpos="notext" data-inline="true" value="Next">
-		</div>	
-	</div>
+    <ui data-role="listview" id="playlist">
+    </ui>
+    <div id="footer" data-role="footer" data-position="fixed">
+        <div data-role="controlgroup" data-type="horizontal">
+            <input type="button" data-action="prev" data-icon="maracuya-prev" data-iconpos="notext" data-inline="true" value="Previous">
+            <input type="button" data-action="stop" data-icon="maracuya-stop" data-iconpos="notext" data-inline="true" value="Stop">
+            <input type="button" data-action="play" data-icon="maracuya-play" data-iconpos="notext" data-inline="true" value="Play">
+            <input type="button" data-action="next" data-icon="maracuya-next" data-iconpos="notext" data-inline="true" value="Next">
+        </div>
+    </div>
 </div>
 </body>
 </html>
