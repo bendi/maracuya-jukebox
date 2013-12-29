@@ -10,56 +10,56 @@ define([
     'stream',
     'mbusRouter',
     'common'
-  ],
-  function($, jqm, qr, editinplace, _, config, eventHandler, server, stream, router, common) {
+],
+function($, jqm, qr, editinplace, _, config, eventHandler, server, stream, router, common) {
 
-  var MODULE_SERVER = 'server',
-    MODULE_STREAM = 'stream';
+    var MODULE_SERVER = 'server',
+        MODULE_STREAM = 'stream';
 
-  var currentModule;
+    var currentModule;
 
-  return {
-    MODULE_SERVER: MODULE_SERVER,
-    MODULE_STREAM: MODULE_STREAM,
+    return {
+        MODULE_SERVER: MODULE_SERVER,
+        MODULE_STREAM: MODULE_STREAM,
 
-    init: function(module) {
-      if (currentModule) {
-        currentModule.destroy();
-      }
+        init: function(module) {
+            if (currentModule) {
+                currentModule.destroy();
+            }
 
-      if(common.isAndroid()) {
-        $('.playlistContainer').css({overflow:'',height:'auto'});
-      }
+            if(common.isAndroid()) {
+                $('.playlistContainer').css({overflow:'',height:'auto'});
+            }
 
-      var mBus = router.useRoute(module);
-      
-      mBus.addListener('appReady', function(data) {
-        eventHandler.init(data.paused);
-      });
+            var mBus = router.useRoute(module);
 
-      var starting = currentModule ? false : true;
+            mBus.addListener('appReady', function(data) {
+                eventHandler.init(data.paused);
+            });
 
-      switch(module) {
-      case MODULE_SERVER:
-        currentModule = server.init({
-          homeUrl: config('homeUrl'),
-          pageSize: config('playlistPageSize')
-        });
-        break;
-      case MODULE_STREAM:
-        currentModule = stream.init();
-        break;
-      }
+            var starting = currentModule ? false : true;
 
-      if (starting) {
-        var settings = {
-          text: "This plugin is great!"
-        };
-        if (common.isIE()) {
-          settings.render = "table";
+            switch(module) {
+            case MODULE_SERVER:
+                currentModule = server.init({
+                    homeUrl: config('homeUrl'),
+                    pageSize: config('playlistPageSize')
+                });
+                break;
+            case MODULE_STREAM:
+                currentModule = stream.init();
+                break;
+            }
+
+            if (starting) {
+                var settings = {
+                    text: "This plugin is great!"
+                };
+                if (common.isIE()) {
+                    settings.render = "table";
+                }
+                $('.qrCode').qrcode(settings);
+            }
         }
-        $('.qrCode').qrcode(settings);
-      }
-    }
-  };
+    };
 });

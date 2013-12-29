@@ -17,7 +17,7 @@ module.exports = function(grunt) {
 
     // js linting options
     jshint : {
-      all: ['src/routes/*.js', 'src/util/*.js', 'src/*.js', 'src/public/*.js', 'src/public/scripts/**'],
+      all: ['src/routes/*.js', 'src/util/*.js', 'src/*.js', 'src/public/*.js', 'src/public/scripts/**', 'src/mobile/scripts/*.js'],
       options : {
         curly : true,
         eqeqeq : true,
@@ -30,16 +30,15 @@ module.exports = function(grunt) {
         eqnull : true,
         browser : true,
         nomen : false,
+        indent: 4,
+        node: true,
+        devel: true,
+        jquery: true,
 
         globals : {
-          require : true,
-          define : true,
-          $ : true,
-          alert : true,
-          console : true,
-          module : true,
-          process : true,
-          __dirname : true
+            "cordova": true,
+            "define": true,
+            "_": true
         }
       },
     },

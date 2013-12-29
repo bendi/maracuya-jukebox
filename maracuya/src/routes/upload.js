@@ -1,39 +1,39 @@
 var fs = require('fs'),
-  insert = require('../util/insert_track').insertTrack,
-  targetDir;
+    insert = require('../util/insert_track').insertTrack,
+    targetDir;
 
 function handleFile(file, next) {
-  console.log(file, ", targetDir: ", targetDir, ', currentdir: ' + process.cwd());
-  next = next || function(){};
-  try {
-    var targetPath = targetDir + "/" + file.name;
-    fs.rename(file.path, targetPath, function(err) {
-      if (err) {
-        console.log(err);
-        next();
-      } else {
-        insert(targetPath, function(err) {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log("Track added: " + targetPath);
-          }
-          next();
+    console.log(file, ", targetDir: ", targetDir, ', currentdir: ' + process.cwd());
+    next = next || function(){};
+    try {
+        var targetPath = targetDir + "/" + file.name;
+        fs.rename(file.path, targetPath, function(err) {
+            if (err) {
+                console.log(err);
+                next();
+            } else {
+                insert(targetPath, function(err) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log("Track added: " + targetPath);
+                    }
+                    next();
+                });
+            }
         });
-      }
-    });
-  } catch(e) {
-    next();
-    console.log(e);
-  }
+    } catch(e) {
+        next();
+        console.log(e);
+    }
 }
 
 function getHandleFile(file, next) {
-  return function() {
-    setTimeout(function() {
-      handleFile(file, next);
-    }, 1);
-  };
+    return function() {
+        setTimeout(function() {
+            handleFile(file, next);
+        }, 1);
+    };
 }
 
 /**
@@ -47,36 +47,36 @@ function getHandleFile(file, next) {
  *
  */
 function post(req, res) {
-  res.contentType('application/json');
+    res.contentType('application/json');
 
-  var files = req.files;
-  //console.log(files);
+    var files = req.files;
+    //console.log(files);
 
-  if (!files) {
-    console.log("Files not sent");
-    res.send({msg:"Files list empty"}, 400);
-    return;
-  }
+    if (!files) {
+        console.log("Files not sent");
+        res.send({msg:"Files list empty"}, 400);
+        return;
+    }
 
-  var run = function(){
-    res.send({});
-  };
+    var run = function(){
+        res.send({});
+    };
 
-  for(var i in files) {
-    run = getHandleFile(files[i], run);
-  }
+    for(var i in files) {
+        run = getHandleFile(files[i], run);
+    }
 
-  run();
+    run();
 }
 
 module.exports = {
-  /**
-   *
-   * @param p
-   * @param p.musicDir
-   */
-  init: function(p) {
-    targetDir = p.musicDir;
-  },
-  post: post
+    /**
+     *
+     * @param p
+     * @param p.musicDir
+     */
+    init: function(p) {
+        targetDir = p.musicDir;
+    },
+    post: post
 };

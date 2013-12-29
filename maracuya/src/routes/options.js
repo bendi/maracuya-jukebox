@@ -1,9 +1,9 @@
 
 
 module.exports = function(routes, optionsFn) {
-  optionsFn('/', function(req, res) {
-    res.contentType("application/json");
+    optionsFn('/', function(req, res) {
+        res.contentType("application/json");
 
-    res.send(routes);
-  });
+        res.send(routes);
+    });
 };

@@ -1,6 +1,6 @@
 var TrackDao = require('../db/dao/TrackDao'),
-  QueryStreamToRes = require('../db/util/QueryStreamToRes'),
-  PagedRes = require('../util/PagedRes');
+    QueryStreamToRes = require('../db/util/QueryStreamToRes'),
+    PagedRes = require('../util/PagedRes');
 
 /**
  *
@@ -16,27 +16,27 @@ var TrackDao = require('../db/dao/TrackDao'),
  *
  */
 function index(req, res) {
-  res.contentType('application/json');
+    res.contentType('application/json');
 
-  var txt = req.param('txt'),
-    pageSize = parseInt(req.param('pageSize'), 10),
-    page = req.params.page ? parseInt(req.param('page'), 10) : 1;
+    var txt = req.param('txt'),
+        pageSize = parseInt(req.param('pageSize'), 10),
+        page = req.params.page ? parseInt(req.param('page'), 10) : 1;
 
-  console.log("PageSize: " + pageSize + ", param: " + req.params.pageSize);
+    console.log("PageSize: " + pageSize + ", param: " + req.params.pageSize);
 
-  TrackDao.search(txt, (page-1) * pageSize, pageSize, function(err, total, stream) {
-    if (err) {
-      res.send(500, {msg: "Error when searching track."});
-      return;
-    }
-    stream
-      .pipe(new QueryStreamToRes(true))
-      .pipe(new PagedRes(total, pageSize, page))
-      .pipe(res);
-  });
+    TrackDao.search(txt, (page-1) * pageSize, pageSize, function(err, total, stream) {
+        if (err) {
+            res.send(500, {msg: "Error when searching track."});
+            return;
+        }
+        stream
+            .pipe(new QueryStreamToRes(true))
+            .pipe(new PagedRes(total, pageSize, page))
+            .pipe(res);
+    });
 
 }
 
 module.exports = {
-  index: index
+    index: index
 };
