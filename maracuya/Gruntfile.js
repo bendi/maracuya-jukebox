@@ -101,7 +101,7 @@ module.exports = function(grunt) {
             "io" : "empty:"
           },
           removeCombined: true,
-          optimize: 'none',
+          skipDirOptimize: true,
           shim: {
             jqm: {
               deps: ['jquery'],
@@ -111,7 +111,9 @@ module.exports = function(grunt) {
               deps: ['jquery']
             }
           },
-
+          uglify: {
+              max_line_length: 1000
+          },
 
           modules: [
             {
@@ -135,7 +137,7 @@ module.exports = function(grunt) {
               "app": "demoApp",
             },
             removeCombined: true,
-            optimize: 'none',
+            skipDirOptimize: true,
             shim: {
               jqm: {
                 deps: ['jquery'],
@@ -145,7 +147,9 @@ module.exports = function(grunt) {
                 deps: ['jquery']
               }
             },
-
+            uglify: {
+                max_line_length: 1000
+            },
 
             modules: [
               {
@@ -182,7 +186,11 @@ module.exports = function(grunt) {
                   deps: ['jquery']
                 }
               },
-              optimize: 'none',
+              skipDirOptimize: true,
+              uglify: {
+                  max_line_length: 1000
+              },
+
               modules: [
                 {
                   name: "mobile"
