@@ -6,9 +6,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks("grunt-image-embed");
-  grunt.loadNpmTasks('grunt-rm');
   grunt.loadNpmTasks('grunt-preprocess');
-  grunt.loadNpmTasks('grunt-zipstream');
+  grunt.loadNpmTasks('grunt-contrib-compress');
   grunt.loadNpmTasks('grunt-contrib-clean');
 
   // Project configuration.
@@ -17,7 +16,14 @@ module.exports = function(grunt) {
 
     // js linting options
     jshint : {
-      all: ['src/routes/*.js', 'src/util/*.js', 'src/*.js', 'src/public/*.js', 'src/public/scripts/**', 'src/mobile/scripts/*.js'],
+      all: [
+            'src/routes/*.js',
+            'src/util/*.js',
+            'src/*.js',
+            'src/public/*.js',
+            'src/public/scripts/**',
+            'src/mobile/scripts/*.js'
+      ],
       options : {
         curly : true,
         eqeqeq : true,
@@ -44,7 +50,8 @@ module.exports = function(grunt) {
     },
 
     clean: {
-      build: "build"
+      build: "build",
+      'embedded-images' : ['build/src/public/skins/*/gfx/**']
     },
 
     copy: {
@@ -129,7 +136,44 @@ module.exports = function(grunt) {
               }
             ]
           }
-        }
+        },
+        mobile: {
+            options: {
+              appDir: "src/public",
+              baseUrl: "scripts",
+              dir: "build/src/mobile",
+              paths: {
+                "underscore": "../external/lodash-1.0.0-rc.3",
+                "domReady": "../external/plugins/domReady-2.0.1",
+                "jquery": "../external/jquery-1.8.3.min",
+                "jqm": "../external/jquery.mobile-1.2.0",
+                "editinplace": "../external/jquery.editinplace",
+                "qr": "../external/jquery.qrcode.min",
+                "app": "../../mobile/scripts/mobile",
+                "io" : "../external/socket.io.min",
+                "playlist": "../../mobile/scripts/playlist",
+                "scanner": "../../mobile/scripts/scanner",
+                "eventHandler": "../../mobile/scripts/eventHandler"
+              },
+              removeCombined: true,
+              shim: {
+                jqm: {
+                  deps: ['jquery'],
+                  exports: 'jQuery.mobile'
+                },
+                editinplace: {
+                  deps: ['jquery']
+                }
+              },
+
+
+              modules: [
+                {
+                  name: "app"
+                }
+              ]
+            }
+          }
     },
 
     preprocess : {
@@ -150,22 +194,23 @@ module.exports = function(grunt) {
       }
     },
 
-    rm: {
-      'embedded-images' : ['build/src/public/skins/*/gfx/**']
+    clean: {
     },
 
-    zip: {
-      foobar: {
+    compress: {
+      options: {
+        archive: 'dist/<%= pkg.name %>-<%= pkg.version %>.zip'
+      },
+      main: {
         src: 'build/**',
-        dest: 'dist/<%= pkg.name %>-<%= pkg.version %>.zip',
         base: 'build',
-        subdir: 'node-jukebox'
+        subdir: 'maracuya-jukebox'
       }
     }
   });
 
   // Default task.
   grunt.registerTask('default', 'jshint');
-  grunt.registerTask('build', ['jshint', 'clean', 'copy', 'requirejs', 'imageEmbed', 'preprocess', 'rm']);
-  grunt.registerTask('package', ['jshint', 'clean', 'copy', 'requirejs', 'imageEmbed', 'preprocess', 'rm', 'zip']);
+  grunt.registerTask('build', ['jshint', 'clean:build', 'copy', 'requirejs', 'imageEmbed', 'preprocess', 'clean:embedded-images']);
+  grunt.registerTask('package', ['jshint', 'clean:build', 'copy', 'requirejs', 'imageEmbed', 'preprocess', 'clean:embedded-images', 'zip']);
 };
