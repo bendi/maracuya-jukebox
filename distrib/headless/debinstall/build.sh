@@ -24,12 +24,14 @@ rsync -a deb-src/DEBIAN ${SRC}/
 rsync -a deb-src/sysroot/* ${SRC}/
 mkdir -p ${SYSROOT}/opt/maracuya/maracuya-jukebox/
 
-rsync -a ../../../maracuya/ ${SYSROOT}/opt/maracuya/maracuya-jukebox/ --delete
-
-pushd ${SYSROOT}/opt/maracuya/maracuya-jukebox/
-npm install --production
-find . -name *.o | xargs rm
+pushd ../../../maracuya/
+npm install
+grunt build:web
+mv node_modules build/
+find build/node_modules/ -name *.o | xargs rm
 popd
+
+rsync -a ../../../maracuya/build ${SYSROOT}/opt/maracuya/maracuya-jukebox/ --exclude=node_modules/grunt* --delete
 
 let SIZE=`du -s ${SYSROOT} | sed s'/\s\+.*//'`+8
 
