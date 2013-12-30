@@ -51,7 +51,22 @@ module.exports = function(grunt) {
 
     clean: {
       build: "build",
-      'embedded-images' : ['build/src/public/skins/*/gfx/**']
+      'post-web' : [
+           'build/src/public/skins/*/gfx/**',
+           'build/src/mobile'
+       ],
+      'post-mobile': [
+          'build/src/mobile/index.html',
+          'build/src/mobile/skins/mobile_runner',
+          'build/src/mobile/skins/maracuya-mobile/images',
+          'build/src/modules',
+          'build/src/public',
+          'build/src/routes',
+          'build/src/util',
+          'build/src/db',
+          'build/src/run.js',
+          'build/src/build.txt',
+      ]
     },
 
     copy: {
@@ -64,17 +79,17 @@ module.exports = function(grunt) {
         dest : 'build/package.json'
       },
       README: {
-        src : 'README.md',
+        src : '../README.md',
         dest : 'build/README.md'
       }
     },
 
     requirejs: {
-      app: {
+      web: {
         options: {
-          appDir: "src/public",
-          baseUrl: "scripts",
-          dir: "build/src/public",
+          appDir: "src",
+          baseUrl: "public/scripts",
+          dir: "build/src",
           paths: {
             "underscore": "../external/lodash-1.0.0-rc.3",
             "domReady": "../external/plugins/domReady-2.0.1",
@@ -86,6 +101,7 @@ module.exports = function(grunt) {
             "io" : "empty:"
           },
           removeCombined: true,
+          optimize: 'none',
           shim: {
             jqm: {
               deps: ['jquery'],
@@ -104,11 +120,11 @@ module.exports = function(grunt) {
           ]
         }
       },
-      demoApp: {
+      demo: {
           options: {
-            appDir: "src/public",
-            baseUrl: "scripts",
-            dir: "build/src/public",
+            appDir: "src",
+            baseUrl: "public/scripts",
+            dir: "build/src",
             paths: {
               "underscore": "../external/lodash-1.0.0-rc.3",
               "domReady": "../external/plugins/domReady-2.0.1",
@@ -119,6 +135,7 @@ module.exports = function(grunt) {
               "app": "demoApp",
             },
             removeCombined: true,
+            optimize: 'none',
             shim: {
               jqm: {
                 deps: ['jquery'],
@@ -139,9 +156,9 @@ module.exports = function(grunt) {
         },
         mobile: {
             options: {
-              appDir: "src/public",
-              baseUrl: "scripts",
-              dir: "build/src/mobile",
+              appDir: "src",
+              baseUrl: "public/scripts",
+              dir: "build/src",
               paths: {
                 "underscore": "../external/lodash-1.0.0-rc.3",
                 "domReady": "../external/plugins/domReady-2.0.1",
@@ -149,7 +166,7 @@ module.exports = function(grunt) {
                 "jqm": "../external/jquery.mobile-1.2.0",
                 "editinplace": "../external/jquery.editinplace",
                 "qr": "../external/jquery.qrcode.min",
-                "app": "../../mobile/scripts/mobile",
+                "mobile": "../../mobile/scripts/mobile",
                 "io" : "../external/socket.io.min",
                 "playlist": "../../mobile/scripts/playlist",
                 "scanner": "../../mobile/scripts/scanner",
@@ -165,11 +182,10 @@ module.exports = function(grunt) {
                   deps: ['jquery']
                 }
               },
-
-
+              optimize: 'none',
               modules: [
                 {
-                  name: "app"
+                  name: "mobile"
                 }
               ]
             }
@@ -177,20 +193,26 @@ module.exports = function(grunt) {
     },
 
     preprocess : {
-      index : {
-        src : 'src/public/index.html',
-        dest : 'build/src/public/index.html'
+      web : {
+          files: {
+              'src/public/index.html':  'build/src/public/index.html',
+              'src/public/stream.html': 'build/src/public/stream.html'
+          }
       },
-      stream : {
-        src : 'src/public/stream.html',
-        dest : 'build/src/public/stream.html'
+      mobile: {
+          src: 'src/mobile/mobile.html',
+          dest: 'build/src/mobile/mobile.html'
       }
     },
 
     imageEmbed: {
-      dist: {
+      web: {
         src: [ "build/src/public/skins/lyric_show_player/style.css" ],
         dest: "build/src/public/skins/lyric_show_player/style.css"
+      },
+      mobile: {
+          src: ["build/src/mobile/skins/maracuya-mobile/style.css"],
+          dest: "build/src/mobile/skins/maracuya-mobile/style.css"
       }
     },
 
@@ -208,6 +230,7 @@ module.exports = function(grunt) {
 
   // Default task.
   grunt.registerTask('default', 'jshint');
-  grunt.registerTask('build', ['jshint', 'clean:build', 'copy', 'requirejs', 'imageEmbed', 'preprocess', 'clean:embedded-images']);
-  grunt.registerTask('package', ['jshint', 'clean:build', 'copy', 'requirejs', 'imageEmbed', 'preprocess', 'clean:embedded-images', 'zip']);
+  grunt.registerTask('build:mobile', ['jshint', 'clean:build', 'copy', 'requirejs:mobile', 'imageEmbed:mobile', 'preprocess:mobile', 'clean:post-mobile']);
+  grunt.registerTask('build:web', ['jshint', 'clean:build', 'copy', 'requirejs:web', 'imageEmbed:web', 'preprocess:web', 'clean:post-web']);
+  grunt.registerTask('build:demo', ['jshint', 'clean:build', 'copy', 'requirejs:demo', 'imageEmbed:web', 'preprocess:web', 'clean:post-web']);
 };
