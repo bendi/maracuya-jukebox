@@ -24,11 +24,11 @@ require.config({
       "domReady": "../external/plugins/domReady-2.0.1",
       "jquery": "../external/jquery-1.8.3.min",
       "jqm": "../external/jquery.mobile-1.2.0",
-      "app": "../../mobile/scripts/mobile",
       "playlist": "../../mobile/scripts/playlist",
       "scanner": "../../mobile/scripts/scanner",
       "eventHandler": "../../mobile/scripts/eventHandler"
       <!-- @endexclude -->
+      "mobile": "../../mobile/scripts/mobile",
   }
   <!-- @exclude -->
   ,
@@ -42,7 +42,7 @@ require.config({
   <!-- @endexclude -->
 });
 
-require(['app'], function(mobile) {
+require(['mobile'], function(mobile) {
 
     function init() {
         mobile.init();

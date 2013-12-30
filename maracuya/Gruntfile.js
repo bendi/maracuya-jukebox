@@ -194,9 +194,6 @@ module.exports = function(grunt) {
       }
     },
 
-    clean: {
-    },
-
     compress: {
       options: {
         archive: 'dist/<%= pkg.name %>-<%= pkg.version %>.zip'
