@@ -31,7 +31,7 @@ mv node_modules build/
 find build/node_modules/ -name *.o | xargs rm
 popd
 
-rsync -a ../../../maracuya/build ${SYSROOT}/opt/maracuya/maracuya-jukebox/ --exclude=node_modules/grunt* --delete
+rsync -a ../../../maracuya/build/* ${SYSROOT}/opt/maracuya/maracuya-jukebox/ --exclude=node_modules/grunt* --delete
 
 let SIZE=`du -s ${SYSROOT} | sed s'/\s\+.*//'`+8
 
