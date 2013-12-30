@@ -195,8 +195,8 @@ module.exports = function(grunt) {
     preprocess : {
       web : {
           files: {
-              'src/public/index.html':  'build/src/public/index.html',
-              'src/public/stream.html': 'build/src/public/stream.html'
+              'build/src/public/index.html': 'src/public/index.html',
+              'build/src/public/stream.html': 'src/public/stream.html'
           }
       },
       mobile: {
