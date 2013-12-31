@@ -39,7 +39,7 @@ define(function() {
             return firefox;
         },
         isIE: function() {
-            return document.all !== undefined;
+            return $('html').is('.ie6, .ie7, .ie8');
         }
     };
 });
