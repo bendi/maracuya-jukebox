@@ -8,12 +8,23 @@ function getIpsNoLocalhost() {
 
     for ( var i in networkInterfaces) {
         var iface = networkInterfaces[i];
-        if (i === 'lo')
+        if (i === 'lo') {
             continue;
+        }
         ips.push(iface[0].address);
     }
 
     return ips;
+}
+
+function verifyIp(ip, port, fn) {
+    http.get('http://' + ip + ':' + port + '/ping', function(res) {
+        if (res.statusCode === 200) {
+            fn(null, ip);
+        } else {
+            fn(res);
+        }
+    }).on('error', fn);
 }
 
 function getVerifiedIp(ips, port, fn) {
@@ -34,16 +45,6 @@ function getVerifiedIp(ips, port, fn) {
     }
 
     verifyIp(ips.pop(), port, verify);
-}
-
-function verifyIp(ip, port, fn) {
-    http.get('http://' + ip + ':' + port + '/ping', function(res) {
-        if (res.statusCode === 200) {
-            fn(null, ip);
-        } else {
-            fn(res);
-        }
-    }).on('error', fn);
 }
 
 function getIp(port, fn) {
