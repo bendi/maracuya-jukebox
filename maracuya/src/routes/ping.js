@@ -1,16 +1,21 @@
-var getIp = require('../util/getMyIp'),
-    ip = '';
-
-getIp(function(e, found) {
-    ip = found;
-});
+var getIp = require('../util/getMyIp');
 
 function index(req, res) {
-    var ret = {
-        ip: ip
-    };
+    if (req.param.internal) {
+        res.send(200);
+    } else {
+        getIp(function(e, found) {
+            if (e) {
+                res.send(500);
+            }
 
-    res.send(ret);
+            var ret = {
+                ip: found
+            };
+
+            res.send(ret);
+        });
+    }
 }
 
 module.exports = {
