@@ -6,6 +6,7 @@ var express = require('express'),
   mBus = new EventEmitter(),
   sockets = require('../util/sockets'),
   appDir = require('../util/appDir'),
+  getIp = require('../util/getMyIp'),
   routes = require('../routes'),
   port = process.env.PORT || 8280;
 
@@ -27,10 +28,12 @@ var server = require('http').createServer(app),
   io = socketio.listen(server);
 
 io.configure(function() {
-	io.set('log level', 1);
-	io.set('transports', ['flashsocket', 'websocket', 'xhr-polling']);
-	io.set('polling duration', 2);
+    io.set('log level', 1);
+    io.set('transports', ['flashsocket', 'websocket', 'xhr-polling']);
+    io.set('polling duration', 2);
 });
+
+getIp.port(port);
 
 sockets(io, mBus);
 
@@ -65,6 +68,8 @@ app.get('/searchtracks', routes.searchtracks.index);
 app.post('/upload', routes.upload.post);
 
 app.get('/track/stream/:id.:type', routes.trackstream.index);
+
+app.get('/ping', routes.ping.index);
 
 routes.options(app.routes, function(){app.options.apply(app, arguments);});
 

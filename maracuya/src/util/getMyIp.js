@@ -47,9 +47,18 @@ function getVerifiedIp(ips, port, fn) {
     verifyIp(ips.pop(), port, verify);
 }
 
-function getIp(port, fn) {
+var port;
+
+function getIp(fn) {
+    if (!port) {
+        throw new Error("Port is undefined - cannot read ip.");
+    }
     var ips = getIpsNoLocalhost();
     getVerifiedIp(ips, port, fn);
 }
+
+getIp.port = function(p) {
+    port = p;
+};
 
 module.exports = getIp;
