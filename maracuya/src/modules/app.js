@@ -69,6 +69,7 @@ app.post('/upload', routes.upload.post);
 
 app.get('/track/stream/:id.:type', routes.trackstream.index);
 
+app.get('/ping', routes.ping.index);
 app.get('/ping/:internal', routes.ping.index);
 
 routes.options(app.routes, function(){app.options.apply(app, arguments);});

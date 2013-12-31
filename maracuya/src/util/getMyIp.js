@@ -18,7 +18,7 @@ function getIpsNoLocalhost() {
 }
 
 function verifyIp(ip, port, fn) {
-    http.get('http://' + ip + ':' + port + '/ping', function(res) {
+    http.get('http://' + ip + ':' + port + '/ping/internal', function(res) {
         if (res.statusCode === 200) {
             fn(null, ip);
         } else {
