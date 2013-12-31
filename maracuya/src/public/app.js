@@ -1,7 +1,7 @@
 define([
     'jquery',
     'jqm',
-    'qr',
+    'jqr',
     'editinplace',
     'underscore',
     'config',
@@ -11,7 +11,7 @@ define([
     'mbusRouter',
     'common'
 ],
-function($, jqm, qr, editinplace, _, config, eventHandler, server, stream, router, common) {
+function($, jqm, jqr, editinplace, _, config, eventHandler, server, stream, router, common) {
 
     var MODULE_SERVER = 'server',
         MODULE_STREAM = 'stream';
@@ -52,13 +52,16 @@ function($, jqm, qr, editinplace, _, config, eventHandler, server, stream, route
             }
 
             if (starting) {
-                var settings = {
-                    text: "This plugin is great!"
-                };
-                if (common.isIE()) {
-                    settings.render = "table";
-                }
-                $('.qrCode').qrcode(settings);
+                $.get('/ping')
+                    .done(function(data) {
+                        var settings = {
+                            text: data.ip
+                        };
+                        if (common.isIE()) {
+                            settings.render = "table";
+                        }
+                        $('.qrCode').qrcode(settings);
+                    });
             }
         }
     };
