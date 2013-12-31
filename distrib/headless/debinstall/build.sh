@@ -28,7 +28,10 @@ pushd ../../../maracuya/
 npm install
 grunt build:web
 mv node_modules build/
-find build/node_modules/ -name *.o | xargs rm
+OBJECT_FILES="`find build/node_modules/ -name *.o`"
+if [ -n "$OBJECT_FILES" ]; then
+    rm "$OBJECT_FILES"
+fi
 popd
 
 rsync -a ../../../maracuya/build/* ${SYSROOT}/opt/maracuya/maracuya-jukebox/ --exclude=node_modules/grunt* --delete
