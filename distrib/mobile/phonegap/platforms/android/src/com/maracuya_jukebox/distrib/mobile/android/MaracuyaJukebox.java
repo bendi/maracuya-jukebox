@@ -17,14 +17,14 @@
        under the License.
  */
 
-package pl.bedkowski.code.mbus;
+package com.maracuya_jukebox.distrib.mobile.android;
 
 import org.apache.cordova.Config;
 import org.apache.cordova.CordovaActivity;
 
 import android.os.Bundle;
 
-public class MbusPhonegap extends CordovaActivity 
+public class MaracuyaJukebox extends CordovaActivity 
 {
     @Override
     public void onCreate(Bundle savedInstanceState)
