@@ -5,3 +5,10 @@ status.txt
 .externalToolBuilders/
 distrib/headless/debinstall/bin/maracuya-jukebox-*.deb
 maracuya/build/
+*.classpath
+distrib/mobile/phonegap/platforms/android/.settings/
+distrib/mobile/phonegap/platforms/android/assets/www/
+distrib/mobile/phonegap/platforms/android/bin/
+distrib/mobile/phonegap/platforms/android/gen/
+distrib/mobile/phonegap/platforms/android_NEW/
+distrib/mobile/phonegap/www/
