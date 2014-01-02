@@ -41,7 +41,18 @@ require.config({
 require(['mobile'], function(mobile) {
 
     function init() {
-        mobile.init();
+        var mBus = mobile.init();
+        <!-- @if NODE_ENV='development' -->
+         _.defer(function() {
+             mBus.notify('connect', 'http://localhost:8280');
+         });
+         <!-- @endif -->
+
+         <!-- @if NODE_ENV='android' -->
+         _.defer(function() {
+             mBus.notify('connect', 'http://10.0.2.2:8280');
+         });
+         <!-- @endif -->
     }
 
     if (window.cordova) {

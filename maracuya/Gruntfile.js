@@ -9,11 +9,20 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-preprocess');
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-env');
 
     // Project configuration.
     grunt.initConfig({
         pkg : '<json:package.json>',
 
+        env : {
+            options : {
+                //Shared Options Hash
+            },
+            dev : {
+                NODE_ENV : grunt.option('env') || 'development',
+            }
+        },
         // js linting options
         jshint : {
             all : [
@@ -233,7 +242,7 @@ module.exports = function(grunt) {
 
     // Default task.
     grunt.registerTask('default', 'jshint');
-    grunt.registerTask('build:mobile', [ 'jshint', 'clean:build', 'copy', 'requirejs:mobile', 'imageEmbed:mobile', 'preprocess:mobile', 'clean:post-mobile' ]);
-    grunt.registerTask('build:web', [ 'jshint', 'clean:build', 'copy', 'requirejs:web', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
-    grunt.registerTask('build:demo', [ 'jshint', 'clean:build', 'copy', 'requirejs:demo', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
+    grunt.registerTask('build:mobile', [ 'env', 'jshint', 'clean:build', 'copy', 'requirejs:mobile', 'imageEmbed:mobile', 'preprocess:mobile', 'clean:post-mobile' ]);
+    grunt.registerTask('build:web', [ 'env', 'jshint', 'clean:build', 'copy', 'requirejs:web', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
+    grunt.registerTask('build:demo', [ 'env', 'jshint', 'clean:build', 'copy', 'requirejs:demo', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
 };
