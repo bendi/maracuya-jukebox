@@ -18,7 +18,6 @@ function($, jqm, _, config, server, router, common, eventHandler, scanner) {
             scanner.init(mBus);
             eventHandler.init(mBus);
 
-            var connectUrl;
             mBus.addListener("connect", function(url) {
                 $.mobile.loading('show', {
                     text: "connecting",
