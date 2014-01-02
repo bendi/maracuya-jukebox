@@ -13,6 +13,17 @@ function($, jqm, _) {
                 mBus.notify('connect', url);
             });
 
+            // JZ: Code responsible for qr code scanner
+            $(document).on('vclick', '#scan', function(e) {
+                //alert("JZ: lets try");
+                mBus.notify('scanConfigCode');
+            });
+
+            mBus.addListener("codeScanned", function(code) {
+                $('#connectUrl').val(code);
+            });
+            // JZ end;
+
             $(document).on('vclick', '#pause', function(e) {
                 mBus.notify('pause');
             });

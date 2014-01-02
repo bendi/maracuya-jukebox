@@ -40,22 +40,7 @@ function($, jqm, _, config, server, router, common, eventHandler, scanner) {
             mBus.addListener("appReady", function(data) {
                 $.mobile.loading('hide');
 
-                // JZ: Code responsible for qr code scanner
-                $(document).on('vclick', '#scan', function(e) {
-                    //alert("JZ: lets try");
-                    mBus.notify('scanConfigCode');
-                });
-
-                mBus.addListener("codeScanned", function(code) {
-                    $('#connectUrl').val(code);
-                });
-
-                // JZ end;
-                mBus.addListener("appReady", function(data) {
-                    $.mobile.loading('hide');
-
-                    $.mobile.changePage("#player", {
-                    });
+                $.mobile.changePage("#player", {
                 });
             });
 
