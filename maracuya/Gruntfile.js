@@ -11,6 +11,28 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-env');
 
+    function getWeinreUrlForEnv(nodeEnv, weinreUrl, weinre) {
+        if (!weinreUrl && weinre) {
+            switch(nodeEnv) {
+            case 'android':
+                weinreUrl = 'http://10.0.2.2:8080';
+                break;
+            case 'development':
+                weinreUrl = 'http://localhost:8080';
+                break;
+            }
+        }
+
+        return weinreUrl;
+    }
+
+    var envVars = {"NODE_ENV": grunt.option('env') || 'development'},
+        weinreUrl = getWeinreUrlForEnv(envVars["NODE_ENV"], grunt.option('weinreurl'), grunt.option('weinre'));
+
+    if (weinreUrl) {
+        envVars["WEINRE_URL"] = weinreUrl;
+    }
+
     // Project configuration.
     grunt.initConfig({
         pkg : '<json:package.json>',
@@ -19,9 +41,7 @@ module.exports = function(grunt) {
             options : {
                 //Shared Options Hash
             },
-            dev : {
-                NODE_ENV : grunt.option('env') || 'development',
-            }
+            dev : envVars
         },
         // js linting options
         jshint : {

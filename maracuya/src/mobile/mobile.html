@@ -12,6 +12,10 @@
 <link rel="stylesheet" href="skins/jqm/jquery.mobile-1.3.2.min.css" />
 <link rel="stylesheet" href="skins/maracuya-mobile/style.css" />
 
+<!-- @ifdef WEINRE_URL -->
+<script src="<!-- @echo WEINRE_URL -->/target/target-script-min.js#anonymous"></script>
+<!-- @endif -->
+
 <script>
 require.config({
   paths: {
