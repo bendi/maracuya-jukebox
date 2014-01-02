@@ -72,7 +72,10 @@ require(['mobile'], function(mobile) {
 <body>
 <div data-role="page" id="main">
     <input type="text" id="connectUrl" value="http://localhost:8280" />
-    <input type="button" id="connect" value="connect" />
+    <div data-role="controlgroup" data-type="horizontal">
+        <input type="button" id="connect" value="connect" />
+        <input type="button" id="scan" value="scan" />
+    </div>
 </div>
 <div data-role="page" id="player">
     <ui data-role="listview" id="playlist">
