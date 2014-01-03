@@ -10,6 +10,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-env');
+    grunt.loadNpmTasks('grunt-phonegap');
 
     function getWeinreUrlForEnv(nodeEnv, weinreUrl, weinre) {
         if (!weinreUrl && weinre) {
@@ -100,17 +101,16 @@ module.exports = function(grunt) {
         },
 
         copy : {
-            src : {
-                src : "src/**",
-                dest : "build/src/"
+            main: {
+                files: [
+                    {expand: true, src : ["src/**"],       dest : "build/src/"},
+                    {expand: true, src : ['package.json'], dest : 'build/package.json'},
+                    {expand: true, src : ['../README.md'], dest : 'build/README.md'}
+                ]
             },
-            packageJSON : {
-                src : 'package.json',
-                dest : 'build/package.json'
-            },
-            README : {
-                src : '../README.md',
-                dest : 'build/README.md'
+            mobileBuildOutput: {
+                src: 'build/**',
+                dest: '../distrib/mobile/phonegap/www/'
             }
         },
 
@@ -257,12 +257,35 @@ module.exports = function(grunt) {
                 base : 'build',
                 subdir : 'maracuya-jukebox'
             }
+        },
+
+        phonegap : {
+            config : {
+                root : '../distrib/mobile/phonegap/www/',
+                config : '../distrib/mobile/phonegap/www/config.xml',
+                cordova : '.cordova',
+                path : 'phonegap',
+                plugins : [
+                    'http://github.com/phonegap-build/BarcodeScanner.git ',
+                    'https://github.com/mkuklis/phonegap-websocket'
+                ],
+                platforms : [
+                    'android'
+                ],
+                maxBuffer : 200, // You may need to raise this for iOS.
+                verbose : false,
+                releases : 'releases',
+                releaseName : function() {
+                    var pkg = grunt.file.readJSON('package.json');
+                    return (pkg.name + '-' + pkg.version);
+                },
+            }
         }
     });
 
     // Default task.
     grunt.registerTask('default', 'jshint');
-    grunt.registerTask('build:mobile', [ 'env', 'jshint', 'clean:build', 'copy', 'requirejs:mobile', 'imageEmbed:mobile', 'preprocess:mobile', 'clean:post-mobile' ]);
-    grunt.registerTask('build:web', [ 'env', 'jshint', 'clean:build', 'copy', 'requirejs:web', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
-    grunt.registerTask('build:demo', [ 'env', 'jshint', 'clean:build', 'copy', 'requirejs:demo', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
+    grunt.registerTask('build:mobile', [ 'env', 'jshint', 'clean:build', 'copy:main', 'requirejs:mobile', 'imageEmbed:mobile', 'preprocess:mobile', 'clean:post-mobile', 'copy:mobileBuildOutput', 'phonegap:build' ]);
+    grunt.registerTask('build:web', [ 'env', 'jshint', 'clean:build', 'copy:main', 'requirejs:web', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
+    grunt.registerTask('build:demo', [ 'env', 'jshint', 'clean:build', 'copy:main', 'requirejs:demo', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
 };
