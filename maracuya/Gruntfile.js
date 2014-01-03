@@ -103,14 +103,14 @@ module.exports = function(grunt) {
         copy : {
             main: {
                 files: [
-                    {expand: true, src : ["src/**"],       dest : "build/src/"},
-                    {expand: true, src : ['package.json'], dest : 'build/package.json'},
-                    {expand: true, src : ['../README.md'], dest : 'build/README.md'}
+                    {expand: true, src : ["src/**"], dest : "build/src/"},
+                    {expand: true, flatten: true, src : ['package.json', '../README.md'], dest : 'build/'},
                 ]
             },
             mobileBuildOutput: {
-                src: 'build/**',
-                dest: '../distrib/mobile/phonegap/www/'
+                files: [
+                    {expand: true, flatten: true, src: ['../distrib/mobile/phonegap/www/*'], dest: 'build/src/'}
+                ]
             }
         },
 
@@ -261,9 +261,9 @@ module.exports = function(grunt) {
 
         phonegap : {
             config : {
-                root : '../distrib/mobile/phonegap/www/',
+                root : 'build/src',
                 config : '../distrib/mobile/phonegap/www/config.xml',
-                cordova : '.cordova',
+                cordova : '../distrib/mobile/phonegap/.cordova',
                 path : 'phonegap',
                 plugins : [
                     'http://github.com/phonegap-build/BarcodeScanner.git ',
