@@ -123,14 +123,23 @@ define([
 
     return {
         init: function(opts) {
+            var connectOk;
             PAGE_SIZE = opts.pageSize;
 
             playlist.init(mBus, opts.homeUrl);
 
-            socket = io.connect(opts.homeUrl);
+            socket = io.connect(opts.homeUrl, {
+                'connect timeout': 500,
+                'reconnect': true,
+                'reconnection delay': 500,
+                'reopen delay': 500,
+                'max reconnection attempts': 10
+            });
+
 
             socket.on('connected', function(data) {
                 console.log("Connected event received!");
+                connectOk = true;
 
                 connected(data)
                     .done(function(data) {
@@ -173,6 +182,9 @@ define([
             });
 
             socket.on('error', function(msg, err) {
+                if (!connectOk) {
+                    mBus.notify('connect_failed');
+                }
                 console.log("ERROR: ", msg, ", err: ", err);
             });
 

@@ -43,6 +43,12 @@ function($, jqm, _, config, server, router, common, eventHandler, scanner) {
                 });
             });
 
+            mBus.addListener("connect_failed", function() {
+                $.mobile.loading('hide');
+
+                $.mobile.changePage( "#connectFailed", { role: "dialog" } );
+            });
+
             return mBus;
         }
     };
