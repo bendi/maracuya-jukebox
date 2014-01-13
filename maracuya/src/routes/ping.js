@@ -1,4 +1,5 @@
-var getIp = require('../util/getMyIp');
+var getIp = require('../util/getMyIp'),
+    port;
 
 function index(req, res) {
     if (req.params.internal) {
@@ -10,7 +11,8 @@ function index(req, res) {
             }
 
             var ret = {
-                ip: found
+                ip: found,
+                url: "http://" + found + (port ? ":" + port : "")
             };
 
             res.send(ret);
@@ -20,4 +22,7 @@ function index(req, res) {
 
 module.exports = {
     index: index,
+    init: function(p) {
+        port = p;
+    }
 };

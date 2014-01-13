@@ -56,6 +56,7 @@ var initParams = {
 
 routes.currentlyplaying.init(initParams);
 routes.upload.init(initParams);
+routes.ping.init(port);
 
 app.get('/playlist/:id', routes.playlist.index);
 

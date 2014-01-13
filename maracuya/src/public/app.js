@@ -55,7 +55,7 @@ function($, jqm, jqr, editinplace, _, config, eventHandler, server, stream, rout
                 $.get('/ping')
                     .done(function(data) {
                         var settings = {
-                            text: data.ip
+                            text: data.url
                         };
                         if (common.isIE()) {
                             settings.render = "table";
