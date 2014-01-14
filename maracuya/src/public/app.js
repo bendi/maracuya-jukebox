@@ -22,7 +22,9 @@ function($, jqm, jqr, editinplace, _, config, eventHandler, server, stream, rout
         MODULE_SERVER: MODULE_SERVER,
         MODULE_STREAM: MODULE_STREAM,
 
-        init: function(module) {
+        init: function(module, homeUrl) {
+            config.init(homeUrl);
+
             if (currentModule) {
                 currentModule.destroy();
             }

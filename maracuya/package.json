@@ -1,6 +1,6 @@
 {
   "name": "maracuya-jukebox",
-  "main": "nw/index.html",
+  "main": "src/nw/index.html",
   "description": "Maracuya Jukebox App",
   "version": "0.1.3",
   "private": true,

@@ -11,7 +11,12 @@ function getIpsNoLocalhost() {
         if (i === 'lo') {
             continue;
         }
-        ips.push(iface[0].address);
+        for(var j=0; j < iface.length; j++) {
+            if (iface[j].family.toLowerCase() === "ipv4") {
+                ips.push(iface[j].address);
+                break;
+            }
+        }
     }
 
     return ips;
