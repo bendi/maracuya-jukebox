@@ -7,7 +7,7 @@ define(function() {
 
     function get(key) {
         return config[key];
-    };
+    }
 
     get.init = function(homeUrl) {
         if (homeUrl) {
