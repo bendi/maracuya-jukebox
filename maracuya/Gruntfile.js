@@ -31,6 +31,8 @@ module.exports = function(grunt) {
     var envVars = {"NODE_ENV": grunt.option('env') || 'development'},
         weinreUrl = getWeinreUrlForEnv(envVars["NODE_ENV"], grunt.option('weinreurl'), grunt.option('weinre'));
 
+    envVars["PLATFORM"] = grunt.option("platform") || "web";
+
     if (weinreUrl) {
         envVars["WEINRE_URL"] = weinreUrl;
     }
