@@ -11,6 +11,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-env');
     grunt.loadNpmTasks('grunt-phonegap');
+    grunt.loadNpmTasks('grunt-node-webkit-builder');
 
     function getWeinreUrlForEnv(nodeEnv, weinreUrl, weinre) {
         if (!weinreUrl && weinre) {
@@ -280,6 +281,21 @@ module.exports = function(grunt) {
                     return (pkg.name + '-' + pkg.version);
                 },
             }
+        },
+        nodewebkit: {
+            options: {
+                version: "0.8.3",
+                app_name: "nw",
+                build_dir: "./webkitbuilds",
+                mac: false,
+                win: true,
+                linux32: false,
+                linux64: false,
+                keep_nw: true
+            },
+            src: [
+                "./build/**"
+            ]
         }
     });
 

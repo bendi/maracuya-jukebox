@@ -10,6 +10,15 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <title>Maracuya - Virtual Jukebox, lan mp3 player</title>
 
+<!-- TODO - make preprocessor remove these when it's headless build -->
+<script>
+var homeUrl;
+if (/^file:\/\//i.test(window.location.href)) {
+  document.write('<base href="http://localhost:8280" />');
+  homeUrl = 'http://localhost:8280';
+}
+</script>
+
 <script src="external/requirejs-2.1.2.js"></script>
 
 <link rel="stylesheet" href="style/style.css">
@@ -51,10 +60,12 @@ require.config({
   <!-- @endexclude -->
 });
 
-require(['app'], function(app) {
-$(document).ready(function() {
-    app.init(app.MODULE_SERVER);
-  });
+require(['app', 'config'], function(app, config) {
+    config.init(homeUrl);
+
+    $(document).ready(function() {
+        app.init(app.MODULE_SERVER);
+    });
 });
 
 </script>

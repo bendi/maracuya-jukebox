@@ -126,7 +126,7 @@ define([
             var connectOk;
             PAGE_SIZE = opts.pageSize;
 
-            playlist.init(mBus, opts.homeUrl);
+            playlist.init(mBus);
 
             socket = io.connect(opts.homeUrl, {
                 'connect timeout': 500,

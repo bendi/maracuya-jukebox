@@ -5,8 +5,15 @@ define(function() {
         homeUrl: location.protocol + '//' + location.host
     };
 
-    return function(key) {
+    function get(key) {
         return config[key];
     };
 
+    get.init = function(homeUrl) {
+        if (homeUrl) {
+            config.homeUrl = homeUrl;
+        }
+    };
+
+    return get;
 });
