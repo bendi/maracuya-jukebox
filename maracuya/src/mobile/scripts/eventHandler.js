@@ -40,7 +40,7 @@ function($, jqm, _) {
                 var ips = code.split(",");
                 checkIp(ips, function(e, ip) {
                     if (e) {
-                        alert(e)
+                        alert(e);
                     } else {
                         $('#connectUrl').val(ip);
                     }
