@@ -5,6 +5,23 @@ define([
 ],
 function($, jqm, _) {
 
+    function checkIp(ips, fn) {
+        if (!ips.length) {
+            return fn("No valid ip found");
+        }
+        var ip = ips.pop();
+        $.ajax({
+                url: ip + "/ping",
+                timeout: 500
+            })
+            .done(function() {
+                fn(null, ip);
+            })
+            .fail(function() {
+                checkIp(ips, fn);
+            });
+    }
+
     return {
 
         init: function(mBus) {
@@ -20,7 +37,14 @@ function($, jqm, _) {
             });
 
             mBus.addListener("codeScanned", function(code) {
-                $('#connectUrl').val(code);
+                var ips = code.split(",");
+                checkIp(ips, function(e, ip) {
+                    if (e) {
+                        alert(e)
+                    } else {
+                        $('#connectUrl').val(ip);
+                    }
+                });
             });
             // JZ end;
 
