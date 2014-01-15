@@ -28,3 +28,7 @@ body {
 .ui-loader {
 	display: none;
 }
+
+.qrCode canvas, .qrCode table {
+	border: 5px solid #fff;
+}

@@ -1,5 +1,6 @@
 var Track = require('../db/model').Track,
-    Player = require('./PlayerParent');
+    path = require('path'),
+    processDir = process.execPath.split(path.sep).slice(0,-1).join(path.sep);
 
 var currentlyPlaying,
     startTime,
@@ -39,9 +40,16 @@ function songFinished(data) {
     this.emit('end', currentId);
 }
 
-function PlayController() {
+function PlayController(standalone) {
+    var Player;
+    if (standalone) {
+        Player = require('./Player');
+    } else {
+        Player = require('./PlayerParent');
+    }
     this.player = new Player();
     this.isMute = false;
+    this._standalone = standalone;
 }
 
 require('util').inherits(PlayController, require('events').EventEmitter);
@@ -74,7 +82,11 @@ PlayController.prototype.play = function(track) {
     } else {
         this.player.volume(0);
     }
-    this.player.play(track.path);
+    var trackPath = track.path;
+    if (this._standalone) {
+        trackPath = path.join(processDir, trackPath);
+    }
+    this.player.play(trackPath);
 
     return currentlyPlaying;
 };
