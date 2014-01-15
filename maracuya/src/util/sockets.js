@@ -131,8 +131,8 @@ function socketConnected(playController, mBus, socket) {
     });
 }
 
-module.exports = function(io, mBus) {
-    var playController = new PlayController();
+module.exports = function(io, mBus, standalone) {
+    var playController = new PlayController(standalone);
 
     io.sockets.on('connection', socketConnected.bind(this, playController, mBus));
 };

@@ -24,7 +24,7 @@ onload = function() {
     db.sync();
 
     console.log("Running http server mode.");
-    app(db, model);
+    app(db, model, true);
 
     updateStatus('running');
 

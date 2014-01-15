@@ -10,6 +10,10 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <title>Maracuya - Virtual Jukebox, lan mp3 player</title>
 
+<script>
+var homeUrl;
+</script>
+
 <!-- @if PLATFORM='standalone' -->
 <script>
 var homeUrl;
@@ -63,7 +67,7 @@ require.config({
 
 require(['app'], function(app) {
     $(document).ready(function() {
-        app.init(app.MODULE_SERVER<!-- @if PLATFORM='standalone' -->, homeUrl<!-- @endif -->);
+        app.init(app.MODULE_SERVER, homeUrl);
     });
 });
 

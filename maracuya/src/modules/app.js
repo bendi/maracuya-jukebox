@@ -23,7 +23,7 @@ function clientErrorHandler(err, req, res, next) {
   }
 }
 
-module.exports = function(model, db) {
+module.exports = function(model, db, standalone) {
 var server = require('http').createServer(app),
   io = socketio.listen(server);
 
@@ -35,7 +35,7 @@ io.configure(function() {
 
 getIp.port(port);
 
-sockets(io, mBus);
+sockets(io, mBus, standalone);
 
 app.configure(function() {
   app.set('port', port);
