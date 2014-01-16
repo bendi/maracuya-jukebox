@@ -45,7 +45,19 @@ module.exports = function(grunt) {
             options : {
                 //Shared Options Hash
             },
-            dev : envVars
+            dev : envVars,
+            mobile: {
+                NODE_ENV: "production",
+                PLATFORM: "mobile"
+            },
+            web: {
+                NODE_ENV: "production",
+                PLATFORM: "web"
+            },
+            standalone: {
+                NODE_ENV: "production",
+                PLATFORM: "standalone"
+            }
         },
         // js linting options
         jshint : {
@@ -98,6 +110,7 @@ module.exports = function(grunt) {
                 'build/src/routes',
                 'build/src/util',
                 'build/src/db',
+                'build/src/nw',
                 'build/src/run.js',
                 'build/src/build.txt',
             ]
@@ -303,7 +316,12 @@ module.exports = function(grunt) {
 
     // Default task.
     grunt.registerTask('default', 'jshint');
-    grunt.registerTask('build:mobile', [ 'env', 'jshint', 'clean:build', 'copy:main', 'requirejs:mobile', 'imageEmbed:mobile', 'preprocess:mobile', 'clean:post-mobile', 'copy:mobileBuildOutput', 'phonegap:build' ]);
-    grunt.registerTask('build:web', [ 'env', 'jshint', 'clean:build', 'copy:main', 'requirejs:web', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
-    grunt.registerTask('build:demo', [ 'env', 'jshint', 'clean:build', 'copy:main', 'requirejs:demo', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
+    grunt.registerTask('build:mobile', [ 'env:dev', 'jshint', 'clean:build', 'copy:main', 'requirejs:mobile', 'imageEmbed:mobile', 'preprocess:mobile', 'clean:post-mobile', 'copy:mobileBuildOutput', 'phonegap:build' ]);
+    grunt.registerTask('build:web', [ 'env:dev', 'jshint', 'clean:build', 'copy:main', 'requirejs:web', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
+    grunt.registerTask('build:demo', [ 'env:dev', 'jshint', 'clean:build', 'copy:main', 'requirejs:demo', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
+
+    grunt.registerTask('release:mobile', [ 'env:mobile', 'jshint', 'clean:build', 'copy:main', 'requirejs:mobile', 'imageEmbed:mobile', 'preprocess:mobile', 'clean:post-mobile', 'copy:mobileBuildOutput', 'phonegap:build' ]);
+    grunt.registerTask('release:web', [ 'env:web', 'jshint', 'clean:build', 'copy:main', 'requirejs:web', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
+    grunt.registerTask('release:standalone', [ 'env:standalone', 'jshint', 'clean:build', 'copy:main', 'requirejs:web', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
+
 };
