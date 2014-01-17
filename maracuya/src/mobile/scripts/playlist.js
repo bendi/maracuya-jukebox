@@ -15,7 +15,7 @@ define(['common', 'mbusRouter'], function(common, router) {
     function _displayTracks(pageSize, pagedRes, append, back) {
     }
 
-    var homeUrl, currentTrackId;
+    var homeUrl, currentTrackId, refresh = function(){};
 
     return {
         init: function(mBus_, homeUrl_) {
@@ -50,7 +50,11 @@ define(['common', 'mbusRouter'], function(common, router) {
                     listItem.appendTo('#playlist');
                 });
 
-                $('#playlist').listview('refresh');
+                refresh = function() {
+                    $('#playlist').listview('refresh');
+                };
+
+                refresh();
             });
         },
 
@@ -58,21 +62,18 @@ define(['common', 'mbusRouter'], function(common, router) {
             currentTrackId = trackId;
 
             $('#playlist li[data-theme="b"]')
-                .attr("data-theme", "c")
-                .removeClass("ui-btn-up-b")
-                .removeClass('ui-btn-hover-b')
-                .addClass("ui-btn-up-c")
-                .addClass('ui-btn-hover-c');
+                .attr("data-theme", null)
+                .find("a")
+                .removeClass("ui-btn-b");
 
             if (trackId) {
                 $('#playlist a[data-id="' + trackId + '"]')
+                    .addClass("ui-btn-b")
                     .parents('li')
-                    .attr("data-theme", "b")
-                    .removeClass("ui-btn-up-c")
-                    .removeClass('ui-btn-hover-c')
-                    .addClass("ui-btn-up-b")
-                    .addClass('ui-btn-hover-b');
+                    .attr("data-theme", "b");
             }
+
+            refresh();
         },
 
         stop: function() {
