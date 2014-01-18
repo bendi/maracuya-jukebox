@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# Installs node if it isn't already installed
+#
+# Don't steamroll over a previously installed node version
+# TODO provide a local version of node?
+
+VER="@NODE_VERSION"
+ARCH="x86"
+if [ `arch | grep 64` ]
+then
+  ARCH="x64"
+fi
+
+if [ `arch | grep arm` ]
+then
+  ARCH="arm-pi"
+fi
+
+NODE=`which node`
+
+# TODO test version
+if [ ! -n "$NODE" ]; then
+  echo "Installing nodejs/npm"
+  pushd /tmp
+  wget -c "http://nodejs.org/dist/${VER}/node-${VER}-linux-${ARCH}.tar.gz"
+  rm -rf /tmp/node-${VER}-linux-${ARCH}
+  tar xf node-${VER}-linux-${ARCH}.tar.gz -C /tmp/
+  if [ ! -d /opt ] ; then
+	mkdir /opt
+  fi
+  mv /tmp/node-${VER}-linux-${ARCH} /opt
+  ln -s /opt/node-${VER}-linux-${ARCH} /opt/node
+  ln -s /opt/node/bin/node /usr/local/bin/node 
+  ln -s /opt/node/bin/npm /usr/local/bin/npm
+  popd
+fi
+
+ANDROID=`which android`
+if [ ! -n "$ANDROID" ]; then
+  echo "Installing android-sdk"
+  pushd tmp
+  if [ ! -d "/tmp/android-sdk_r22.3.linux" ]; then
+    wget -c wget http://dl.google.com/android/android-sdk_r22.3-linux.tgz
+	tar xzf android-sdk_r22.3-linux.tgz
+  fi
+  
+  if [ ! -d /opt ] ; then
+	mkdir /opt
+  fi
+  
+  mv android-sdk_r22.3-linux /opt/android-sdk_r22.3-linux
+  ln -s /opt/android-sdk_r22.3-linux/tools/android-sdk-linux/tools/android /usr/local/bin/android
+  
+  echo "Updating android-sdk"
+  android sdk update --no-ui
+  popd
+fi
+
+echo "Installing phonegap/grunt-cli from npm"
+npm install -g phonegap grunt-cli

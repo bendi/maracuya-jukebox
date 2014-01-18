@@ -1,0 +1,41 @@
+#!/bin/bash
+
+VER=`node -v`
+ARCH="x86"
+if [ `arch | grep 64` ]
+then
+  ARCH="x64"
+fi
+
+if [ `arch | grep arm` ]
+then
+  ARCH="arm-pi"
+fi
+
+NODE_PATH=/opt/node-${VER}-linux-${ARCH}
+
+removeNodeJS() {
+  if [ -L /usr/local/bin/node ]; then
+    rm /usr/local/bin/node
+  fi
+
+  if [ -L /usr/local/bin/npm ]; then
+    rm /usr/local/bin/npm
+  fi
+
+  if [ -L /opt/node ]; then
+    rm /opt/node
+  fi 
+
+  if [ -d "$NODE_PATH" ]; then
+    echo "Removing nodejs at location: $NODE_PATH"
+    rm -rf "$NODE_PATH"
+  else
+    echo "nodejs installation $NODE_PATH not found. Please remove manually"
+  fi
+}
+
+if [ "$1" == "purge" ]; then
+  removeNodeJS
+fi
+
