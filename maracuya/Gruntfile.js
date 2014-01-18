@@ -295,6 +295,18 @@ module.exports = function(grunt) {
                     var pkg = grunt.file.readJSON('package.json');
                     return (pkg.name + '-' + pkg.version);
                 },
+                key: {
+                    store: '../distrib/mobile/phonegap/android.keystore',
+                    alias: 'maracuya',
+                    aliasPassword: function(){
+                      // Prompt, read an environment variable, or just embed as a string literal
+                      return process.env.ANDROID_ALIAS_PASSWORD;
+                    },
+                    storePassword: function(){
+                      // Prompt, read an environment variable, or just embed as a string literal
+                      return process.env.ANDROID_STORE_PASSWORD;
+                    }
+                  },
             }
         },
         nodewebkit: {
@@ -320,7 +332,7 @@ module.exports = function(grunt) {
     grunt.registerTask('build:web', [ 'env:dev', 'jshint', 'clean:build', 'copy:main', 'requirejs:web', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
     grunt.registerTask('build:demo', [ 'env:dev', 'jshint', 'clean:build', 'copy:main', 'requirejs:demo', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
 
-    grunt.registerTask('release:mobile', [ 'env:mobile', 'jshint', 'clean:build', 'copy:main', 'requirejs:mobile', 'imageEmbed:mobile', 'preprocess:mobile', 'clean:post-mobile', 'copy:mobileBuildOutput', 'phonegap:build' ]);
+    grunt.registerTask('release:mobile', [ 'env:mobile', 'jshint', 'clean:build', 'copy:main', 'requirejs:mobile', 'imageEmbed:mobile', 'preprocess:mobile', 'clean:post-mobile', 'copy:mobileBuildOutput', 'phonegap:release' ]);
     grunt.registerTask('release:web', [ 'env:web', 'jshint', 'clean:build', 'copy:main', 'requirejs:web', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
     grunt.registerTask('release:standalone', [ 'env:standalone', 'jshint', 'clean:build', 'copy:main', 'requirejs:web', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
 
