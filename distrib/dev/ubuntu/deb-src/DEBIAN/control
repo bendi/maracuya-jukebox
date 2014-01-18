@@ -4,7 +4,7 @@ Section: base
 Priority: optional
 Architecture: all
 Installed-Size: $SIZE
-Depends: libasound2-dev, libsqlite3-dev, libltdl-dev, android-tools-adb, android-tools-fastboot, g++, make, openjdk-6-jre-headless, git
-Pre-Depends: libasound2-dev, libsqlite3-dev, libltdl-dev, android-tools-adb, android-tools-fastboot, g++, make, openjdk-6-jre-headless, git
+Depends: libasound2-dev, libsqlite3-dev, libltdl-dev, android-tools-adb, android-tools-fastboot, g++, make, openjdk-6-jre-headless, git, ant
+Pre-Depends: libasound2-dev, libsqlite3-dev, libltdl-dev, android-tools-adb, android-tools-fastboot, g++, make, openjdk-6-jre-headless, git, ant
 Maintainer: Marek Bedkowski <marek@bedkowski.pl>
 Description: Virtual package responsible for setting up dev env on ubuntu.
