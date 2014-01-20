@@ -298,15 +298,15 @@ module.exports = function(grunt) {
                 key: {
                     store: '../distrib/mobile/phonegap/android.keystore',
                     alias: 'maracuya',
-                    aliasPassword: function(){
-                      // Prompt, read an environment variable, or just embed as a string literal
-                      return process.env.ANDROID_ALIAS_PASSWORD;
+                    aliasPassword: function () {
+                        // Prompt, read an environment variable, or just embed as a string literal
+                        return process.env.ANDROID_ALIAS_PASSWORD;
                     },
-                    storePassword: function(){
-                      // Prompt, read an environment variable, or just embed as a string literal
-                      return process.env.ANDROID_STORE_PASSWORD;
+                    storePassword: function () {
+                        // Prompt, read an environment variable, or just embed as a string literal
+                        return process.env.ANDROID_STORE_PASSWORD;
                     }
-                  },
+                },
             }
         },
         nodewebkit: {
