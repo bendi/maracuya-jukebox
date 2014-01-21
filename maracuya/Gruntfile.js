@@ -7,11 +7,60 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks("grunt-image-embed");
     grunt.loadNpmTasks('grunt-preprocess');
-    grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-env');
     grunt.loadNpmTasks('grunt-phonegap');
     grunt.loadNpmTasks('grunt-node-webkit-builder');
+    grunt.loadNpmTasks('grunt-curl');
+    grunt.loadNpmTasks('grunt-contrib-compress');
+
+    grunt.registerMultiTask("unzip", "Performs unzipping stream", function () {
+        if (!this.data) {
+            return;
+        }
+
+        var Targz = require('tar.gz'),
+            compress = new Targz(),
+            dataFiles = this.data.files,
+            _ = grunt.util._,
+            done = this.async();
+
+        function getFiles() {
+            var files = [];
+            for(var dest in dataFiles) {
+                if (!dataFiles.hasOwnProperty(dest)) {
+                    continue;
+                }
+                var filepath = dataFiles[dest];
+                if (!grunt.file.exists(filepath)) {
+                    grunt.log.warn('Source file "' + filepath + '" not found.');
+                    continue;
+                }
+                files.push({
+                    src: filepath,
+                    target: dest
+                });
+            }
+            return files;
+        }
+
+        var files = getFiles(),
+            countDown = _.after(files.length, function() {
+                done();
+            });
+
+        files.forEach(function (file) {
+            compress.extract(file.src, file.target, function(err) {
+                if (err) {
+                    grunt.util.warn(err);
+                    done(err);
+                } else {
+                    countDown();
+                }
+            });
+        });
+    });
+
 
     function getWeinreUrlForEnv(nodeEnv, weinreUrl, weinre) {
         if (!weinreUrl && weinre) {
@@ -36,6 +85,8 @@ module.exports = function(grunt) {
     if (weinreUrl) {
         envVars["WEINRE_URL"] = weinreUrl;
     }
+
+    var pkg = require('./package.json');
 
     // Project configuration.
     grunt.initConfig({
@@ -121,12 +172,37 @@ module.exports = function(grunt) {
                 files: [
                     {expand: true, src : ["src/**"], dest : "build/src/"},
                     {expand: true, flatten: true, src : ['package.json', '../README.md'], dest : 'build/'},
+                    {expand: true, src: ["!node_modules/grunt**", "!node_modules/node-gyp**", "node_modules/**"], dest: "build"}
                 ]
             },
             mobileBuildOutput: {
                 files: [
                     {expand: true, flatten: true, src: ['../distrib/mobile/phonegap/www/*'], dest: 'build/src/'}
                 ]
+            },
+            standalone_sample_data_nw_win: {
+                files: [
+                    {expand: true, src: ["data/**", "mp3/**"], dest: "webkitbuilds/releases/nw/win/nw"}
+                ]
+            }
+        },
+
+        curl: {
+            "tmp/win/mpg123n-nw.tgz": "http://maracuya-jukebox.com/distrib/mpg123n/Release/bindings-v0.0.14-nw-0.8.3-win32-ia32.tgz",
+            "tmp/win/mp3info-nw.tgz": "http://maracuya-jukebox.com/distrib/mp3info/Release/bindings-v0.0.5-nw-0.8.3-win32-ia32.tgz",
+            "tmp/win/sqlite3-nw.tgz": "http://maracuya-jukebox.com/distrib/sqlite3/Release/node_sqlite3-v2.2.0-nw-0.8.3-win32-ia32.tgz"
+        },
+
+        // gunzip each package
+        // copy to proper localtion
+        // run node-webkit task
+        unzip: {
+            standalone_win: {
+                files: {
+                    "build/node_modules/mpg123n/build":  "tmp/win/mpg123n-nw.tgz",
+                    "build/node_modules/mp3info/build":  "tmp/win/mp3info-nw.tgz",
+                    "build/node_modules/sqlite3/lib/":   "tmp/win/sqlite3-nw.tgz"
+                }
             }
         },
 
@@ -265,13 +341,24 @@ module.exports = function(grunt) {
         },
 
         compress : {
-            options : {
-                archive : 'dist/<%= pkg.name %>-<%= pkg.version %>.zip'
-            },
             main : {
-                src : 'build/**',
-                base : 'build',
-                subdir : 'maracuya-jukebox'
+                options : {
+                    archive : 'dist/<%= pkg.name %>-<%= pkg.version %>.zip'
+                },
+                files: {
+                    src : 'build/**',
+                    base : 'build',
+                    subdir : 'maracuya-jukebox'
+                }
+            },
+            standalone_win: {
+                options: {
+                    archive: 'dist/maracuya-jukebox-' + pkg.version + '.zip'
+                },
+                files: [
+                    {cwd: 'webkitbuilds/releases/nw/win/nw', src: ["**"], dest: 'maracuya-jukebox/', expand: true},
+                    {cwd: 'webkitbuilds/releases/nw/win/nw', src: ["/data", "/mp3"], dest: 'maracuya-jukebox/**', expand: true}
+                ]
             }
         },
 
@@ -334,6 +421,8 @@ module.exports = function(grunt) {
 
     grunt.registerTask('release:mobile', [ 'env:mobile', 'jshint', 'clean:build', 'copy:main', 'requirejs:mobile', 'imageEmbed:mobile', 'preprocess:mobile', 'clean:post-mobile', 'copy:mobileBuildOutput', 'phonegap:release' ]);
     grunt.registerTask('release:web', [ 'env:web', 'jshint', 'clean:build', 'copy:main', 'requirejs:web', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
+
+    grunt.registerTask('release:standalone:win', [ 'env:standalone', 'jshint', 'clean:build', 'copy:main', 'requirejs:web', 'imageEmbed:web', 'preprocess:web', 'clean:post-web', 'curl', 'unzip:standalone_win', 'nodewebkit', 'copy:standalone_sample_data_nw_win', 'compress:standalone_win' ]);
     grunt.registerTask('release:standalone', [ 'env:standalone', 'jshint', 'clean:build', 'copy:main', 'requirejs:web', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
 
 };
