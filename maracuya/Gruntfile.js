@@ -182,7 +182,7 @@ module.exports = function(grunt) {
             },
             standalone_sample_data_nw_win: {
                 files: [
-                    {expand: true, src: ["data/**", "mp3/**"], dest: "webkitbuilds/releases/nw/win/nw"}
+                    {cwd: "sample-data", expand: true, src: ["data/**", "mp3/**"], dest: "webkitbuilds/releases/nw/win/nw"}
                 ]
             }
         },
