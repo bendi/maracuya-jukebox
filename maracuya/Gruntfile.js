@@ -13,54 +13,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-node-webkit-builder');
     grunt.loadNpmTasks('grunt-curl');
     grunt.loadNpmTasks('grunt-contrib-compress');
-
-    grunt.registerMultiTask("unzip", "Performs unzipping stream", function () {
-        if (!this.data) {
-            return;
-        }
-
-        var Targz = require('tar.gz'),
-            compress = new Targz(),
-            dataFiles = this.data.files,
-            _ = grunt.util._,
-            done = this.async();
-
-        function getFiles() {
-            var files = [];
-            for(var dest in dataFiles) {
-                if (!dataFiles.hasOwnProperty(dest)) {
-                    continue;
-                }
-                var filepath = dataFiles[dest];
-                if (!grunt.file.exists(filepath)) {
-                    grunt.log.warn('Source file "' + filepath + '" not found.');
-                    continue;
-                }
-                files.push({
-                    src: filepath,
-                    target: dest
-                });
-            }
-            return files;
-        }
-
-        var files = getFiles(),
-            countDown = _.after(files.length, function() {
-                done();
-            });
-
-        files.forEach(function (file) {
-            compress.extract(file.src, file.target, function(err) {
-                if (err) {
-                    grunt.util.warn(err);
-                    done(err);
-                } else {
-                    countDown();
-                }
-            });
-        });
-    });
-
+    grunt.loadNpmTasks('grunt-tar.gz');
 
     function getWeinreUrlForEnv(nodeEnv, weinreUrl, weinre) {
         if (!weinreUrl && weinre) {
@@ -196,7 +149,7 @@ module.exports = function(grunt) {
         // gunzip each package
         // copy to proper localtion
         // run node-webkit task
-        unzip: {
+        targz: {
             standalone_win: {
                 files: {
                     "build/node_modules/mpg123n/build":  "tmp/win/mpg123n-nw.tgz",
@@ -422,7 +375,7 @@ module.exports = function(grunt) {
     grunt.registerTask('release:mobile', [ 'env:mobile', 'jshint', 'clean:build', 'copy:main', 'requirejs:mobile', 'imageEmbed:mobile', 'preprocess:mobile', 'clean:post-mobile', 'copy:mobileBuildOutput', 'phonegap:release' ]);
     grunt.registerTask('release:web', [ 'env:web', 'jshint', 'clean:build', 'copy:main', 'requirejs:web', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
 
-    grunt.registerTask('release:standalone:win', [ 'env:standalone', 'jshint', 'clean:build', 'copy:main', 'requirejs:web', 'imageEmbed:web', 'preprocess:web', 'clean:post-web', 'curl', 'unzip:standalone_win', 'nodewebkit', 'copy:standalone_sample_data_nw_win', 'compress:standalone_win' ]);
+    grunt.registerTask('release:standalone:win', [ 'env:standalone', 'jshint', 'clean:build', 'copy:main', 'requirejs:web', 'imageEmbed:web', 'preprocess:web', 'clean:post-web', 'curl', 'targz:standalone_win', 'nodewebkit', 'copy:standalone_sample_data_nw_win', 'compress:standalone_win' ]);
     grunt.registerTask('release:standalone', [ 'env:standalone', 'jshint', 'clean:build', 'copy:main', 'requirejs:web', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
 
 };
