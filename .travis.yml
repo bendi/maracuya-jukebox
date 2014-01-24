@@ -5,4 +5,4 @@ node_js:
 before_script: 
   - npm install -g grunt-cli node-pre-gyp
   - cd maracuya
-  - npm install
+  - npm install --build-from-source
