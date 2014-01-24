@@ -1,5 +1,5 @@
-var inherits = require('util').inherits,
-    Mpg123Player = require('mpg123n').Player;
+var inherits = require("util").inherits,
+    Mpg123Player = require("mpg123n").Player;
 
 
 function Player() {
@@ -10,6 +10,6 @@ inherits(Player, Mpg123Player);
 
 module.exports = Player;
 
-Player.prototype.resume = function() {
+Player.prototype.resume = function () {
     this.pause();
 };

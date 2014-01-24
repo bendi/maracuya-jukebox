@@ -1,4 +1,4 @@
-define(['common', 'mbusRouter'], function(common, router) {
+define(["common", "mbusRouter"], function (common, router) {
 
     var currentPlaylistId = 1,
           isPageLoading,
@@ -6,8 +6,8 @@ define(['common', 'mbusRouter'], function(common, router) {
 
     function load(page) {
         isPageLoading = true;
-        return $.get('/playlist/' + currentPlaylistId, {pageSize:PAGE_SIZE, page: page, rand: Math.round(Math.random()*100000)})
-            .fail(function() {
+        return $.get("/playlist/" + currentPlaylistId, {pageSize: PAGE_SIZE, page: page, rand: Math.round(Math.random() * 100000)})
+            .fail(function () {
                 isPageLoading = false;
             });
     }
@@ -15,68 +15,68 @@ define(['common', 'mbusRouter'], function(common, router) {
     function _displayTracks(pageSize, pagedRes, append, back) {
     }
 
-    var homeUrl, currentTrackId, refresh = function(){};
+    var homeUrl, currentTrackId, refresh = function () {};
 
     return {
-        init: function(mBus_, homeUrl_) {
+        init: function (mBus_, homeUrl_) {
             homeUrl = homeUrl_;
 
-            $(document).on('vclick', '#playlist a', function(e) {
+            $(document).on("vclick", "#playlist a", function (e) {
                 e.preventDefault();
-                router.notify('play', {id:$(this).data('id')});
+                router.notify("play", {id: $(this).data("id")});
             });
         },
 
-        setCurrentPlaylistId: function(id) {
+        setCurrentPlaylistId: function (id) {
         },
 
         load: load,
 
-        destroy: function() {},
+        destroy: function () {},
 
-        displayTracks: function(pageSize, pagedRes, append, back) {
-            $(document).one('pageshow', '#player', function() {
-                _.each(pageSize.items, function(item) {
-                    var listItem = $('<a/>')
-                        .attr('href', "#")
-                        .attr('data-id', item.id)
+        displayTracks: function (pageSize, pagedRes, append, back) {
+            $(document).one("pageshow", "#player", function () {
+                _.each(pageSize.items, function (item) {
+                    var listItem = $("<a/>")
+                        .attr("href", "#")
+                        .attr("data-id", item.id)
                         .html(common.title(item))
-                        .wrap('<li/>')
+                        .wrap("<li/>")
                         .parent();
 
                     if (item.id === currentTrackId) {
-                        listItem.attr('data-theme', 'b');
+                        listItem.attr("data-theme", "b");
                     }
-                    listItem.appendTo('#playlist');
+                    listItem.appendTo("#playlist");
                 });
 
-                refresh = function() {
-                    $('#playlist').listview('refresh');
+                refresh = function () {
+                    $("#playlist").listview("refresh");
                 };
 
                 refresh();
             });
         },
 
-        updateCurrentTrack: function(trackId) {
+        updateCurrentTrack: function (trackId) {
             currentTrackId = trackId;
 
-            $('#playlist li[data-theme="b"]')
+            $("#playlist li[data-theme='b']")
                 .attr("data-theme", null)
                 .find("a")
                 .removeClass("ui-btn-b");
 
             if (trackId) {
-                $('#playlist a[data-id="' + trackId + '"]')
+                $("#playlist a[data-id='" + trackId + "']")
                     .addClass("ui-btn-b")
-                    .parents('li')
+                    .parents("li")
                     .attr("data-theme", "b");
             }
 
             refresh();
         },
 
-        stop: function() {
+        stop: function () {
             this.updateCurrentTrack();
         }
     };

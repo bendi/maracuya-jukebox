@@ -1,15 +1,15 @@
 define([
-    'jquery',
-    'underscore',
-    'console',
-    'config',
-    'player',
-    'mbusRouter',
-    'eventHandler',
-    'playlist'
-], function($, _, console, config, player, router, eh, playlist) {
+    "jquery",
+    "underscore",
+    "console",
+    "config",
+    "player",
+    "mbusRouter",
+    "eventHandler",
+    "playlist"
+], function ($, _, console, config, player, router, eh, playlist) {
 
-    var mBus = router.getRoute('demo'),
+    var mBus = router.getRoute("demo"),
         startTime,
         pauseTime,
         currentTrack;
@@ -33,7 +33,7 @@ define([
 
     var onPlay = _.bind(player.onPlay, player, jumpHandler);
 
-    mBus.addListener('play', function(data) {
+    mBus.addListener("play", function (data) {
         startTime = new Date();
         currentTrack = {
             title: "Scorptions - send me an angel",
@@ -44,28 +44,28 @@ define([
         onPlay(currentTrack, true);
     });
 
-    mBus.addListener('stop', function() {
+    mBus.addListener("stop", function () {
         player.stop();
         playlist.stop();
     });
 
-    mBus.addListener('pause', function() {
+    mBus.addListener("pause", function () {
         player.paused();
         pauseTime = new Date();
     });
 
-    mBus.addListener('resume', function() {
+    mBus.addListener("resume", function () {
         currentTrack.playedFor = getPlayedFor(true);
         onPlay(currentTrack, true);
     });
 
 
     return {
-        init: function() {
+        init: function () {
             playlist.init(mBus);
 
             return this;
         },
-        destroy: function(){}
+        destroy: function () {}
     };
 });

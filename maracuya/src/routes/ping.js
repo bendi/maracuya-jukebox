@@ -1,4 +1,4 @@
-var getIp = require('../util/getMyIp'),
+var getIp = require("../util/getMyIp"),
     port;
 
 function index(req, res) {
@@ -11,7 +11,7 @@ function index(req, res) {
 
 module.exports = {
     index: index,
-    init: function(p) {
+    init: function (p) {
         port = p;
     }
 };

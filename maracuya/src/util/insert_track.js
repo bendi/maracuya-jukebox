@@ -1,17 +1,17 @@
 
-var trackDao = require('../db/dao/TrackDao'),
-    fs = require('fs'),
-    mp3info = require('mp3info'),
-    ID3 = require('id3');
+var trackDao = require("../db/dao/TrackDao"),
+    fs = require("fs"),
+    mp3info = require("mp3info"),
+    ID3 = require("id3");
 
 function insertTrack(path, title, fn) {
-    if (typeof(title) === 'function') {
+    if (typeof(title) === "function") {
         fn = title;
-        title = '';
+        title = "";
     }
     console.log("PATH: " + path);
 
-    mp3info(path, function(error, data) {
+    mp3info(path, function (error, data) {
         if (error) {
             return fn(error);
         }
@@ -21,13 +21,13 @@ function insertTrack(path, title, fn) {
 
         var mp3data = {
             duration: Math.round(data.length),
-            title: id3.get('title') || title,
-            artist: id3.get('artist'),
-            album: id3.get('album'),
+            title: id3.get("title") || title,
+            artist: id3.get("artist"),
+            album: id3.get("album"),
             path: fs.realpathSync(path)
         };
 
-        trackDao.create(mp3data, function(err) {
+        trackDao.create(mp3data, function (err) {
             if (err) {
                 return fn(err);
             }

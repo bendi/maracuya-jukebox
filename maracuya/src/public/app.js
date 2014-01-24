@@ -1,20 +1,20 @@
 define([
-    'jquery',
-    'jqm',
-    'jqr',
-    'editinplace',
-    'underscore',
-    'config',
-    'eventHandler',
-    'server',
-    'stream',
-    'mbusRouter',
-    'common'
+    "jquery",
+    "jqm",
+    "jqr",
+    "editinplace",
+    "underscore",
+    "config",
+    "eventHandler",
+    "server",
+    "stream",
+    "mbusRouter",
+    "common"
 ],
-function($, jqm, jqr, editinplace, _, config, eventHandler, server, stream, router, common) {
+function ($, jqm, jqr, editinplace, _, config, eventHandler, server, stream, router, common) {
 
-    var MODULE_SERVER = 'server',
-        MODULE_STREAM = 'stream';
+    var MODULE_SERVER = "server",
+        MODULE_STREAM = "stream";
 
     var currentModule;
 
@@ -22,30 +22,30 @@ function($, jqm, jqr, editinplace, _, config, eventHandler, server, stream, rout
         MODULE_SERVER: MODULE_SERVER,
         MODULE_STREAM: MODULE_STREAM,
 
-        init: function(module, homeUrl) {
+        init: function (module, homeUrl) {
             config.init(homeUrl);
 
             if (currentModule) {
                 currentModule.destroy();
             }
 
-            if(common.isAndroid()) {
-                $('.playlistContainer').css({overflow:'',height:'auto'});
+            if (common.isAndroid()) {
+                $(".playlistContainer").css({overflow: "", height: "auto"});
             }
 
             var mBus = router.useRoute(module);
 
-            mBus.addListener('appReady', function(data) {
+            mBus.addListener("appReady", function (data) {
                 eventHandler.init(data.paused);
             });
 
             var starting = currentModule ? false : true;
 
-            switch(module) {
+            switch (module) {
             case MODULE_SERVER:
                 currentModule = server.init({
-                    homeUrl: config('homeUrl'),
-                    pageSize: config('playlistPageSize')
+                    homeUrl: config("homeUrl"),
+                    pageSize: config("playlistPageSize")
                 });
                 break;
             case MODULE_STREAM:
@@ -54,15 +54,15 @@ function($, jqm, jqr, editinplace, _, config, eventHandler, server, stream, rout
             }
 
             if (starting) {
-                $.get('/ping')
-                    .done(function(data) {
+                $.get("/ping")
+                    .done(function (data) {
                         var settings = {
-                            text: 'http://' + data.ips.join(":" + data.port + ", http://") + ":" + data.port
+                            text: "http://" + data.ips.join(":" + data.port + ", http://") + ":" + data.port
                         };
                         if (common.isIE()) {
                             settings.render = "table";
                         }
-                        $('.qrCode').qrcode(settings);
+                        $(".qrCode").qrcode(settings);
                     });
             }
         }

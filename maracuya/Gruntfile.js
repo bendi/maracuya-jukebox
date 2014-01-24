@@ -1,28 +1,28 @@
 /*global module:false*/
-module.exports = function(grunt) {
+module.exports = function (grunt) {
     "use strict";
 
-    grunt.loadNpmTasks('grunt-contrib-requirejs');
-    grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks("grunt-contrib-requirejs");
+    grunt.loadNpmTasks("grunt-contrib-copy");
+    grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-image-embed");
-    grunt.loadNpmTasks('grunt-preprocess');
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-env');
-    grunt.loadNpmTasks('grunt-phonegap');
-    grunt.loadNpmTasks('grunt-node-webkit-builder');
-    grunt.loadNpmTasks('grunt-curl');
-    grunt.loadNpmTasks('grunt-contrib-compress');
-    grunt.loadNpmTasks('grunt-tar.gz');
+    grunt.loadNpmTasks("grunt-preprocess");
+    grunt.loadNpmTasks("grunt-contrib-clean");
+    grunt.loadNpmTasks("grunt-env");
+    grunt.loadNpmTasks("grunt-phonegap");
+    grunt.loadNpmTasks("grunt-node-webkit-builder");
+    grunt.loadNpmTasks("grunt-curl");
+    grunt.loadNpmTasks("grunt-contrib-compress");
+    grunt.loadNpmTasks("grunt-tar.gz");
 
     function getWeinreUrlForEnv(nodeEnv, weinreUrl, weinre) {
         if (!weinreUrl && weinre) {
-            switch(nodeEnv) {
-            case 'android':
-                weinreUrl = 'http://10.0.2.2:8080';
+            switch (nodeEnv) {
+            case "android":
+                weinreUrl = "http://10.0.2.2:8080";
                 break;
-            case 'development':
-                weinreUrl = 'http://localhost:8080';
+            case "development":
+                weinreUrl = "http://localhost:8080";
                 break;
             }
         }
@@ -30,20 +30,20 @@ module.exports = function(grunt) {
         return weinreUrl;
     }
 
-    var envVars = {"NODE_ENV": grunt.option('env') || 'development'},
-        weinreUrl = getWeinreUrlForEnv(envVars["NODE_ENV"], grunt.option('weinreurl'), grunt.option('weinre'));
+    var envVars = {"NODE_ENV": grunt.option("env") || "development"},
+        weinreUrl = getWeinreUrlForEnv(envVars.NODE_ENV, grunt.option("weinreurl"), grunt.option("weinre"));
 
-    envVars["PLATFORM"] = grunt.option("platform") || "web";
+    envVars.PLATFORM = grunt.option("platform") || "web";
 
     if (weinreUrl) {
-        envVars["WEINRE_URL"] = weinreUrl;
+        envVars.WEINRE_URL = weinreUrl;
     }
 
-    var pkg = require('./package.json');
+    var pkg = require("./package.json");
 
     // Project configuration.
     grunt.initConfig({
-        pkg : '<json:package.json>',
+        pkg : "<json:package.json>",
 
         env : {
             options : {
@@ -66,57 +66,35 @@ module.exports = function(grunt) {
         // js linting options
         jshint : {
             all : [
-                'Gruntfile.js',
-                'src/routes/*.js',
-                'src/util/*.js',
-                'src/*.js',
-                'src/public/*.js',
-                'src/public/scripts/**',
-                'src/mobile/scripts/*.js'
+                "Gruntfile.js",
+                "src/**/*.js",
             ],
             options : {
-                curly : true,
-                eqeqeq : true,
-                immed : true,
-                latedef : true,
-                newcap : true,
-                noarg : true,
-                sub : true,
-                undef : true,
-                eqnull : true,
-                browser : true,
-                nomen : false,
-                indent : 4,
-                node : true,
-                devel : true,
-                jquery : true,
-
-                globals : {
-                    "cordova" : true,
-                    "define" : true,
-                    "_" : true
-                }
+                jshintrc: "jshintrc.json",
+                ignores: [
+                    "src/*/external/**"
+                ]
             },
         },
 
         clean : {
             build : "build",
-            'post-web' : [
-                'build/src/public/skins/*/gfx/**',
-                'build/src/mobile'
+            "post-web" : [
+                "build/src/public/skins/*/gfx/**",
+                "build/src/mobile"
             ],
-            'post-mobile' : [
-                'build/src/mobile/index.html',
-                'build/src/mobile/skins/mobile_runner',
-                'build/src/mobile/skins/maracuya-mobile/images',
-                'build/src/modules',
-                'build/src/public',
-                'build/src/routes',
-                'build/src/util',
-                'build/src/db',
-                'build/src/nw',
-                'build/src/run.js',
-                'build/src/build.txt',
+            "post-mobile" : [
+                "build/src/mobile/index.html",
+                "build/src/mobile/skins/mobile_runner",
+                "build/src/mobile/skins/maracuya-mobile/images",
+                "build/src/modules",
+                "build/src/public",
+                "build/src/routes",
+                "build/src/util",
+                "build/src/db",
+                "build/src/nw",
+                "build/src/run.js",
+                "build/src/build.txt",
             ]
         },
 
@@ -124,13 +102,13 @@ module.exports = function(grunt) {
             main: {
                 files: [
                     {expand: true, src : ["src/**"], dest : "build/src/"},
-                    {expand: true, flatten: true, src : ['package.json', '../README.md'], dest : 'build/'},
+                    {expand: true, flatten: true, src : ["package.json", "../README.md"], dest : "build/"},
                     {expand: true, src: ["!node_modules/grunt**", "!node_modules/node-gyp**", "node_modules/**"], dest: "build"}
                 ]
             },
             mobileBuildOutput: {
                 files: [
-                    {expand: true, flatten: true, src: ['../distrib/mobile/phonegap/www/*'], dest: 'build/src/'}
+                    {expand: true, flatten: true, src: ["../distrib/mobile/phonegap/www/*"], dest: "build/src/"}
                 ]
             },
             standalone_sample_data_nw_win: {
@@ -179,11 +157,11 @@ module.exports = function(grunt) {
                     skipDirOptimize : true,
                     shim : {
                         jqm : {
-                            deps : [ 'jquery' ],
-                            exports : 'jQuery.mobile'
+                            deps : [ "jquery" ],
+                            exports : "jQuery.mobile"
                         },
                         editinplace : {
-                            deps : [ 'jquery' ]
+                            deps : [ "jquery" ]
                         }
                     },
                     uglify : {
@@ -213,11 +191,11 @@ module.exports = function(grunt) {
                     skipDirOptimize : true,
                     shim : {
                         jqm : {
-                            deps : [ 'jquery' ],
-                            exports : 'jQuery.mobile'
+                            deps : [ "jquery" ],
+                            exports : "jQuery.mobile"
                         },
                         editinplace : {
-                            deps : [ 'jquery' ]
+                            deps : [ "jquery" ]
                         }
                     },
                     uglify : {
@@ -250,11 +228,11 @@ module.exports = function(grunt) {
                     removeCombined : true,
                     shim : {
                         jqm : {
-                            deps : [ 'jquery' ],
-                            exports : 'jQuery.mobile'
+                            deps : [ "jquery" ],
+                            exports : "jQuery.mobile"
                         },
                         editinplace : {
-                            deps : [ 'jquery' ]
+                            deps : [ "jquery" ]
                         }
                     },
                     skipDirOptimize : true,
@@ -272,13 +250,13 @@ module.exports = function(grunt) {
         preprocess : {
             web : {
                 files : {
-                    'build/src/public/index.html' : 'src/public/index.html',
-                    'build/src/public/stream.html' : 'src/public/stream.html'
+                    "build/src/public/index.html" : "src/public/index.html",
+                    "build/src/public/stream.html" : "src/public/stream.html"
                 }
             },
             mobile : {
-                src : 'src/mobile/mobile.html',
-                dest : 'build/src/mobile/mobile.html'
+                src : "src/mobile/mobile.html",
+                dest : "build/src/mobile/mobile.html"
             }
         },
 
@@ -296,48 +274,48 @@ module.exports = function(grunt) {
         compress : {
             main : {
                 options : {
-                    archive : 'dist/<%= pkg.name %>-<%= pkg.version %>.zip'
+                    archive : "dist/<%= pkg.name %>-<%= pkg.version %>.zip"
                 },
                 files: {
-                    src : 'build/**',
-                    base : 'build',
-                    subdir : 'maracuya-jukebox'
+                    src : "build/**",
+                    base : "build",
+                    subdir : "maracuya-jukebox"
                 }
             },
             standalone_win: {
                 options: {
-                    archive: 'dist/maracuya-jukebox-' + pkg.version + '.zip'
+                    archive: "dist/maracuya-jukebox-" + pkg.version + ".zip"
                 },
                 files: [
-                    {cwd: 'webkitbuilds/releases/nw/win/nw', src: ["**"], dest: 'maracuya-jukebox/', expand: true},
-                    {cwd: 'webkitbuilds/releases/nw/win/nw', src: ["/data", "/mp3"], dest: 'maracuya-jukebox/**', expand: true}
+                    {cwd: "webkitbuilds/releases/nw/win/nw", src: ["**"], dest: "maracuya-jukebox/", expand: true},
+                    {cwd: "webkitbuilds/releases/nw/win/nw", src: ["/data", "/mp3"], dest: "maracuya-jukebox/**", expand: true}
                 ]
             }
         },
 
         phonegap : {
             config : {
-                root : 'build/src',
-                config : '../distrib/mobile/phonegap/www/config.xml',
-                cordova : '../distrib/mobile/phonegap/.cordova',
-                path : 'phonegap',
+                root : "build/src",
+                config : "../distrib/mobile/phonegap/www/config.xml",
+                cordova : "../distrib/mobile/phonegap/.cordova",
+                path : "phonegap",
                 plugins : [
-                    'http://github.com/phonegap-build/BarcodeScanner.git ',
-                    'https://github.com/mkuklis/phonegap-websocket'
+                    "http://github.com/phonegap-build/BarcodeScanner.git ",
+                    "https://github.com/mkuklis/phonegap-websocket"
                 ],
                 platforms : [
-                    'android'
+                    "android"
                 ],
                 maxBuffer : 200, // You may need to raise this for iOS.
                 verbose : false,
-                releases : 'releases',
-                releaseName : function() {
-                    var pkg = grunt.file.readJSON('package.json');
-                    return (pkg.name + '-' + pkg.version);
+                releases : "releases",
+                releaseName : function () {
+                    var pkg = grunt.file.readJSON("package.json");
+                    return (pkg.name + "-" + pkg.version);
                 },
                 key: {
-                    store: '../distrib/mobile/phonegap/android.keystore',
-                    alias: 'maracuya',
+                    store: "../distrib/mobile/phonegap/android.keystore",
+                    alias: "maracuya",
                     aliasPassword: function () {
                         // Prompt, read an environment variable, or just embed as a string literal
                         return process.env.ANDROID_ALIAS_PASSWORD;
@@ -367,15 +345,16 @@ module.exports = function(grunt) {
     });
 
     // Default task.
-    grunt.registerTask('default', 'jshint');
-    grunt.registerTask('build:mobile', [ 'env:dev', 'jshint', 'clean:build', 'copy:main', 'requirejs:mobile', 'imageEmbed:mobile', 'preprocess:mobile', 'clean:post-mobile', 'copy:mobileBuildOutput', 'phonegap:build' ]);
-    grunt.registerTask('build:web', [ 'env:dev', 'jshint', 'clean:build', 'copy:main', 'requirejs:web', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
-    grunt.registerTask('build:demo', [ 'env:dev', 'jshint', 'clean:build', 'copy:main', 'requirejs:demo', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
+    grunt.registerTask("default", "jshint");
+    grunt.registerTask("build:mobile", [ "env:dev", "jshint", "clean:build", "copy:main", "requirejs:mobile", "imageEmbed:mobile", "preprocess:mobile", "clean:post-mobile", "copy:mobileBuildOutput", "phonegap:build" ]);
+    grunt.registerTask("build:web", [ "env:dev", "jshint", "clean:build", "copy:main", "requirejs:web", "imageEmbed:web", "preprocess:web", "clean:post-web" ]);
+    grunt.registerTask("build:demo", [ "env:dev", "jshint", "clean:build", "copy:main", "requirejs:demo", "imageEmbed:web", "preprocess:web", "clean:post-web" ]);
 
-    grunt.registerTask('release:mobile', [ 'env:mobile', 'jshint', 'clean:build', 'copy:main', 'requirejs:mobile', 'imageEmbed:mobile', 'preprocess:mobile', 'clean:post-mobile', 'copy:mobileBuildOutput', 'phonegap:release' ]);
-    grunt.registerTask('release:web', [ 'env:web', 'jshint', 'clean:build', 'copy:main', 'requirejs:web', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
+    grunt.registerTask("release:mobile", [ "env:mobile", "jshint", "clean:build", "copy:main", "requirejs:mobile", "imageEmbed:mobile", "preprocess:mobile", "clean:post-mobile", "copy:mobileBuildOutput", "phonegap:release" ]);
+    grunt.registerTask("release:web", [ "env:web", "jshint", "clean:build", "copy:main", "requirejs:web", "imageEmbed:web", "preprocess:web", "clean:post-web" ]);
 
-    grunt.registerTask('release:standalone:win', [ 'env:standalone', 'jshint', 'clean:build', 'copy:main', 'requirejs:web', 'imageEmbed:web', 'preprocess:web', 'clean:post-web', 'curl', 'targz:standalone_win', 'nodewebkit', 'copy:standalone_sample_data_nw_win', 'compress:standalone_win' ]);
-    grunt.registerTask('release:standalone', [ 'env:standalone', 'jshint', 'clean:build', 'copy:main', 'requirejs:web', 'imageEmbed:web', 'preprocess:web', 'clean:post-web' ]);
+    grunt.registerTask("release:standalone:win", [ "env:standalone", "jshint", "clean:build", "copy:main", "requirejs:web", "imageEmbed:web", "preprocess:web", "clean:post-web", "curl", "targz:standalone_win", "nodewebkit", "copy:standalone_sample_data_nw_win", "compress:standalone_win" ]);
+    grunt.registerTask("release:standalone", [ "env:standalone", "jshint", "clean:build", "copy:main", "requirejs:web", "imageEmbed:web", "preprocess:web", "clean:post-web" ]);
 
+    grunt.registerTask("test", ["jshint"]);
 };

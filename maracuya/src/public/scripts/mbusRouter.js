@@ -1,8 +1,8 @@
 define([
-    'underscore',
-    'console'
+    "underscore",
+    "console"
 ],
-function(_, console) {
+function (_, console) {
 
     var routes = {},
         currentRoute;
@@ -19,8 +19,8 @@ function(_, console) {
      * @param p.ctx
      * @param p.once
      */
-    MBus.prototype.addListener = function(p, fn) {
-        if (typeof(p) === 'string') {
+    MBus.prototype.addListener = function (p, fn) {
+        if (typeof(p) === "string") {
             var event = p;
             p = {
                 event: event,
@@ -43,18 +43,18 @@ function(_, console) {
      * @param p.fn
      * @param p.ctx
      */
-    MBus.prototype.removeListener = function(p) {
+    MBus.prototype.removeListener = function (p) {
         if (!this.listeners[p.event]) {
             return false;
         }
 
-        if (typeof(p.fn) !== 'function') {
+        if (typeof(p.fn) !== "function") {
             this.listeners[p.event] = [];
             return true;
         }
         var idx;
-        _.each(this.listeners[p.event], function(listener, i) {
-            if(p.fn === listener.fn && p.ctx === listener.ctx) {
+        _.each(this.listeners[p.event], function (listener, i) {
+            if (p.fn === listener.fn && p.ctx === listener.ctx) {
                 idx = i;
                 return false;
             }
@@ -72,9 +72,9 @@ function(_, console) {
      * @param p
      * @param p.event
      */
-    MBus.prototype.removeListeners = function(p) {
+    MBus.prototype.removeListeners = function (p) {
         var event = p;
-        if (event && typeof(event) === 'object') {
+        if (event && typeof(event) === "object") {
             event = p.event;
         }
         if (!this.listeners[event]) {
@@ -91,8 +91,8 @@ function(_, console) {
      * @param p.event
      * @param p.data
      */
-    MBus.prototype.notify = function(event, data){
-        if (typeof(event) !== 'string') {
+    MBus.prototype.notify = function (event, data) {
+        if (typeof(event) !== "string") {
             data = event.data;
             event = event.event;
         }
@@ -100,39 +100,39 @@ function(_, console) {
             return;
         }
 
-        _.each(this.listeners[event], function(listener) {
+        _.each(this.listeners[event], function (listener) {
             try {
                 listener(data);
-            } catch(e) {
+            } catch (e) {
                 console.log("[ERROR MBus] ", e);
             }
         });
     };
 
     return {
-        getRoute: function(routeName) {
+        getRoute: function (routeName) {
             if (!routes[routeName]) {
                 routes[routeName] = new MBus();
             }
             return routes[routeName];
         },
-        cleanRoute: function(routeName) {
+        cleanRoute: function (routeName) {
             if (routes[routeName]) {
                 routes[routeName] = new MBus();
             }
         },
-        cleanAllRoutes: function() {
+        cleanAllRoutes: function () {
             routes = {};
         },
-        useRoute: function(routeName) {
+        useRoute: function (routeName) {
             currentRoute = routes[routeName];
             return currentRoute;
         },
-        getAllRoutes: function() {
+        getAllRoutes: function () {
             return _.keys(routes);
         },
-        notify: function(event, data) {
-            if (typeof(event) !== 'string') {
+        notify: function (event, data) {
+            if (typeof(event) !== "string") {
                 data = event.data;
                 event = event.event;
             }

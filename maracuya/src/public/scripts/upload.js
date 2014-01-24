@@ -1,4 +1,4 @@
-define(['console'], function(console) {
+define(["console"], function (console) {
 
     function uploadFiles(url, files, listener) {
         console.log("got files: ", files);
@@ -18,7 +18,7 @@ define(['console'], function(console) {
     }
 
     function getUploadFn(url, file, listener, next) {
-        return function() {
+        return function () {
             var formData = new FormData();
             console.log("Starting file upload: ", file.name);
             listener.start(file);
@@ -30,7 +30,7 @@ define(['console'], function(console) {
     function upload(url, fileName, formData, listener, next) {
         var xhr = new XMLHttpRequest();
 
-        xhr.upload.addEventListener('load', function(e) {
+        xhr.upload.addEventListener("load", function (e) {
             listener.end(fileName, next !== undefined);
             if (next) {
                 console.log("Upload finished calling next");
@@ -40,32 +40,32 @@ define(['console'], function(console) {
             }
         });
 
-        xhr.upload.addEventListener('progress', function (event) {
+        xhr.upload.addEventListener("progress", function (event) {
             if (event.lengthComputable) {
                 listener.progress(fileName, event.loaded, event.total);
             }
         });
 
-        xhr.open('POST', url, true);
+        xhr.open("POST", url, true);
 
         xhr.send(formData);
     }
 
-    return function(homeUrl, mediaLibrarySelector, listener) {
-        //$('#jukebox .mediaLibrary')
+    return function (homeUrl, mediaLibrarySelector, listener) {
+        //$("#jukebox .mediaLibrary")
         $(mediaLibrarySelector)
-            .on('dragover', function () {
-                $(this).addClass('hover');
+            .on("dragover", function () {
+                $(this).addClass("hover");
                 return false;
             })
-            .on('dragend', function () {
-                $(this).removeClass('hover');
+            .on("dragend", function () {
+                $(this).removeClass("hover");
                 return false;
             })
-            .on('drop', function (e) {
+            .on("drop", function (e) {
                 e.preventDefault();
 
-                $(this).removeClass('hover');
+                $(this).removeClass("hover");
 
                 // now do something with:
                 var dataTransfer = e.originalEvent && e.originalEvent.dataTransfer || e.dataTransfer;
@@ -73,7 +73,7 @@ define(['console'], function(console) {
 
                 listener.init(files);
 
-                uploadFiles(homeUrl + '/upload', files, listener);
+                uploadFiles(homeUrl + "/upload", files, listener);
 
                 return false;
             });

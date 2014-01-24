@@ -1,23 +1,22 @@
 function updateStatus(s) {
-    document.querySelector('#status').innerHTML = s;
+    document.querySelector("#status").innerHTML = s;
 }
 
-onload = function() {
+onload = function () {
 
-    var path = require('path');
+    var path = require("path");
 
     var processDir = path.join(process.execPath.split(path.sep).slice(0, -1)
-            .join(path.sep), 'data');
+            .join(path.sep), "data");
 
-    var appDir = require('../util/appDir'),
-        appDir = appDir.init(processDir),
-        db = require('../db/db')({
+    var appDir = require("../util/appDir").init(processDir),
+        db = require("../db/db")({
             appDir : appDir()
         }),
-        model = require('../db/model'),
-        app = require('../modules/app');
+        model = require("../db/model"),
+        app = require("../modules/app");
 
-    updateStatus('starting');
+    updateStatus("starting");
 
     model.init(db);
 
@@ -26,9 +25,9 @@ onload = function() {
     console.log("Running http server mode.");
     app(db, model, true);
 
-    updateStatus('running');
+    updateStatus("running");
 
-    setTimeout(function() {
-        window.frames.vj.location = '../public/index.html';
+    setTimeout(function () {
+        window.frames.vj.location = "../public/index.html";
     }, 1000);
 };

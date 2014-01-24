@@ -1,9 +1,9 @@
-var TrackDao = require('../db/dao/TrackDao'),
-    fs = require('fs');
+var TrackDao = require("../db/dao/TrackDao"),
+    fs = require("fs");
 
 var MEDIA_TYPE = {
-    mp3: 'audio/mpeg',
-    ogg: 'audio/ogg'
+    mp3: "audio/mpeg",
+    ogg: "audio/ogg"
 };
 
 /**
@@ -19,10 +19,10 @@ var MEDIA_TYPE = {
 function head(res, type, status, start, end, size, total) {
     total = total || size;
     res.writeHead(status, {
-        'Content-Type': type,
-        'Content-Length': size,
-        'Content-Range': 'bytes ' + start + '-' + end + '/' + total,
-        'Accept-Ranges': 'bytes'
+        "Content-Type": type,
+        "Content-Length": size,
+        "Content-Range": "bytes " + start + "-" + end + "/" + total,
+        "Accept-Ranges": "bytes"
     });
 
 }
@@ -39,11 +39,11 @@ function handleRange(range, total) {
     var partialend = parts[1];
 
     var start = parseInt(partialstart, 10);
-    var end = partialend ? parseInt(partialend, 10) : total-1;
+    var end = partialend ? parseInt(partialend, 10) : total - 1;
     return {
         start: start,
         end: end,
-        chunksize: (end-start)+1,
+        chunksize: (end - start) + 1,
         total: total
     };
 }
@@ -73,18 +73,18 @@ function index(req, res) {
     }
 
     TrackDao.getById(id)
-        .error(function() {
-            res.send(404,{});
+        .error(function () {
+            res.send(404, {});
         })
-        .success(function(track) {
+        .success(function (track) {
             var stat = fs.statSync(track.path),
                 file,
                 total = stat.size;
 
-            if (type === 'mp3') {
+            if (type === "mp3") {
                 if (req.headers.range) {
                     var range = handleRange(req.headers.range, total);
-                    console.log('RANGE: ' + range.start + ' - ' + range.end + ' = ' + range.chunksize);
+                    console.log("RANGE: " + range.start + " - " + range.end + " = " + range.chunksize);
 
                     file = fs.createReadStream(track.path, range);
 
@@ -92,12 +92,12 @@ function index(req, res) {
 
                     file.pipe(res);
                 } else {
-                    head(res, mediaType, 200, 0, total-1, stat, total);
+                    head(res, mediaType, 200, 0, total - 1, stat, total);
                     file = fs.createReadStream(track.path);
                     file.pipe(res);
                 }
             } else {
-                res.send(415, 'Unsupported media type.');
+                res.send(415, "Unsupported media type.");
             }
         });
 }

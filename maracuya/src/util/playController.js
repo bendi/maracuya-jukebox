@@ -1,6 +1,6 @@
-var Track = require('../db/model').Track,
-    path = require('path'),
-    processDir = process.execPath.split(path.sep).slice(0,-1).join(path.sep);
+var Track = require("../db/model").Track,
+    path = require("path"),
+    processDir = process.execPath.split(path.sep).slice(0, -1).join(path.sep);
 
 var currentlyPlaying,
     startTime,
@@ -37,42 +37,42 @@ function songFinished(data) {
     currentlyPlaying = null;
     startTime = null;
     pauseTime = null;
-    this.emit('end', currentId);
+    this.emit("end", currentId);
 }
 
 function PlayController(standalone) {
     var Player;
     if (standalone) {
-        Player = require('./Player');
+        Player = require("./Player");
     } else {
-        Player = require('./PlayerParent');
+        Player = require("./PlayerParent");
     }
     this.player = new Player();
     this.isMute = false;
     this._standalone = standalone;
 }
 
-require('util').inherits(PlayController, require('events').EventEmitter);
+require("util").inherits(PlayController, require("events").EventEmitter);
 
-PlayController.prototype.stop = function() {
+PlayController.prototype.stop = function () {
     currentlyPlaying = null;
     startTime = null;
-    this.player.removeAllListeners('end');
-    this.player.removeAllListeners('error');
+    this.player.removeAllListeners("end");
+    this.player.removeAllListeners("error");
     this.player.stop();
 };
 
-PlayController.prototype.play = function(track) {
+PlayController.prototype.play = function (track) {
     currentlyPlaying = new CurrentTrack(track);
 
     pauseTime = null;
     startTime = new Date();
 
     var that = this;
-    this.player.removeAllListeners('end');
-    this.player.removeAllListeners('error');
-    this.player.once('end', songFinished.bind(that));
-    this.player.once('error', function(data) {
+    this.player.removeAllListeners("end");
+    this.player.removeAllListeners("error");
+    this.player.once("end", songFinished.bind(that));
+    this.player.once("error", function (data) {
         console.log("ERROR: error when playing song, ", data);
         songFinished.call(that);
     });
@@ -91,18 +91,18 @@ PlayController.prototype.play = function(track) {
     return currentlyPlaying;
 };
 
-PlayController.prototype.isPlaying = function() {
+PlayController.prototype.isPlaying = function () {
     return currentlyPlaying ? true : false;
 };
 
-PlayController.prototype.currentId = function() {
+PlayController.prototype.currentId = function () {
     if (this.isPlaying()) {
         return currentlyPlaying.id;
     }
     return null;
 };
 
-PlayController.prototype.getCurrentlyPlaying = function() {
+PlayController.prototype.getCurrentlyPlaying = function () {
     if (currentlyPlaying) {
         currentlyPlaying.playedFor = getPlayedFor();
     }
@@ -110,7 +110,7 @@ PlayController.prototype.getCurrentlyPlaying = function() {
     return currentlyPlaying;
 };
 
-PlayController.prototype.pause = function() {
+PlayController.prototype.pause = function () {
     if (!currentlyPlaying) {
         throw "Cannot pause when not playing.";
     }
@@ -119,7 +119,7 @@ PlayController.prototype.pause = function() {
     this.player.pause();
 };
 
-PlayController.prototype.resume = function() {
+PlayController.prototype.resume = function () {
     var paused = false;
     if (currentlyPlaying) {
         paused = currentlyPlaying.paused;
@@ -136,36 +136,36 @@ PlayController.prototype.resume = function() {
     return currentlyPlaying;
 };
 
-PlayController.prototype.jump = function(percent) {
+PlayController.prototype.jump = function (percent) {
     if (!currentlyPlaying) {
         throw "Cannot jump when not playing.";
     }
-    var jumpSeconds = Math.round(currentlyPlaying.duration*(percent/100));
-    console.log("JUMP: ", jumpSeconds, ", percent: ", percent, '%');
+    var jumpSeconds = Math.round(currentlyPlaying.duration * (percent / 100));
+    console.log("JUMP: ", jumpSeconds, ", percent: ", percent, "%");
     this.player.jump(jumpSeconds);
     var s = startTime;
-    startTime = new Date(startTime.getTime() - (jumpSeconds*1000));
-    console.log("Starttime: ", s, ', ', startTime);
+    startTime = new Date(startTime.getTime() - (jumpSeconds * 1000));
+    console.log("Starttime: ", s, ", ", startTime);
     return jumpSeconds;
 };
 
-PlayController.prototype.mute = function() {
+PlayController.prototype.mute = function () {
     this.isMute = true;
     this.player.volume(0);
 };
 
-PlayController.prototype.unmute = function() {
+PlayController.prototype.unmute = function () {
     this.isMute = false;
     this.player.volume(volume);
 };
 
-PlayController.prototype.volume = function(volume_) {
+PlayController.prototype.volume = function (volume_) {
     volume = volume_;
     this.player.volume(volume);
     return volume;
 };
 
-PlayController.prototype.getVolume = function(volume_) {
+PlayController.prototype.getVolume = function (volume_) {
     return volume;
 };
 

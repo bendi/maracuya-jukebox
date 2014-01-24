@@ -1,12 +1,12 @@
 define([
-    'jquery',
-    'underscore',
-    'console',
-    'player',
-    'mediaLibrary',
-    'mbusRouter',
-    'playlist'
-], function($, _, console, player, mediaLibrary, router, playlist) {
+    "jquery",
+    "underscore",
+    "console",
+    "player",
+    "mediaLibrary",
+    "mbusRouter",
+    "playlist"
+], function ($, _, console, player, mediaLibrary, router, playlist) {
 
     var stop, play, pause, resume, jump, volume, mute, unmute,
         PROGRES_LENGTH = 260,
@@ -16,7 +16,7 @@ define([
         currentTrack = null,
         nextTrack = null,
         currVolume = 0.2,
-        mBus = router.getRoute('stream');
+        mBus = router.getRoute("stream");
 
     // should stay empty
     function jumpHandler(fn) {
@@ -44,49 +44,49 @@ define([
         // FIXME - playlist id should be fetched from server
         playlist.setCurrentPlaylistId(1);
         return playlist.load()
-            .done(function() {
+            .done(function () {
                 var firstDisplayed = playlist.displayTracks.apply(playlist, arguments);
                 player.updateSongToPlay(firstDisplayed);
             });
     }
 
-    mBus.addListener('song_selected', function(data) {
+    mBus.addListener("song_selected", function (data) {
         player.updateSongToPlay(data.id);
     });
 
-    mBus.addListener('play', function(data) {
+    mBus.addListener("play", function (data) {
         play(data.id);
     });
 
-    mBus.addListener('pause', function() {
+    mBus.addListener("pause", function () {
         pause();
     });
-    mBus.addListener('resume', function() {
+    mBus.addListener("resume", function () {
         resume();
     });
-    mBus.addListener('stop', function() {
+    mBus.addListener("stop", function () {
         stop();
     });
-    mBus.addListener('next', function() {
+    mBus.addListener("next", function () {
         stop();
         play(nextTrack.id);
     });
-    mBus.addListener('jump', function(offset) {
+    mBus.addListener("jump", function (offset) {
         jump(offset);
     });
-    mBus.addListener('volume', function(offset) {
+    mBus.addListener("volume", function (offset) {
         volume(offset);
     });
-    mBus.addListener('mute', function() {
+    mBus.addListener("mute", function () {
         mute();
     });
-    mBus.addListener('unmute', function() {
+    mBus.addListener("unmute", function () {
         unmute();
     });
 
     // FIXME [mb] duplicate code
-    mBus.addListener('show_config', function() {
-        $('.qrCode').show().one('click', function() {
+    mBus.addListener("show_config", function () {
+        $(".qrCode").show().one("click", function () {
             $(this).hide();
         });
     });
@@ -113,16 +113,16 @@ define([
 
     function handleJumpFn(audio, offset) {
 
-        var pos = $('#jukebox header .songScrollButton').position();
+        var pos = $("#jukebox header .songScrollButton").position();
 
         console.log(JSON.stringify(pos));
 
-        var progress = (((offset - 15) - pos.left)/PROGRES_LENGTH),
-        progressTime = audio.duration*progress;
+        var progress = (((offset - 15) - pos.left) / PROGRES_LENGTH),
+        progressTime = audio.duration * progress;
 
-        console.log("Percent: ", (progress*100), " time: ", progressTime);
+        console.log("Percent: ", (progress * 100), " time: ", progressTime);
 
-        currentTrack.playedFor += (progressTime*1000);
+        currentTrack.playedFor += (progressTime * 1000);
 
         onPlay(currentTrack);
 
@@ -141,28 +141,28 @@ define([
     }
 
     function handleVolumeFn(audio, offset) {
-        var percent = Math.round((offset/VOLUME_LENGTH) * 100);
+        var percent = Math.round((offset / VOLUME_LENGTH) * 100);
         player.updateVolume(percent);
-        currVolume = audio.volume = percent/100;
+        currVolume = audio.volume = percent / 100;
     }
 
     function playFn(audio, id) {
-        var extension = 'mp3';
+        var extension = "mp3";
         if (!audio.canPlayType("audio/mpeg")) {
-            if (audio.canPlayType("audio/ogg") !== 'no') {
-                extension = 'ogg';
+            if (audio.canPlayType("audio/ogg") !== "no") {
+                extension = "ogg";
             }
         }
-        $.get('/track/' + id)
-            .done(function(data) {
+        $.get("/track/" + id)
+            .done(function (data) {
                 currentTrack = data.current;
                 nextTrack = data.next;
-                audio.src = '/track/stream/' + id + '.' + extension;
+                audio.src = "/track/stream/" + id + "." + extension;
             });
 
         $(audio).off();
 
-        $(audio).one('ended', function(e) {
+        $(audio).one("ended", function (e) {
             // play next track if exists
             // set src of audio to next song
             console.log("Finished");
@@ -171,19 +171,19 @@ define([
             }
         });
 
-        $(audio).one('canplaythrough', function(e) {
+        $(audio).one("canplaythrough", function (e) {
             // now we can start playing
             audio.play();
             audio.volume = currVolume;
-            player.updateVolume(currVolume*100);
+            player.updateVolume(currVolume * 100);
             console.log("Loaded " + audio.duration);
         });
 
-        $(audio).one('loadedmetadata', function(e) {
+        $(audio).one("loadedmetadata", function (e) {
             console.log("Meta: " + audio.duration);
         });
 
-        $(audio).one('playing', function(e) {
+        $(audio).one("playing", function (e) {
             currentTrack.playedFor = 0;
             startTime = new Date();
             onPlay(currentTrack);
@@ -194,10 +194,10 @@ define([
         console.log("DUR: " + audio.duration);
         var rem = parseInt(audio.duration - audio.currentTime, 10),
             pos = (audio.currentTime / audio.duration) * 100,
-            mins = Math.floor(rem/60,10),
-            secs = rem - mins*60;
+            mins = Math.floor(rem / 60, 10),
+            secs = rem - mins * 60;
 
-        console.log('-' + mins + ':' + (secs > 9 ? secs : '0' + secs));
+        console.log("-" + mins + ":" + (secs > 9 ? secs : "0" + secs));
     }
 
     function progressFn(audio, e) {
@@ -208,22 +208,22 @@ define([
 
         var durationTotal = currentTrack.duration;
 
-        var progress = Math.ceil(PROGRES_LENGTH*(audio.buffered.end(0) / durationTotal));
+        var progress = Math.ceil(PROGRES_LENGTH * (audio.buffered.end(0) / durationTotal));
 
         console.log("Progress called", audio.buffered.end(0), ", ", progress, "px ", durationTotal);
 
         $("#jukebox header .loadProgress")
             .show()
-            .css('clip', 'rect(0 '+progress+'px 10px 0)');
+            .css("clip", "rect(0 " + progress + "px 10px 0)");
     }
 
     return {
-        init: function() {
+        init: function () {
             $("#jukebox header .loadProgress")
                 .show()
-                .css('clip', 'rect(0 0px 10px 0)');
+                .css("clip", "rect(0 0px 10px 0)");
 
-            var audio = $('audio')[0];
+            var audio = $("audio")[0];
 
             play = _.partial(playFn, audio);
             stop = _.partial(stopFn, audio);
@@ -234,24 +234,24 @@ define([
             mute = _.partial(muteFn, audio);
             unmute = _.partial(unMuteFn, audio);
 
-            //audio.addEventListener('timeupdate', _.throttle(_.partial(timeupdateFn, audio), 1000), false);
-            audio.addEventListener('progress', _.partial(progressFn, audio), false);
-            audio.addEventListener('loadstart', function(e) {
+            //audio.addEventListener("timeupdate", _.throttle(_.partial(timeupdateFn, audio), 1000), false);
+            audio.addEventListener("progress", _.partial(progressFn, audio), false);
+            audio.addEventListener("loadstart", function (e) {
                 console.log("Started loading");
             }, false);
-            audio.addEventListener('loadeddata', function(e) {
+            audio.addEventListener("loadeddata", function (e) {
                 console.log("loadeddata");
             }, false);
-            audio.addEventListener('canplay', function(e) {
-                console.log('canplay');
+            audio.addEventListener("canplay", function (e) {
+                console.log("canplay");
             });
 
             init()
-                .done(function() {
-                    mBus.notify('appReady');
+                .done(function () {
+                    mBus.notify("appReady");
                 });
         },
-        destroy: function() {
+        destroy: function () {
             $("#jukebox header .loadProgress").hide();
             stop();
             playlist.destroy();

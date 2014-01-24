@@ -1,16 +1,16 @@
 // JZ: encapsulate barcode/qr code scanner.
 // use message bus events: scanConfigCode, codeScanned;
 define([
-    'underscore',
-    'config',
-    'common',
-    'console'
-], function(_, config, common, console) {
+    "underscore",
+    "config",
+    "common",
+    "console"
+], function (_, config, common, console) {
 
     var mBus;
 
     function scanningOk(result) {
-        mBus.notify('codeScanned', result.text);
+        mBus.notify("codeScanned", result.text);
     }
 
     function scanningError(e) {
@@ -18,16 +18,16 @@ define([
     }
 
     return {
-        init: function(mBus_) {
+        init: function (mBus_) {
             mBus = mBus_;
-            mBus.addListener('scanConfigCode', function() {
+            mBus.addListener("scanConfigCode", function () {
                 cordova.plugins.barcodeScanner.scan(scanningOk, scanningError);
             });
         },
 
-        destroy: function() {
+        destroy: function () {
             if (mBus) {
-                mBus.removeListeners('scanConfigCode');
+                mBus.removeListeners("scanConfigCode");
             }
         }
     };

@@ -1,6 +1,6 @@
-var TrackDao = require('../db/dao/TrackDao'),
-    QueryStreamToRes = require('../db/util/QueryStreamToRes'),
-    PagedRes = require('../util/PagedRes');
+var TrackDao = require("../db/dao/TrackDao"),
+    QueryStreamToRes = require("../db/util/QueryStreamToRes"),
+    PagedRes = require("../util/PagedRes");
 
 /**
  *
@@ -14,14 +14,14 @@ var TrackDao = require('../db/dao/TrackDao'),
  *
  */
 function index(req, res) {
-    res.contentType('application/json');
+    res.contentType("application/json");
 
     var id = req.params.id;
 
-    TrackDao.withNext(id, function(err, data) {
+    TrackDao.withNext(id, function (err, data) {
         if (err) {
             console.log(err);
-            return res.send(500, {msg:"Error when fetching tracks."});
+            return res.send(500, {msg: "Error when fetching tracks."});
         }
 
         if (!data) {
@@ -49,7 +49,7 @@ function index(req, res) {
 *
 */
 function update(req, res) {
-    res.contentType('application/json');
+    res.contentType("application/json");
 
     var id = req.params.id;
 
@@ -57,25 +57,25 @@ function update(req, res) {
 
     console.log(req.query, req.params, req.body);
 
-    var i = 0, params = ['artist', 'album', 'title'];
-    for(i=0; i<params.length; i++) {
+    var i = 0, params = ["artist", "album", "title"];
+    for (i = 0; i < params.length; i++) {
         if (req.body[params[i]]) {
             data[params[i]] = req.body[params[i]];
         }
     }
 
     if (!i) {
-        res.send({msg:'Misssing param'}, 400);
+        res.send({msg: "Misssing param"}, 400);
     }
 
-    console.log('Data: ', data, ", id: ", id);
+    console.log("Data: ", data, ", id: ", id);
 
-    TrackDao.updateById(id, data, function(err, numberAffected) {
+    TrackDao.updateById(id, data, function (err, numberAffected) {
         if (!err) {
             res.send({});
         } else {
             console.log("Error when updating record.", id, data);
-            res.send(500, {msg:"Error when updating record."});
+            res.send(500, {msg: "Error when updating record."});
         }
     });
 }

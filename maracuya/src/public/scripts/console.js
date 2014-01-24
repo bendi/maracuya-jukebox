@@ -1,7 +1,7 @@
-define(function() {
-    if (typeof(console) === 'undefined') {
+define(function () {
+    if (typeof(console) === "undefined") {
         return {
-            log: function(){}
+            log: function () {}
         };
     } else {
         return console;

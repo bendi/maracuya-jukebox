@@ -1,6 +1,6 @@
-var TrackDao = require('../db/dao/TrackDao'),
-    QueryStreamToRes = require('../db/util/QueryStreamToRes'),
-    PagedRes = require('../util/PagedRes');
+var TrackDao = require("../db/dao/TrackDao"),
+    QueryStreamToRes = require("../db/util/QueryStreamToRes"),
+    PagedRes = require("../util/PagedRes");
 
 /**
  *
@@ -14,18 +14,18 @@ var TrackDao = require('../db/dao/TrackDao'),
  *
  */
 function index(req, res) {
-    res.contentType('application/json; charset=utf-8');
+    res.contentType("application/json; charset=utf-8");
 
     var playlistId = req.params.id,
-        pageSize = req.param('pageSize'),
-        page = req.param('page') || 0,
+        pageSize = req.param("pageSize"),
+        page = req.param("page") || 0,
         offset = page * pageSize;
 
     // TODO validate query params
 
-    TrackDao.findWithLimit(pageSize, offset, function(err, total, stream) {
+    TrackDao.findWithLimit(pageSize, offset, function (err, total, stream) {
         if (err) {
-            res.send(500, {msg:"Error when fetching tracks."});
+            res.send(500, {msg: "Error when fetching tracks."});
             return;
         }
 

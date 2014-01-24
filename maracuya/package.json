@@ -6,10 +6,13 @@
   "private": true,
   "chromium-args": "--allow-file-access-from-files",
   "window": {
-    "toolbar"	: false,
-    "height"	: 600,
-    "width" 	: 420
+    "toolbar": false,
+    "height": 600,
+    "width": 420
   },
+  "scripts": {
+    "test": "grunt test"
+  }
   "dependencies": {
     "express": "~3.x",
     "sqlite3": ">=2.0.0",

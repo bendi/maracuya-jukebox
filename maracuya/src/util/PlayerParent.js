@@ -1,6 +1,6 @@
-var inherits = require('util').inherits,
-    EventEmitter = require('events').EventEmitter,
-    pwd=__dirname;
+var inherits = require("util").inherits,
+    EventEmitter = require("events").EventEmitter,
+    pwd = __dirname;
 
 console.log("PWD: ", pwd);
 
@@ -21,16 +21,16 @@ function handleExit(fn, code, signal) {
 function start() {
     var self = this;
     if (this.child) {
-        this.child.removeAllListeners('message');
-        this.child.removeAllListeners('exit');
-        this.child.removeAllListeners('uncaughtException');
+        this.child.removeAllListeners("message");
+        this.child.removeAllListeners("exit");
+        this.child.removeAllListeners("uncaughtException");
         delete this.child;
     }
     console.log("Restarting child module: ", pwd);
-    this.child = require('child_process').fork(pwd + "/PlayerChild.js");
-    this.child.on('message', handleMessage.bind(self));
-    this.child.on('exit', handleExit.bind(self, start.bind(self)));
-    this.child.on('uncaughtException', handleExit.bind(self, start.bind(self)));
+    this.child = require("child_process").fork(pwd + "/PlayerChild.js");
+    this.child.on("message", handleMessage.bind(self));
+    this.child.on("exit", handleExit.bind(self, start.bind(self)));
+    this.child.on("uncaughtException", handleExit.bind(self, start.bind(self)));
 }
 
 function message(evt, data) {
@@ -47,25 +47,25 @@ inherits(PlayerParent, EventEmitter);
 
 module.exports = PlayerParent;
 
-PlayerParent.prototype.play = function() {
-    message.call(this, 'play', arguments);
+PlayerParent.prototype.play = function () {
+    message.call(this, "play", arguments);
 };
 
-PlayerParent.prototype.pause = function() {
-    message.call(this, 'pause', arguments);
+PlayerParent.prototype.pause = function () {
+    message.call(this, "pause", arguments);
 };
-PlayerParent.prototype.jump = function() {
-    message.call(this, 'jump', arguments);
-};
-
-PlayerParent.prototype.volume = function() {
-    message.call(this, 'volume', arguments);
+PlayerParent.prototype.jump = function () {
+    message.call(this, "jump", arguments);
 };
 
-PlayerParent.prototype.stop = function() {
-    message.call(this, 'stop', arguments);
+PlayerParent.prototype.volume = function () {
+    message.call(this, "volume", arguments);
 };
 
-PlayerParent.prototype.resume = function() {
+PlayerParent.prototype.stop = function () {
+    message.call(this, "stop", arguments);
+};
+
+PlayerParent.prototype.resume = function () {
     this.pause();
 };
