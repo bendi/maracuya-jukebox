@@ -58,4 +58,4 @@ if [ ! -n "$ANDROID" ]; then
 fi
 
 echo "Installing phonegap/grunt-cli from npm"
-npm install -g phonegap grunt-cli
+npm install -g phonegap grunt-cli node-gyp node-pre-gyp
