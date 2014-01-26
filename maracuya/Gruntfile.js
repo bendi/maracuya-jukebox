@@ -39,7 +39,10 @@ module.exports = function (grunt) {
         envVars.WEINRE_URL = weinreUrl;
     }
 
-    var pkg = require("./package.json");
+    var pkg = require("./package.json"),
+		mpg123n = require("./node_modules/mpg123n/package.json"),
+		mp3info = require("./node_modules/mp3info/package.json"),
+		sqlite3 = require("./node_modules/sqlite3/package.json");
 
     // Project configuration.
     grunt.initConfig({
@@ -119,9 +122,9 @@ module.exports = function (grunt) {
         },
 
         curl: {
-            "tmp/win/mpg123n-nw.tgz": "http://maracuya-jukebox.com/distrib/mpg123n/Release/bindings-v0.0.15-nw-0.8.3-win32-ia32.tgz",
-            "tmp/win/mp3info-nw.tgz": "http://maracuya-jukebox.com/distrib/mp3info/Release/bindings-v0.0.5-nw-0.8.3-win32-ia32.tgz",
-            "tmp/win/sqlite3-nw.tgz": "http://maracuya-jukebox.com/distrib/sqlite3/Release/node_sqlite3-v2.2.0-nw-0.8.3-win32-ia32.tgz"
+            "tmp/win/mpg123n-nw.tgz": "http://maracuya-jukebox.com/distrib/mpg123n/Release/bindings-v" + mpg123n.version + "-nw-0.8.3-win32-ia32.tgz",
+            "tmp/win/mp3info-nw.tgz": "http://maracuya-jukebox.com/distrib/mp3info/Release/bindings-v" + mp3info.version + "-nw-0.8.3-win32-ia32.tgz",
+            "tmp/win/sqlite3-nw.tgz": "http://maracuya-jukebox.com/distrib/sqlite3/Release/node_sqlite3-v" + sqlite3.version + "-nw-0.8.3-win32-ia32.tgz"
         },
 
         // gunzip each package

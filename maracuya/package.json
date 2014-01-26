@@ -41,6 +41,7 @@
     "grunt-phonegap": "~0.6.2",
     "grunt-node-webkit-builder": "~0.1.14",
     "grunt-curl": "~1.2.1",
-    "grunt-tar.gz": "~0.0"
+    "grunt-tar.gz": "~0.0",
+    "grunt-contrib-compress": "~0.6.0"
   }
 }
