@@ -5,4 +5,5 @@ node_js:
 before_script: 
   - npm install -g grunt-cli node-pre-gyp@0.3.1
   - cd maracuya
+  - export NODE_MPG123N_CI=true
   - npm install
