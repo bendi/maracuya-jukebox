@@ -1,8 +1,11 @@
+#!/usr/bin/env node
+
+
 var	qrCode = require('qrcode-npm'),
 	exec = require('child_process').exec; 
 
 //var text = "I want it all!";
-var text = process.argv[1];
+var text = process.argv[2];
 
 var qr = qrCode.qrcode(4, 'M');
 qr.addData(text);
