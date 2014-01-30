@@ -7,7 +7,7 @@ function run(port) {
     ips.forEach(function (ip) {
         out.push("http://" + ip + ":" + port);
     });
-    var child = exec(__dirname + "/../../../epaper/epaper.sh", [out.join()]);
+    var child = exec(__dirname + "/../../../epaper/epaper.js", [out.join()]);
 
     child.stderr.on("data", function (data) {
         console.log("" + data);
