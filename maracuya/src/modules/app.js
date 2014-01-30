@@ -8,7 +8,8 @@ var express = require("express"),
     appDir = require("../util/appDir"),
     getIp = require("../util/getMyIp"),
     routes = require("../routes"),
-    port = process.env.PORT || 8280;
+    port = process.env.PORT || 8280,
+    epaper = require("../util/runEpaper.js");
 
 function logErrors(err, req, res, next) {
     console.error(err.stack);
@@ -79,4 +80,6 @@ module.exports = function (model, db, standalone) {
 
     server.listen(port);
 
+    // quick hack - start epaper script
+    epaper(port);
 };

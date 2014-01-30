@@ -2,7 +2,7 @@
 
 
 var	qrCode = require('qrcode-npm'),
-	exec = require('child_process').exec; 
+    exec = require('child_process').exec;
 
 //var text = "I want it all!";
 var text = process.argv[2];
@@ -15,9 +15,8 @@ var img = qr.createImgTag(4);    // creates an <img> tag as text
 
 img = img.replace(/^.*?src="(.*?)".*$/, "$1");
 
-var child = exec("sudo python "+__dirname+"/epaper.py '" + img + "'", function(e, stdout, stdin){
-if (e) {
-console.log(e);
-}
-
+var child = exec("sudo python "+__dirname+"/epaper.py '" + img + "'", function (e, stdout, stdin) {
+    if (e) {
+        console.log(e);
+    }
 });
