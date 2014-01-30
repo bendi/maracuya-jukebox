@@ -1,5 +1,5 @@
 var getIp = require("../util/getMyIp"),
-    exec = require('child_process').spawn;
+    exec = require("child_process").spawn;
 
 function run(port) {
     var ips = getIp(),
@@ -7,16 +7,15 @@ function run(port) {
     ips.forEach(function (ip) {
         out.push("http://" + ip + ":" + port);
     });
-console.log("Found ips", out);
     var child = exec(__dirname + "/../../../epaper/epaper.sh", [out.join()]);
 
-child.stderr.on('data', function (data) {
-console.log('' + data);
-});
+    child.stderr.on("data", function (data) {
+        console.log("" + data);
+    });
 
-child.stdout.on('data', function (data) {
-  console.log('' + data);
-});
+    child.stdout.on("data", function (data) {
+        console.log("" + data);
+    });
 
 }
 

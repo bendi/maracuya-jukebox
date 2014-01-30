@@ -1,7 +1,7 @@
 #!/opt/node/bin/node
 
-var	qrCode = require('qrcode-npm'),
-    exec = require('child_process').exec;
+var	qrCode = require("qrcode-npm"),
+    exec = require("child_process").exec;
 
 //var text = "I want it all!";
 var text = process.argv[2];
@@ -20,5 +20,5 @@ var child = exec("sudo python "+__dirname+"/epaper.py '" + img + "'",function (e
     if (error !== null) {
       console.log('exec error: ' + error);
     }
-}); 
+});
 
