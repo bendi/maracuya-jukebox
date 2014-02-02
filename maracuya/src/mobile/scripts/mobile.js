@@ -40,13 +40,16 @@ function ($, jqm, _, config, server, router, common, eventHandler, scanner) {
                 $.mobile.loading("hide");
 
                 $.mobile.changePage("#player", {
+                    transition: "slide"
                 });
             });
 
             mBus.addListener("connect_failed", function () {
                 $.mobile.loading("hide");
 
-                $.mobile.changePage("#connectFailed", { role: "dialog" });
+                $.mobile.changePage("#connectFailed", {
+                    role: "dialog"
+                });
             });
 
             return mBus;

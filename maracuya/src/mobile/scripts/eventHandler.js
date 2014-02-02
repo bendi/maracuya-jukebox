@@ -32,8 +32,10 @@ function ($, jqm, _) {
 
             // JZ: Code responsible for qr code scanner
             $(document).on("vclick", "#scan", function (e) {
-                //alert("JZ: lets try");
-                mBus.notify("scanConfigCode");
+                // give UI time to update button state
+                _.defer(function () {
+                    mBus.notify("scanConfigCode");
+                });
             });
 
             mBus.addListener("codeScanned", function (code) {

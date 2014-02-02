@@ -5,12 +5,77 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <title>Maracuya - Virtual Jukebox, lan mp3 player</title>
+<style>
+.content {
+    padding: 0 10px;
+}
+</style>
+
+<link rel="stylesheet" href="skins/jqm14/jquery.mobile-1.4.0.min.css" />
+<link rel="stylesheet" href="skins/maracuya-mobile/style.css" />
+
+</head>
+
+<body>
+<div data-role="page" id="loading">
+    <div data-role="header">
+        <a href="#" data-role="button" data-icon="info" data-iconpos="notext" class="ui-btn-right">Info</a>
+        <h1>Loading...</h1>
+    </div>
+    <div class="content" style="text-align: center; height: inherit; padding-top: 20px;">
+        <img src="skins/maracuya-mobile/images/e-jukebox.png" width="80%" />
+    </div>
+</div>
+
+<div data-role="page" id="main">
+    <div data-role="header">
+        <a href="#" data-role="button" data-icon="info" data-iconpos="notext" class="ui-btn-right">Info</a>
+        <h1>Connect</h1>
+    </div>
+    <div class="content">
+        <input type="text" id="connectUrl" value="http://localhost:8280" data-mini="true" />
+        <div class="footer" data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-type="horizontal">
+                <ul>
+                    <li><a id="connect" href="#">Connect</a></li>
+                    <li><a id="scan" href="#">Scan</a>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div data-role="page" id="player">
+    <div data-role="header">
+        <h4>Playlist</h4>
+    </div>
+    <ui data-role="listview" id="playlist" data-filter="true">
+    </ui>
+    <div id="footer" class="" data-role="footer" data-position="fixed">
+        <div data-role="controlgroup" data-type="horizontal">
+            <input type="button" data-action="prev" data-icon="maracuya-prev" data-iconpos="notext" data-inline="true" value="Previous">
+            <input type="button" data-action="stop" data-icon="maracuya-stop" data-iconpos="notext" data-inline="true" value="Stop">
+            <input type="button" data-action="play" data-icon="maracuya-play" data-iconpos="notext" data-inline="true" value="Play">
+            <input type="button" data-action="next" data-icon="maracuya-next" data-iconpos="notext" data-inline="true" value="Next">
+        </div>
+    </div>
+</div>
+
+
+<div data-role="page" id="connectFailed">
+  <div data-role="header">
+    <h2>Connect failed</h2>
+  </div>
+  <div role="main" class="ui-content">
+    <p>I was unable to connect to given address.</p>
+  </div>
+</div>
+
 
 <script src="../cordova.js"></script>
 <script src="external/requirejs-2.1.2.js"></script>
 
-<link rel="stylesheet" href="skins/jqm14/jquery.mobile-1.4.0.min.css" />
-<link rel="stylesheet" href="skins/maracuya-mobile/style.css" />
 
 <!-- @ifdef WEINRE_URL -->
 <script src="<!-- @echo WEINRE_URL -->/target/target-script-min.js#anonymous"></script>
@@ -56,9 +121,15 @@ require(['mobile'], function(mobile) {
         connectUrl = 'http://localhost:8280';
         <!-- @endif -->
 
+        _.delay(function () {
+            $.mobile.changePage("#main", {
+                transition: "slide"
+            });
+        }, 100)
+
         if (connectUrl) {
-            _.defer(function() {
-                mBus.notify('connect', connectUrl);
+            $(document).one("pageshow", "#main", function() {
+                //mBus.notify('connect', connectUrl);
             });
         }
     }
@@ -71,46 +142,5 @@ require(['mobile'], function(mobile) {
 });
 
 </script>
-</head>
-
-<body>
-<div data-role="page" id="main">
-    <div data-role="header">
-        <a href="#" data-role="button" data-icon="info" data-iconpos="notext" class="ui-btn-right">Info</a>
-        <h4>Connection</h4>
-    </div>
-    <input type="text" id="connectUrl" value="http://localhost:8280" data-mini="true" />
-    <div data-role="footer" data-position="fixed">
-        <div data-role="navbar" data-type="horizontal">
-            <ul>
-                <li><a id="connect" href="#">Connect</a></li>
-                <li><a id="scan" href="#">Scan</a>
-            </ul>
-        </div>
-    </div>
-</div>
-<div data-role="page" id="player">
-    <div data-role="header">
-        <h4>Playlist</h4>
-    </div>
-    <ui data-role="listview" id="playlist" data-filter="true">
-    </ui>
-    <div id="footer" data-role="footer" data-position="fixed">
-        <div data-role="controlgroup" data-type="horizontal">
-            <input type="button" data-action="prev" data-icon="maracuya-prev" data-iconpos="notext" data-inline="true" value="Previous">
-            <input type="button" data-action="stop" data-icon="maracuya-stop" data-iconpos="notext" data-inline="true" value="Stop">
-            <input type="button" data-action="play" data-icon="maracuya-play" data-iconpos="notext" data-inline="true" value="Play">
-            <input type="button" data-action="next" data-icon="maracuya-next" data-iconpos="notext" data-inline="true" value="Next">
-        </div>
-    </div>
-</div>
-<div data-role="page" id="connectFailed">
-  <div data-role="header">
-    <h2>Connect failed</h2>
-  </div>
-  <div role="main" class="ui-content">
-    <p>I was unable to connect to given address.</p>
-  </div>
-</div>
 </body>
 </html>
