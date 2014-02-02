@@ -89,7 +89,7 @@ module.exports = function (grunt) {
             "post-mobile" : [
                 "build/src/mobile/index.html",
                 "build/src/mobile/skins/mobile_runner",
-                "build/src/mobile/skins/maracuya-mobile/images",
+                "build/src/mobile/skins/maracuya-mobile/images/media-*.png",
                 "build/src/modules",
                 "build/src/public",
                 "build/src/routes",
@@ -332,6 +332,13 @@ module.exports = function (grunt) {
                         return process.env.ANDROID_STORE_PASSWORD;
                     }
                 },
+                icons: {
+                    android: {
+                        mdpi: "../distrib/mobile/android/icons/e-jukebox-48-mdpi.png",
+                        hdpi: "../distrib/mobile/android/icons/e-jukebox-72-hdpi.png",
+                        xhdpi: "../distrib/mobile/android/icons/e-jukebox-96-xhdpi.png"
+                    },
+                }
             }
         },
         nodewebkit: {

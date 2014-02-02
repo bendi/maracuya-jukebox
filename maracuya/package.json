@@ -38,7 +38,7 @@
     "grunt": "~0.4.0",
     "node-gyp": "*",
     "grunt-env": "~0.4.1",
-    "grunt-phonegap": "~0.6.2",
+    "grunt-phonegap": "*",
     "grunt-node-webkit-builder": "~0.1.14",
     "grunt-curl": "~1.2.1",
     "grunt-tar.gz": "~0.0",
