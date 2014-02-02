@@ -40,9 +40,9 @@ module.exports = function (grunt) {
     }
 
     var pkg = require("./package.json"),
-		mpg123n = require("./node_modules/mpg123n/package.json"),
-		mp3info = require("./node_modules/mp3info/package.json"),
-		sqlite3 = require("./node_modules/sqlite3/package.json");
+        mpg123n = require("./node_modules/mpg123n/package.json"),
+        mp3info = require("./node_modules/mp3info/package.json"),
+        sqlite3 = require("./node_modules/sqlite3/package.json");
 
     // Project configuration.
     grunt.initConfig({
@@ -105,7 +105,11 @@ module.exports = function (grunt) {
             main: {
                 files: [
                     {expand: true, src : ["src/**"], dest : "build/src/"},
-                    {expand: true, flatten: true, src : ["package.json", "../README.md"], dest : "build/"},
+                    {expand: true, flatten: true, src : ["package.json", "../README.md"], dest : "build/"}
+                ]
+            },
+            node_modules: {
+                files: [
                     {expand: true, src: ["!node_modules/grunt**", "!node_modules/node-gyp**", "node_modules/**"], dest: "build"}
                 ]
             },
@@ -350,14 +354,14 @@ module.exports = function (grunt) {
     // Default task.
     grunt.registerTask("default", "jshint");
     grunt.registerTask("build:mobile", [ "env:dev", "jshint", "clean:build", "copy:main", "requirejs:mobile", "imageEmbed:mobile", "preprocess:mobile", "clean:post-mobile", "copy:mobileBuildOutput", "phonegap:build" ]);
-    grunt.registerTask("build:web", [ "env:dev", "jshint", "clean:build", "copy:main", "requirejs:web", "imageEmbed:web", "preprocess:web", "clean:post-web" ]);
+    grunt.registerTask("build:web", [ "env:dev", "jshint", "clean:build", "copy:main", "copy:node_modules", "requirejs:web", "imageEmbed:web", "preprocess:web", "clean:post-web" ]);
     grunt.registerTask("build:demo", [ "env:dev", "jshint", "clean:build", "copy:main", "requirejs:demo", "imageEmbed:web", "preprocess:web", "clean:post-web" ]);
 
     grunt.registerTask("release:mobile", [ "env:mobile", "jshint", "clean:build", "copy:main", "requirejs:mobile", "imageEmbed:mobile", "preprocess:mobile", "clean:post-mobile", "copy:mobileBuildOutput", "phonegap:release" ]);
-    grunt.registerTask("release:web", [ "env:web", "jshint", "clean:build", "copy:main", "requirejs:web", "imageEmbed:web", "preprocess:web", "clean:post-web" ]);
+    grunt.registerTask("release:web", [ "env:web", "jshint", "clean:build", "copy:main", "copy:node_modules", "requirejs:web", "imageEmbed:web", "preprocess:web", "clean:post-web" ]);
 
-    grunt.registerTask("release:standalone:win", [ "env:standalone", "jshint", "clean:build", "copy:main", "requirejs:web", "imageEmbed:web", "preprocess:web", "clean:post-web", "curl", "targz:standalone_win", "nodewebkit", "copy:standalone_sample_data_nw_win", "compress:standalone_win" ]);
-    grunt.registerTask("release:standalone", [ "env:standalone", "jshint", "clean:build", "copy:main", "requirejs:web", "imageEmbed:web", "preprocess:web", "clean:post-web" ]);
+    grunt.registerTask("release:standalone:win", [ "env:standalone", "jshint", "clean:build", "copy:main", "copy:node_modules", "requirejs:web", "imageEmbed:web", "preprocess:web", "clean:post-web", "curl", "targz:standalone_win", "nodewebkit", "copy:standalone_sample_data_nw_win", "compress:standalone_win" ]);
+    grunt.registerTask("release:standalone", [ "env:standalone", "jshint", "clean:build", "copy:main", "copy:node_modules", "requirejs:web", "imageEmbed:web", "preprocess:web", "clean:post-web" ]);
 
     grunt.registerTask("test", ["jshint"]);
 };
