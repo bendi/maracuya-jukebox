@@ -338,6 +338,12 @@ module.exports = function (grunt) {
                         hdpi: "../distrib/mobile/android/icons/e-jukebox-72-hdpi.png",
                         xhdpi: "../distrib/mobile/android/icons/e-jukebox-96-xhdpi.png"
                     },
+                    ios: {
+                        icon57: "../distrib/mobile/ios/icons/e-jukebox-57.png",
+                        icon57x2: "../distrib/mobile/ios/icons/e-jukebox-57-2x.png",
+                        icon72: "../distrib/mobile/ios/icons/e-jukebox-72.png",
+                        icon72x2: "../distrib/mobile/ios/icons/e-jukebox-72-2x.png"
+                    }
                 }
             }
         },
