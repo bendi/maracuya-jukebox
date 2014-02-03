@@ -120,7 +120,7 @@ require(['mobile'], function(mobile) {
 
         _.delay(function () {
             gotoMain();
-            mBus.on("gotoMain", gotoMain)
+            mBus.addListener("gotoMain", gotoMain)
         }, 200)
 
         if (connectUrl) {
