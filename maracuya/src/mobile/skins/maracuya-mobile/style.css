@@ -22,3 +22,16 @@
     background-position: center center;
 }
 
+
+.content {
+    padding: 0 10px;
+}
+#loading {
+    height: 100%;
+    display: table;
+}
+#loading .content {
+    display: table-cell;
+    vertical-align: middle;
+}
+

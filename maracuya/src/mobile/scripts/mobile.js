@@ -11,6 +11,41 @@ define([
 ],
 function ($, jqm, _, config, server, router, common, eventHandler, scanner) {
 
+
+    function connect(url) {
+        $.mobile.loading("show", {
+            text: "connecting",
+            textVisible: true
+        });
+
+        $.get = _.wrap($.get, function (get) {
+            var args = _.rest(arguments);
+            args[0] = url + args[0];
+            return get.apply(this, args);
+        });
+
+        server.init({
+            homeUrl: url,
+            pageSize: config("playlistPageSize")
+        });
+    }
+
+    function appReady(data) {
+        $.mobile.loading("hide");
+
+        $.mobile.changePage("#player", {
+            transition: "slide"
+        });
+    }
+
+    function connectFailed() {
+        $.mobile.loading("hide");
+
+        $.mobile.changePage("#connectFailed", {
+            role: "dialog"
+        });
+    }
+
     return {
 
         init: function () {
@@ -18,39 +53,9 @@ function ($, jqm, _, config, server, router, common, eventHandler, scanner) {
             scanner.init(mBus);
             eventHandler.init(mBus);
 
-            mBus.addListener("connect", function (url) {
-                $.mobile.loading("show", {
-                    text: "connecting",
-                    textVisible: true
-                });
-
-                $.get = _.wrap($.get, function (get) {
-                    var args = _.rest(arguments);
-                    args[0] = url + args[0];
-                    return get.apply(this, args);
-                });
-
-                server.init({
-                    homeUrl: url,
-                    pageSize: config("playlistPageSize")
-                });
-            });
-
-            mBus.addListener("appReady", function (data) {
-                $.mobile.loading("hide");
-
-                $.mobile.changePage("#player", {
-                    transition: "slide"
-                });
-            });
-
-            mBus.addListener("connect_failed", function () {
-                $.mobile.loading("hide");
-
-                $.mobile.changePage("#connectFailed", {
-                    role: "dialog"
-                });
-            });
+            mBus.addListener("connect", connect);
+            mBus.addListener("appReady", appReady);
+            mBus.addListener("connect_failed", connectFailed);
 
             return mBus;
         }

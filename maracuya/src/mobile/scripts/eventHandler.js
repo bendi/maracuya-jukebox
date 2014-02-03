@@ -30,6 +30,10 @@ function ($, jqm, _) {
                 mBus.notify("connect", url);
             });
 
+            $(document).on("vclick", "#loading .content", function (e) {
+                mBus.notify("gotoMain");
+            });
+
             // JZ: Code responsible for qr code scanner
             $(document).on("vclick", "#scan", function (e) {
                 // give UI time to update button state

@@ -5,11 +5,6 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <title>Maracuya - Virtual Jukebox, lan mp3 player</title>
-<style>
-.content {
-    padding: 0 10px;
-}
-</style>
 
 <link rel="stylesheet" href="skins/jqm14/jquery.mobile-1.4.0.min.css" />
 <link rel="stylesheet" href="skins/maracuya-mobile/style.css" />
@@ -17,12 +12,8 @@
 </head>
 
 <body>
-<div data-role="page" id="loading">
-    <div data-role="header">
-        <a href="#" data-role="button" data-icon="info" data-iconpos="notext" class="ui-btn-right">Info</a>
-        <h1>Loading...</h1>
-    </div>
-    <div class="content" style="text-align: center; height: inherit; padding-top: 20px;">
+<div data-role="page" id="loading" style="">
+    <div class="content" style="text-align: center; height: inherit;">
         <img src="skins/maracuya-mobile/images/e-jukebox.png" width="80%" />
     </div>
 </div>
@@ -109,6 +100,12 @@ require.config({
 
 require(['mobile'], function(mobile) {
 
+    function gotoMain() {
+        $.mobile.changePage("#main", {
+            transition: "slide"
+        });
+    }
+
     function init() {
         var mBus = mobile.init(),
             connectUrl;
@@ -122,14 +119,13 @@ require(['mobile'], function(mobile) {
         <!-- @endif -->
 
         _.delay(function () {
-            $.mobile.changePage("#main", {
-                transition: "slide"
-            });
-        }, 100)
+            gotoMain();
+            mBus.on("gotoMain", gotoMain)
+        }, 200)
 
         if (connectUrl) {
             $(document).one("pageshow", "#main", function() {
-                //mBus.notify('connect', connectUrl);
+               mBus.notify('connect', connectUrl);
             });
         }
     }
