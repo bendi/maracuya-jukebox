@@ -24,9 +24,9 @@ function setWidthHeight(w, h, v) {
 	document.getElementsByTagName("div")[0].style.cssText = "width: " + w + "px; height: " + h + "px";
 }
 
-function orientationChange(vertical) {
-	if (current || current.vertical !== vertical) {
-		setWidthHeight(current.height, current.width, vertical);
+function orientationChange(orientation) {
+	if (current && current.vertical !== orientation) {
+		setWidthHeight(current.height, current.width, orientation);
 		updateHash(current);
 	}
 }

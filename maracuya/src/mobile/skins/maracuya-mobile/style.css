@@ -22,6 +22,44 @@
     background-position: center center;
 }
 
+html, body {
+	max-height: 99.9%;
+}
+
+@media (max-width: 1536px) {
+  html { 
+	background: blue; 
+  }
+}
+
+@media (max-height: 1536px) and (orientation: landscape) {
+  html { 
+	background: lightblue; 
+  }
+}
+
+@media (max-width: 768px) {
+  html { 
+	background: red; 
+  }
+}
+@media (max-height: 768px) and (orientation: landscape) {
+  html { 
+	background: pink; 
+  }
+}
+
+@media (max-width: 640px) {
+  html { 
+	background: green; 
+  }
+}
+
+@media (max-height: 640px) and (orientation: landscape) {
+  html { 
+	background: teal; 
+  }
+}
 
 .content {
     padding: 0 10px;
