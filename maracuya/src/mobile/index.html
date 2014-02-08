@@ -7,15 +7,26 @@
 <title>Maracuya - Virtual Jukebox, lan mp3 player</title>
 <script type="text/javascript">
 var current = {width: 640, height: 1136};
-function setWidthHeight(w, h) {
-	current = {width: w, height: h, vertical: true};
+function setWidthHeightFromHash(hash) { 
+	if (!hash && hash.length <= 1) {
+		return;
+	}
+	hash = hash.substring(1);
+	hash = hash.split('/');
+	if (hash[2] === "true") {
+		setWidthHeightWithOrientation(hash[0], hash[1], hash[2] === "true" ? "vertical" : "horizontal");
+	} else {
+		setWidthHeightWithOrientation(hash[1], hash[0], hash[2] === "true" ? "vertical" : "horizontal");
+	}
+}
+function setWidthHeight(w, h, v) {
+	current = {width: w, height: h, vertical: v};
 	document.getElementsByTagName("div")[0].style.cssText = "width: " + w + "px; height: " + h + "px";
 }
 
 function orientationChange(vertical) {
 	if (current || current.vertical !== vertical) {
-		setWidthHeight(current.height, current.width);
-		current.vertical = vertical;
+		setWidthHeight(current.height, current.width, vertical);
 		updateHash(current);
 	}
 }
@@ -26,7 +37,25 @@ function updateHash(w, h, vertical) {
 		h = w.height;
 		w = w.width;
 	}
-	location.hash = "#" + w + "/" + h + "/" + (vertical||false);
+	location.hash = "#" + w + "/" + h + "/" + vertical;
+}
+
+function setWidthHeightWithOrientation(w, h, o) {
+		switch(o) {
+			case "vertical":
+				setWidthHeight(w, h, true);
+				break;
+			case "horizontal":
+			default:
+				setWidthHeight(h, w, false);
+				break;
+		}
+		setTimeout(function () {
+			var v = h+"x"+w;
+			document.getElementsByTagName("form")[0].elements.device.value=v;
+			document.getElementsByTagName("form")[0].elements.orientation.value=o;
+			updateHash(current);
+		}, 1);
 }
 
 onload = function () {
@@ -34,17 +63,8 @@ onload = function () {
 		var size = this.value.split("x"),
 			height = size[0],
 			width = size[1];
-		
-		switch(this.form.elements.orientation.value) {
-			case "vertical":
-				setWidthHeight(width, height);
-				break;
-			case "horizontal":
-			default:
-				setWidthHeight(height, width);
-				break;
-		}
-		updateHash(current);
+			
+		setWidthHeightWithOrientation(width, height, this.form.elements.orientation.value);
 	};
 	document.getElementsByTagName("form")[0].addEventListener("click", function (e) {
 		if (!/input/i.test(e.target.nodeName)) {
@@ -67,8 +87,8 @@ form {
 .container iframe {
 	margin-top: 7px;
 	margin-left: 26px;
-	width: 85%;
-	height: 77%;
+	width: 100%;
+	height: 100%;
 }
 #deviceSelection {
 	margin-left: 30px;
@@ -79,7 +99,7 @@ form {
 <div class="container">
 <div id="deviceSelection">
 <form>
-	<select>
+	<select name="device">
 		<option value="960x640">iPhone Retina</option>
 		<option value="1136x640" selected="selected">iPhone 5</option>
 		<option value="1024x768">iPad</option>
@@ -89,6 +109,7 @@ form {
 	<label><input type="radio" name="orientation" value="horizontal">Horizontal</label>
 </form>
 </div>
+<script>setWidthHeightFromHash(location.hash);</script>
 <iframe src="mobile.html" frameborder="no" />
 </div>
 </body>
