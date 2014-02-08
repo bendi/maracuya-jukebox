@@ -23,41 +23,125 @@
 }
 
 html, body {
-	max-height: 99.9%;
+    max-height: 99.9%;
+}
+
+.ui-navbar li:last-child .ui-btn {
+    margin-right: 1px;
 }
 
 @media (max-width: 1536px) {
-  html { 
-	background: blue; 
+  #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls .ui-btn-icon-notext,
+  #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls button.ui-btn-icon-notext {
+      width: 16em;
   }
+}
+
+@media (orientation: landscape) {
+    #loading img {
+        height: 80%;
+        width: auto;
+    }
+
+    .ui-header .ui-navbar .ui-btn,
+    .ui-footer .ui-navbar .ui-btn {
+        height: 50px;
+        padding-top: 25px;
+    }
 }
 
 @media (max-height: 1536px) and (orientation: landscape) {
-  html { 
-	background: lightblue; 
+  #player.ui-page {
+      padding-left: 8%;
+      width: 92%;
+      left: 0px;
+  }
+  #player .ui-footer-fixed {
+      left: 0;
+      right: auto;
+      top: 0;
+      bottom: 0;
+      width: 7%;
+      height: 100%;
+      padding-left: 1%;
+      padding-top: 2.1em;
+  }
+  #playlist {
+      padding-left: 2px;
+  }
+  #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls .ui-btn-icon-notext,
+  #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls button.ui-btn-icon-notext {
+      width: 5.5em;
   }
 }
 
-@media (max-width: 768px) {
-  html { 
-	background: red; 
+@media (max-width: 768px) and (max-height: 1024px) {
+  #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls .ui-btn-icon-notext,
+  #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls button.ui-btn-icon-notext {
+      width: 8.5em;
   }
 }
-@media (max-height: 768px) and (orientation: landscape) {
-  html { 
-	background: pink; 
+@media (max-height: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  #player.ui-page {
+      padding-left: 8%;
+      width: 92%;
+      left: 0px;
+  }
+  #player .ui-footer-fixed {
+      left: 0;
+      right: auto;
+      top: 0;
+      bottom: 0;
+      width: 7%;
+      height: 100%;
+      padding-left: 1%;
+      padding-top: 2.1em;
+  }
+  #playlist {
+      padding-left: 2px;
+  }
+  #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls .ui-btn-icon-notext,
+  #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls button.ui-btn-icon-notext {
+      width: 1.5em;
   }
 }
 
 @media (max-width: 640px) {
-  html { 
-	background: green; 
+  #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls .ui-btn-icon-notext,
+  #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls button.ui-btn-icon-notext {
+      width: 6em;
   }
 }
 
 @media (max-height: 640px) and (orientation: landscape) {
-  html { 
-	background: teal; 
+  #player.ui-page {
+      padding-left: 8%;
+      width: 92%;
+      left: 0px;
+  }
+  #player .ui-footer-fixed {
+      left: 0;
+      right: auto;
+      top: 0;
+      bottom: 0;
+      width: 7%;
+      height: 100%;
+      padding-left: 1%;
+      padding-top: 2.1em;
+  }
+  #playlist {
+      padding-left: 2px;
+  }
+  #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls .ui-btn-icon-notext,
+  #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls button.ui-btn-icon-notext {
+      width: 1.5em;
+  }
+}
+
+@media (max-height: 640px) and (max-width: 1136px) and (orientation: landscape) {
+  #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls .ui-btn-icon-notext,
+  #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls button.ui-btn-icon-notext {
+      width: 2em;
   }
 }
 
