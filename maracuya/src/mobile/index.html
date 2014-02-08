@@ -5,22 +5,90 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <title>Maracuya - Virtual Jukebox, lan mp3 player</title>
+<script type="text/javascript">
+var current = {width: 640, height: 1136};
+function setWidthHeight(w, h) {
+	current = {width: w, height: h, vertical: true};
+	document.getElementsByTagName("div")[0].style.cssText = "width: " + w + "px; height: " + h + "px";
+}
+
+function orientationChange(vertical) {
+	if (current || current.vertical !== vertical) {
+		setWidthHeight(current.height, current.width);
+		current.vertical = vertical;
+		updateHash(current);
+	}
+}
+
+function updateHash(w, h, vertical) {
+	if (typeof(w) === "object" ) {
+		vertical = w.vertical;
+		h = w.height;
+		w = w.width;
+	}
+	location.hash = "#" + w + "/" + h + "/" + (vertical||false);
+}
+
+onload = function () {
+	document.getElementsByTagName("select")[0].onchange = function (e) {
+		var size = this.value.split("x"),
+			height = size[0],
+			width = size[1];
+		
+		switch(this.form.elements.orientation.value) {
+			case "vertical":
+				setWidthHeight(width, height);
+				break;
+			case "horizontal":
+			default:
+				setWidthHeight(height, width);
+				break;
+		}
+		updateHash(current);
+	};
+	document.getElementsByTagName("form")[0].addEventListener("click", function (e) {
+		if (!/input/i.test(e.target.nodeName)) {
+			return;
+		}
+		orientationChange(this.elements.orientation.value === "vertical");
+	});
+};
+</script>
 <style>
+form {
+	margin: 0;
+	padding: 0;
+}
 .container {
-	background-image: url(skins/mobile_runner/phone.png);
 	background-repeat: no-repeat;
-	width: 380px;
-	height: 700px;
+	width: 640px;
+	height: 960px;
 }
 .container iframe {
-	margin-top: 82px;
+	margin-top: 7px;
 	margin-left: 26px;
-	width: 321px;
-	height: 534px;
+	width: 85%;
+	height: 77%;
+}
+#deviceSelection {
+	margin-left: 30px;
+	padding-top: 50px;
 }
 </style>
 <body>
 <div class="container">
+<div id="deviceSelection">
+<form>
+	<select>
+		<option value="960x640">iPhone Retina</option>
+		<option value="1136x640" selected="selected">iPhone 5</option>
+		<option value="1024x768">iPad</option>
+		<option value="2048x1536">iPad Retina</option>
+	</select>
+	<label><input type="radio" name="orientation" value="vertical" checked="checked">Vertical</label>
+	<label><input type="radio" name="orientation" value="horizontal">Horizontal</label>
+</form>
+</div>
 <iframe src="mobile.html" frameborder="no" />
 </div>
 </body>
