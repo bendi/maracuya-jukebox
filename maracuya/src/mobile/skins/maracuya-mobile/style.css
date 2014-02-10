@@ -1,55 +1,46 @@
 .ui-btn.ui-input-btn.ui-icon-maracuya-prev {
-    background-image: url('images/media-rewind.png');
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3gEMFhoLrAK9ZgAAAE9JREFUOMtjYBjWgJ+BgaGeXPl4BgaG9wwMDP9JlbdnYGDYD5X4j0UBTnl5BgaG+WgSyArwytcjOQcbxivPRK0Qp8gLVAlEqkUj1RLSEAIAPVpBD9LM6U4AAAAASUVORK5CYII=);
     background-repeat: no-repeat;
     background-position: center center;
 }
-
 .ui-btn.ui-input-btn.ui-icon-maracuya-next {
-    background-image: url('images/media-fast-forward.png');
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3gEMFhsVTxaxRAAAAE9JREFUOMtjYBgWoJ6BgYGfAnmG/wwMDO8ZGBjiyZRn+I+E9zMwMNiTKI+iAIbnMzAwyBMpj1UBzNn1hOSZqBELVPUC2YFIUTRSnJCGOAAAIvdBD4tKuVsAAAAASUVORK5CYII=);
     background-repeat: no-repeat;
     background-position: center center;
 }
-
 .ui-btn.ui-input-btn.ui-icon-maracuya-play {
-    background-image: url('images/media-play.png');
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3gEMFhoy8wc1bgAAAEhJREFUOMtjYBiWoJ6BgYGfEgP+MzAwvGdgYIinxAAY3s/AwGBPiQEwPJ+BgUGeEgNg3qpHV8xEi1igqhfIDkSKopHihDTEAACVhCCJsImmRQAAAABJRU5ErkJggg==);
     background-repeat: no-repeat;
     background-position: center center;
 }
-
 .ui-btn.ui-input-btn.ui-icon-maracuya-stop {
-    background-image: url('images/media-stop.png');
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3gEMFhoftthpGwAAAB1JREFUOMtjYBjygBGL2H9S9DBR6oJRA0YNGCYAAGT6ART8Tb3EAAAAAElFTkSuQmCC);
     background-repeat: no-repeat;
     background-position: center center;
 }
-
 html, body {
     max-height: 99.9%;
 }
-
 .ui-navbar li:last-child .ui-btn {
     margin-right: 1px;
 }
-
 @media (max-width: 1536px) {
   #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls .ui-btn-icon-notext,
   #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls button.ui-btn-icon-notext {
       width: 16em;
   }
 }
-
 @media (orientation: landscape) {
     #loading img {
         height: 80%;
         width: auto;
     }
-
     .ui-header .ui-navbar .ui-btn,
     .ui-footer .ui-navbar .ui-btn {
         height: 50px;
         padding-top: 25px;
     }
 }
-
 @media (max-height: 1536px) and (orientation: landscape) {
   #player.ui-page {
       padding-left: 8%;
@@ -74,7 +65,6 @@ html, body {
       width: 5.5em;
   }
 }
-
 @media (max-width: 768px) and (max-height: 1024px) {
   #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls .ui-btn-icon-notext,
   #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls button.ui-btn-icon-notext {
@@ -105,18 +95,16 @@ html, body {
       width: 1.5em;
   }
 }
-
 @media (max-width: 640px) {
   #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls .ui-btn-icon-notext,
   #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls button.ui-btn-icon-notext {
-      width: 6em;
+      width: 2em;
   }
 }
-
 @media (max-height: 640px) and (orientation: landscape) {
   #player.ui-page {
-      padding-left: 8%;
-      width: 92%;
+      padding-left: 13%;
+      width: 87%;
       left: 0px;
   }
   #player .ui-footer-fixed {
@@ -124,7 +112,7 @@ html, body {
       right: auto;
       top: 0;
       bottom: 0;
-      width: 7%;
+      width: 13%;
       height: 100%;
       padding-left: 1%;
       padding-top: 2.1em;
@@ -137,14 +125,12 @@ html, body {
       width: 1.5em;
   }
 }
-
 @media (max-height: 640px) and (max-width: 1136px) and (orientation: landscape) {
   #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls .ui-btn-icon-notext,
   #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls button.ui-btn-icon-notext {
       width: 2em;
   }
 }
-
 .content {
     padding: 0 10px;
 }
@@ -156,4 +142,3 @@ html, body {
     display: table-cell;
     vertical-align: middle;
 }
-
