@@ -8,6 +8,15 @@
         The JS Team
     </author>
     <feature name="http://api.phonegap.com/1.0/device" />
+	<feature name="WebSocket">
+        <param name="android-package" value="com.ququplay.websocket.WebSocket" />
+    </feature>
+    <feature name="BarcodeScanner">
+                    <param name="ios-package" value="CDVBarcodeScanner" />
+
+        <param name="android-package" value="com.phonegap.plugins.barcodescanner.BarcodeScanner" />
+    </feature>
+
     <preference name="permissions" value="none" />
     <preference name="orientation" value="default" />
     <preference name="target-device" value="universal" />
