@@ -1,20 +1,20 @@
 .ui-btn.ui-input-btn.ui-icon-maracuya-prev {
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3gEMFhoLrAK9ZgAAAE9JREFUOMtjYBjWgJ+BgaGeXPl4BgaG9wwMDP9JlbdnYGDYD5X4j0UBTnl5BgaG+WgSyArwytcjOQcbxivPRK0Qp8gLVAlEqkUj1RLSEAIAPVpBD9LM6U4AAAAASUVORK5CYII=);
+    background-image: url('images/media-rewind.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 .ui-btn.ui-input-btn.ui-icon-maracuya-next {
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3gEMFhsVTxaxRAAAAE9JREFUOMtjYBgWoJ6BgYGfAnmG/wwMDO8ZGBjiyZRn+I+E9zMwMNiTKI+iAIbnMzAwyBMpj1UBzNn1hOSZqBELVPUC2YFIUTRSnJCGOAAAIvdBD4tKuVsAAAAASUVORK5CYII=);
+    background-image: url('images/media-fast-forward.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 .ui-btn.ui-input-btn.ui-icon-maracuya-play {
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3gEMFhoy8wc1bgAAAEhJREFUOMtjYBiWoJ6BgYGfEgP+MzAwvGdgYIinxAAY3s/AwGBPiQEwPJ+BgUGeEgNg3qpHV8xEi1igqhfIDkSKopHihDTEAACVhCCJsImmRQAAAABJRU5ErkJggg==);
+    background-image: url('images/media-play.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 .ui-btn.ui-input-btn.ui-icon-maracuya-stop {
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3gEMFhoftthpGwAAAB1JREFUOMtjYBjygBGL2H9S9DBR6oJRA0YNGCYAAGT6ART8Tb3EAAAAAElFTkSuQmCC);
+    background-image: url('images/media-stop.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
