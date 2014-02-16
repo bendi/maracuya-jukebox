@@ -14,7 +14,7 @@
 <body>
 <div data-role="page" id="loading" style="">
     <div class="content" style="text-align: center; height: inherit;">
-        <img src="skins/maracuya-mobile/images/e-jukebox.png" width="80%" />
+        <img src="skins/maracuya-mobile/images/e-jukebox.jpg" width="80%" />
     </div>
 </div>
 
@@ -114,13 +114,13 @@ require(['mobile'], function(mobile) {
         <!-- @endif -->
 
         <!-- @if NODE_ENV='development' -->
-        connectUrl = 'http://localhost:8280';
+        connectUrl = 'http://192.168.1.4:8280';
         <!-- @endif -->
 
         _.delay(function () {
             gotoMain();
             mBus.addListener("gotoMain", gotoMain)
-        }, 200)
+        }, 500)
 
         if (connectUrl) {
             $(document).one("pageshow", "#main", function() {

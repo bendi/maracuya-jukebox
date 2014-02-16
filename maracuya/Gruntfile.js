@@ -307,11 +307,10 @@ module.exports = function (grunt) {
                 cordova : "../distrib/mobile/phonegap/.cordova",
                 path : "phonegap",
                 plugins : [
-                    "http://github.com/phonegap-build/BarcodeScanner.git ",
-                    "https://github.com/mkuklis/phonegap-websocket"
+                    "http://github.com/phonegap-build/BarcodeScanner.git"
                 ],
                 platforms : [
-                    "android"
+                    //"ios"
                 ],
                 maxBuffer : 200, // You may need to raise this for iOS.
                 verbose : false,
@@ -334,15 +333,17 @@ module.exports = function (grunt) {
                 },
                 icons: {
                     android: {
-                        mdpi: "../distrib/mobile/android/icons/e-jukebox-48-mdpi.png",
-                        hdpi: "../distrib/mobile/android/icons/e-jukebox-72-hdpi.png",
-                        xhdpi: "../distrib/mobile/android/icons/e-jukebox-96-xhdpi.png"
+                        ldpi: "../distrib/mobile/android/icons/icon-36-ldpi.png",
+                        mdpi: "../distrib/mobile/android/icons/icon-48-mdpi.png",
+                        hdpi: "../distrib/mobile/android/icons/icon-72-hdpi.png",
+                        xhdpi: "../distrib/mobile/android/icons/icon-96-xhdpi.png",
+                        xxhdpi: "../distrib/mobile/android/icons/icon-144-xxhdpi.png"
                     },
                     ios: {
-                        icon57: "../distrib/mobile/ios/icons/e-jukebox-57.png",
-                        icon57x2: "../distrib/mobile/ios/icons/e-jukebox-57-2x.png",
-                        icon72: "../distrib/mobile/ios/icons/e-jukebox-72.png",
-                        icon72x2: "../distrib/mobile/ios/icons/e-jukebox-72-2x.png"
+                        icon57: "../distrib/mobile/ios/icons/icon-57.png",
+                        icon57x2: "../distrib/mobile/ios/icons/icon-57@2x.png",
+                        icon72: "../distrib/mobile/ios/icons/icon-72.png",
+                        icon72x2: "../distrib/mobile/ios/icons/icon-72@2x.png"
                     }
                 }
             }

@@ -24,7 +24,11 @@ html, body {
 .ui-navbar li:last-child .ui-btn {
     margin-right: 1px;
 }
-@media (max-width: 1536px) {
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait)
+and (-webkit-min-device-pixel-ratio: 2) {
   #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls .ui-btn-icon-notext,
   #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls button.ui-btn-icon-notext {
       width: 16em;
@@ -41,7 +45,7 @@ html, body {
         padding-top: 25px;
     }
 }
-@media (max-height: 1536px) and (orientation: landscape) {
+@media (max-device-height: 1536px) and (orientation: landscape) {
   #player.ui-page {
       padding-left: 8%;
       width: 92%;
@@ -65,13 +69,13 @@ html, body {
       width: 5.5em;
   }
 }
-@media (max-width: 768px) and (max-height: 1024px) {
+@media screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
   #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls .ui-btn-icon-notext,
   #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls button.ui-btn-icon-notext {
       width: 8.5em;
   }
 }
-@media (max-height: 768px) and (max-width: 1024px) and (orientation: landscape) {
+@media screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
   #player.ui-page {
       padding-left: 8%;
       width: 92%;
@@ -95,16 +99,34 @@ html, body {
       width: 1.5em;
   }
 }
-@media (max-width: 640px) {
+@media screen and (device-aspect-ratio: 2/3) and (orientation: landscape) {
+  #player.ui-page {
+      padding-left: 15%;
+      width: 85%;
+      left: 0px;
+  }
+  #player .ui-footer-fixed {
+      left: 0;
+      right: auto;
+      top: 0;
+      bottom: 0;
+      width: 15%;
+      height: 100%;
+      padding-left: 1%;
+      padding-top: 2.1em;
+  }
+  #playlist {
+      padding-left: 2px;
+  }
   #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls .ui-btn-icon-notext,
   #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls button.ui-btn-icon-notext {
       width: 2em;
   }
 }
-@media (max-height: 640px) and (orientation: landscape) {
+@media screen and (device-aspect-ratio: 40/71) and (orientation: landscape) {
   #player.ui-page {
-      padding-left: 13%;
-      width: 87%;
+      padding-left: 14%;
+      width: 84%;
       left: 0px;
   }
   #player .ui-footer-fixed {
@@ -122,18 +144,13 @@ html, body {
   }
   #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls .ui-btn-icon-notext,
   #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls button.ui-btn-icon-notext {
-      width: 1.5em;
-  }
-}
-@media (max-height: 640px) and (max-width: 1136px) and (orientation: landscape) {
-  #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls .ui-btn-icon-notext,
-  #player.ui-page .ui-controlgroup-horizontal .ui-controlgroup-controls button.ui-btn-icon-notext {
       width: 2em;
   }
 }
 .content {
     padding: 0 10px;
 }
+
 #loading {
     height: 100%;
     display: table;
