@@ -1,7 +1,9 @@
 /*global module:false*/
 module.exports = function (grunt) {
     "use strict";
-
+    
+    var _ = require("lodash");
+    
     grunt.loadNpmTasks("grunt-contrib-requirejs");
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-contrib-jshint");
@@ -43,7 +45,11 @@ module.exports = function (grunt) {
         mpg123n = require("./node_modules/mpg123n/package.json"),
         mp3info = require("./node_modules/mp3info/package.json"),
         sqlite3 = require("./node_modules/sqlite3/package.json");
-
+        
+    var nodeModules = _.map(pkg.dependencies, function (k, v) {
+        return {expand: true, src: ["node_modules/" + v + "/**"], dest: "build"};
+    });
+    
     // Project configuration.
     grunt.initConfig({
         pkg : "<json:package.json>",
@@ -109,9 +115,7 @@ module.exports = function (grunt) {
                 ]
             },
             node_modules: {
-                files: [
-                    {expand: true, src: ["!node_modules/grunt**", "!node_modules/node-gyp**", "node_modules/**"], dest: "build"}
-                ]
+                files: nodeModules
             },
             mobileBuildOutput: {
                 files: [
@@ -122,13 +126,22 @@ module.exports = function (grunt) {
                 files: [
                     {cwd: "sample-data", expand: true, src: ["data/**", "mp3/**"], dest: "webkitbuilds/releases/nw/win/nw"}
                 ]
+            },
+            standalone_sample_data_nw_mac: {
+                files: [
+                    {cwd: "sample-data", expand: true, src: ["data/**", "mp3/**"], dest: "webkitbuilds/releases/nw/mac/nw.app/Contents/Resources/app.nw"}
+                ]
             }
         },
 
         curl: {
-            "tmp/win/mpg123n-nw.tgz": "https://mpg123n.s3-us-west-2.amazonaws.com/Release/bindings-v" + mpg123n.version + "-nw-0.8.3-win32-ia32.tgz",
-            "tmp/win/mp3info-nw.tgz": "https://mp3info.s3-us-west-2.amazonaws.com/Release/bindings-v" + mp3info.version + "-nw-0.8.3-win32-ia32.tgz",
-            "tmp/win/sqlite3-nw.tgz": "https://maracuya-jukebox.s3-us-west-2.amazonaws.com/Release/node_sqlite3-v" + sqlite3.version + "-nw-0.8.3-win32-ia32.tgz"
+            "tmp/win/mpg123n-nw.tgz": "https://mpg123n.s3.amazonaws.com/Release/bindings-v" + mpg123n.version + "-nw-0.8.3-win32-ia32.tgz",
+            "tmp/win/mp3info-nw.tgz": "https://mp3info.s3.amazonaws.com/Release/bindings-v" + mp3info.version + "-nw-0.8.3-win32-ia32.tgz",
+            "tmp/win/sqlite3-nw.tgz": "https://maracuya-jukebox.s3.amazonaws.com/Release/node_sqlite3-v" + sqlite3.version + "-nw-0.8.3-win32-ia32.tgz",
+            
+            "tmp/mac/mpg123n-nw.tgz": "https://mpg123n.s3.amazonaws.com/Release/bindings-v" + mpg123n.version + "-nw-0.8.3-darwin-ia32.tgz",
+            "tmp/mac/mp3info-nw.tgz": "https://mp3info.s3.amazonaws.com/Release/bindings-v" + mp3info.version + "-nw-0.8.3-darwin-ia32.tgz",
+            "tmp/mac/sqlite3-nw.tgz": "https://maracuya-jukebox.s3.amazonaws.com/Release/node_sqlite3-v" + sqlite3.version + "-nw-0.8.3-darwin-ia32.tgz"
         },
 
         // gunzip each package
@@ -140,6 +153,13 @@ module.exports = function (grunt) {
                     "build/node_modules/mpg123n/build":  "tmp/win/mpg123n-nw.tgz",
                     "build/node_modules/mp3info/build":  "tmp/win/mp3info-nw.tgz",
                     "build/node_modules/sqlite3/lib/":   "tmp/win/sqlite3-nw.tgz"
+                }
+            },
+            standalone_mac: {
+                files: {
+                    "build/node_modules/mpg123n/build":  "tmp/mac/mpg123n-nw.tgz",
+                    "build/node_modules/mp3info/build":  "tmp/mac/mp3info-nw.tgz",
+                    "build/node_modules/sqlite3/lib/":   "tmp/mac/sqlite3-nw.tgz"
                 }
             }
         },
@@ -291,11 +311,19 @@ module.exports = function (grunt) {
             },
             standalone_win: {
                 options: {
-                    archive: "dist/maracuya-jukebox-" + pkg.version + ".zip"
+                    archive: "dist/maracuya-jukebox-win-" + pkg.version + ".zip"
                 },
                 files: [
                     {cwd: "webkitbuilds/releases/nw/win/nw", src: ["**"], dest: "maracuya-jukebox/", expand: true},
                     {cwd: "webkitbuilds/releases/nw/win/nw", src: ["/data", "/mp3"], dest: "maracuya-jukebox/**", expand: true}
+                ]
+            },
+            standalone_mac: {
+                options: {
+                    archive: "dist/maracuya-jukebox-mac-" + pkg.version + ".zip"
+                },
+                files: [
+                    {cwd: "webkitbuilds/releases/nw/mac", src: ["**"], dest: "maracuya-jukebox/", expand: true}
                 ]
             }
         },
@@ -349,19 +377,36 @@ module.exports = function (grunt) {
             }
         },
         nodewebkit: {
-            options: {
-                version: "0.8.3",
-                app_name: "nw",
-                build_dir: "./webkitbuilds",
-                mac: false,
-                win: true,
-                linux32: false,
-                linux64: false,
-                keep_nw: true
+            mac: {
+                options: {
+                    version: "0.8.3",
+                    app_name: "nw",
+                    build_dir: "./webkitbuilds",
+                    mac: true,
+                    win: false,
+                    linux32: false,
+                    linux64: false,
+                    keep_nw: true
+                },
+                src: [
+                    "./build/**"
+                ]
             },
-            src: [
-                "./build/**"
-            ]
+            win: {
+                options: {
+                    version: "0.8.3",
+                    app_name: "nw",
+                    build_dir: "./webkitbuilds",
+                    mac: false,
+                    win: true,
+                    linux32: false,
+                    linux64: false,
+                    keep_nw: true
+                },
+                src: [
+                    "./build/**"
+                ]
+            }
         }
     });
 
@@ -374,7 +419,8 @@ module.exports = function (grunt) {
     grunt.registerTask("release:mobile", [ "env:mobile", "jshint", "clean:build", "copy:main", "requirejs:mobile", "imageEmbed:mobile", "preprocess:mobile", "clean:post-mobile", "copy:mobileBuildOutput", "phonegap:release" ]);
     grunt.registerTask("release:web", [ "env:web", "jshint", "clean:build", "copy:main", "copy:node_modules", "requirejs:web", "imageEmbed:web", "preprocess:web", "clean:post-web" ]);
 
-    grunt.registerTask("release:standalone:win", [ "env:standalone", "jshint", "clean:build", "copy:main", "copy:node_modules", "requirejs:web", "imageEmbed:web", "preprocess:web", "clean:post-web", "curl", "targz:standalone_win", "nodewebkit", "copy:standalone_sample_data_nw_win", "compress:standalone_win" ]);
+    grunt.registerTask("release:standalone:win", [ "env:standalone", "jshint", "clean:build", "copy:main", "copy:node_modules", "requirejs:web", "imageEmbed:web", "preprocess:web", "clean:post-web", "curl", "targz:standalone_win", "nodewebkit:win", "copy:standalone_sample_data_nw_win", "compress:standalone_win" ]);
+    grunt.registerTask("release:standalone:mac", [ "env:standalone", "jshint", "clean:build", "copy:main", "copy:node_modules", "requirejs:web", "imageEmbed:web", "preprocess:web", "clean:post-web", "curl", "targz:standalone_mac", "nodewebkit:mac", "copy:standalone_sample_data_nw_mac", "compress:standalone_mac" ]);
     grunt.registerTask("release:standalone", [ "env:standalone", "jshint", "clean:build", "copy:main", "copy:node_modules", "requirejs:web", "imageEmbed:web", "preprocess:web", "clean:post-web" ]);
 
     grunt.registerTask("test", ["jshint"]);

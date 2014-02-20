@@ -1,6 +1,5 @@
 var Track = require("../db/model").Track,
-    path = require("path"),
-    processDir = process.execPath.split(path.sep).slice(0, -1).join(path.sep);
+	appDir = require("../util/appDir");
 
 var currentlyPlaying,
     startTime,
@@ -84,8 +83,9 @@ PlayController.prototype.play = function (track) {
     }
     var trackPath = track.path;
     if (this._standalone) {
-        trackPath = path.join(processDir, trackPath);
+        trackPath = appDir(trackPath);
     }
+    console.log(trackPath);
     this.player.play(trackPath);
 
     return currentlyPlaying;
