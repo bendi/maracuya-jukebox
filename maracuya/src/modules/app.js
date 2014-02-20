@@ -9,7 +9,7 @@ var express = require("express"),
     getIp = require("../util/getMyIp"),
     routes = require("../routes"),
     port = process.env.PORT || 8280,
-    epaper = require("../util/runEpaper.js");
+    epaper;
 
 function logErrors(err, req, res, next) {
     console.error(err.stack);
@@ -25,6 +25,10 @@ function clientErrorHandler(err, req, res, next) {
 }
 
 module.exports = function (model, db, standalone) {
+    if (!standalone) {
+        epaper = require("../util/runEpaper.js");
+    }
+
     var server = require("http").createServer(app),
         io = socketio.listen(server);
 
@@ -81,5 +85,7 @@ module.exports = function (model, db, standalone) {
     server.listen(port);
 
     // quick hack - start epaper script
-    epaper(port);
+    if (epaper) {
+        epaper(port);
+    }
 };
