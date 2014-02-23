@@ -135,13 +135,13 @@ module.exports = function (grunt) {
         },
 
         curl: {
-            "tmp/win/mpg123n-nw.tgz": "https://mpg123n.s3.amazonaws.com/Release/bindings-v" + mpg123n.version + "-nw-0.8.3-win32-ia32.tgz",
-            "tmp/win/mp3info-nw.tgz": "https://mp3info.s3.amazonaws.com/Release/bindings-v" + mp3info.version + "-nw-0.8.3-win32-ia32.tgz",
-            "tmp/win/sqlite3-nw.tgz": "https://maracuya-jukebox.s3.amazonaws.com/Release/node_sqlite3-v" + sqlite3.version + "-nw-0.8.3-win32-ia32.tgz",
+            "tmp/win/mpg123n-nw.tgz": "https://mpg123n.s3.amazonaws.com/Release/bindings-v" + mpg123n.version + "-nw-0.8.3-win32-ia32.tar.gz",
+            "tmp/win/mp3info-nw.tgz": "https://mp3info.s3.amazonaws.com/Release/bindings-v" + mp3info.version + "-nw-0.8.3-win32-ia32.tar.gz",
+            "tmp/win/sqlite3-nw.tgz": "https://maracuya-jukebox.s3.amazonaws.com/Release/node_sqlite3-v" + sqlite3.version + "-nw-0.8.3-win32-ia32.tar.gz",
             
-            "tmp/mac/mpg123n-nw.tgz": "https://mpg123n.s3.amazonaws.com/Release/bindings-v" + mpg123n.version + "-nw-0.8.3-darwin-ia32.tgz",
-            "tmp/mac/mp3info-nw.tgz": "https://mp3info.s3.amazonaws.com/Release/bindings-v" + mp3info.version + "-nw-0.8.3-darwin-ia32.tgz",
-            "tmp/mac/sqlite3-nw.tgz": "https://maracuya-jukebox.s3.amazonaws.com/Release/node_sqlite3-v" + sqlite3.version + "-nw-0.8.3-darwin-ia32.tgz"
+            "tmp/mac/mpg123n-nw.tgz": "https://mpg123n.s3.amazonaws.com/Release/bindings-v" + mpg123n.version + "-nw-0.8.3-darwin-ia32.tar.gz",
+            "tmp/mac/mp3info-nw.tgz": "https://mp3info.s3.amazonaws.com/Release/bindings-v" + mp3info.version + "-nw-0.8.3-darwin-ia32.tar.gz",
+            "tmp/mac/sqlite3-nw.tgz": "https://maracuya-jukebox.s3.amazonaws.com/Release/node_sqlite3-v" + sqlite3.version + "-nw-0.8.3-darwin-ia32.tar.gz"
         },
 
         // gunzip each package
