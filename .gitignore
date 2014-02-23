@@ -15,3 +15,5 @@ distrib/mobile/phonegap/www/
 maracuya/phonegap/
 maracuya/webkitbuilds/
 distrib/mobile/phonegap/platforms/ios
+maracuya/tmp
+maracuya/dist
