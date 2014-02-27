@@ -1,0 +1,11 @@
+Package: maracuya-jukebox-epaper
+Version: $VERSION
+Section: base
+Priority: optional
+Architecture: $ARCH
+Installed-Size: $SIZE
+Depends: libi2c-dev 
+Pre-Depends: libi2c-dev 
+Maintainer: Marek Bedkowski <marek@bedkowski.pl>
+Description: maracuyá is an mp3 player that can be controlled from a browser. With this package you install support for e-paper display.
+
