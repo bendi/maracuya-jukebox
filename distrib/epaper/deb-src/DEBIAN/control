@@ -4,8 +4,8 @@ Section: base
 Priority: optional
 Architecture: $ARCH
 Installed-Size: $SIZE
-Depends: libi2c-dev, i2c-tools
-Pre-Depends: libi2c-dev, i2c-tools 
+Depends: libi2c-dev, i2c-tools, python-dev
+Pre-Depends: libi2c-dev, i2c-tools, python-dev
 Maintainer: Marek Bedkowski <marek@bedkowski.pl>
 Description: maracuyá is an mp3 player that can be controlled from a browser. With this package you install support for e-paper display.
 
