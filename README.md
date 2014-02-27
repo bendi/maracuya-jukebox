@@ -1,7 +1,7 @@
 maracuyá-jukebox [![Build Status](https://travis-ci.org/bendi/maracuya-jukebox.png?branch=master)](https://travis-ci.org/bendi/maracuya-jukebox)
 ===============
 
-Maracuyá is a javascript based virutal mp3 player that lets you control your playlist from a browser. It goes on IE, Safari, Firefox, Chrome under different operating systems: Windows, Linux, Mac OS
+Maracuyá is a javascript based virutal mp3 player that lets you control your playlist from a browser. It support all major browsers including: IE, Safari, Firefox, Chrome and different operating systems: Windows, Linux, Mac OS
 
 Read more on http://maracuya-jukebox.com
 
@@ -22,7 +22,7 @@ Prequisites
 ----------------------
 Build system uses grunt project and node-pre-gyp so first you need to install the two:
 ```
-npm install -g grunt-cli node-pre-gyp@0.3.1
+npm install -g grunt-cli node-pre-gyp@0.4.1
 ```
 
 As you can see node-pre-gyp is still in pre 0.4.0 version and still relies on http to download binaries (TODO).
