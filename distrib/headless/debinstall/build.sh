@@ -27,7 +27,6 @@ mkdir -p ${SYSROOT}/opt/maracuya/maracuya-jukebox/
 pushd ../../../maracuya/
 npm install
 grunt build:web
-mv node_modules build/
 OBJECT_FILES="`find build/node_modules/ -name *.o`"
 if [ -n "$OBJECT_FILES" ]; then
     rm "$OBJECT_FILES"
