@@ -1,0 +1,9 @@
+{
+  "name": "maracuya-jukebox-epaper",
+  "description": "Maracuya Jukebox E-Paper module",
+  "version": "0.1.4",
+  "private": true,
+  "dependencies": {
+    "qrcode-npm": "*",
+  }
+}

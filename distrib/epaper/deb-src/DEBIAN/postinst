@@ -2,3 +2,7 @@
 
 gpio load spi
 gpio load i2c
+
+pushd /opt/maracuya/epaper
+npm install --production
+popd
