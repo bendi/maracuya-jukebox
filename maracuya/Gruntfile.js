@@ -421,7 +421,7 @@ module.exports = function (grunt) {
     grunt.registerTask("build:web", [ "env:dev", "jshint", "clean:build", "copy:main", "copy:node_modules", "requirejs:web", "imageEmbed:web", "preprocess:web", "clean:post-web" ]);
     grunt.registerTask("build:demo", [ "env:dev", "jshint", "clean:build", "copy:main", "requirejs:demo", "imageEmbed:web", "preprocess:web", "clean:post-web" ]);
 
-    grunt.registerTask("release:mobile", [ "env:mobile", "jshint", "clean:build", "copy:main", "requirejs:mobile", "imageEmbed:mobile", "preprocess:mobile", "clean:post-mobile", "copy:mobileBuildOutput", "phonegap:release" ]);
+    grunt.registerTask("release:mobile", [ "env:mobile", "jshint", "clean:build", "copy:main", "requirejs:mobile", "imageEmbed:mobile", "preprocess:mobile", "clean:post-mobile", "copy:mobileBuildOutput", "phonegap:build", "phonegap:release" ]);
     grunt.registerTask("release:web", [ "env:web", "jshint", "clean:build", "copy:main", "copy:node_modules", "requirejs:web", "imageEmbed:web", "preprocess:web", "clean:post-web" ]);
 
     grunt.registerTask("release:standalone:win", [ "env:standalone", "jshint", "clean:build", "copy:main", "copy:node_modules", "requirejs:web", "imageEmbed:web", "preprocess:web", "clean:post-web", "curl", "targz:standalone_win", "nodewebkit:win", "copy:standalone_sample_data_nw_win", "compress:standalone_win" ]);
