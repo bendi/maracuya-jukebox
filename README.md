@@ -22,10 +22,15 @@ Prequisites
 ----------------------
 Build system uses grunt project and node-pre-gyp so first you need to install the two:
 ```
-npm install -g grunt-cli node-pre-gyp@0.4.1
+npm install -g grunt-cli node-pre-gyp@0.4.1 
 ```
 
-As you can see node-pre-gyp is still in pre 0.4.0 version and still relies on http to download binaries (TODO).
+If you want to be able to build mobile clients yourself you're also going to need phonegap package:
+```
+npm install -g phonegap@3.2.0-0.2.0
+```
+
+`NOTE:` phonegap is in older version due to [this bug](http://stackoverflow.com/questions/21388709/cordova-3-3-1-0-1-2-phonegap-plugins-doesnt-work)
 
 Dependencies
 ----------------------
