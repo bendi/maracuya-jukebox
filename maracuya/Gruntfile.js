@@ -353,6 +353,9 @@ module.exports = function (grunt) {
                     var pkg = grunt.file.readJSON("package.json");
                     return (pkg.name + "-" + pkg.version);
                 },
+                name: function () {
+                    return "Maracuya Jukebox Client";
+                },
                 versionCode: function () {
                     return 7;
                 },
@@ -377,10 +380,20 @@ module.exports = function (grunt) {
                         xxhdpi: "../distrib/mobile/android/icons/icon-144-xxhdpi.png"
                     },
                     ios: {
-                        icon57: "../distrib/mobile/ios/icons/icon-57.png",
-                        icon57x2: "../distrib/mobile/ios/icons/icon-57@2x.png",
+                        icon57: "../distrib/mobile/ios/icons/icon.png",
+                        icon57x2: "../distrib/mobile/ios/icons/icon@2x.png",
+                        icon29: "../distrib/mobile/ios/icons/icon-small.png",
+                        icon29x2: "../distrib/mobile/ios/icons/icon-small@2x.png",
+                        icon40: "../distrib/mobile/ios/icons/icon-40.png",
+                        icon40x2: "../distrib/mobile/ios/icons/icon-40@2x.png",
+                        icon60: "../distrib/mobile/ios/icons/icon-60.png",
+                        icon60x2: "../distrib/mobile/ios/icons/icon-60@2x.png",
+                        icon50: "../distrib/mobile/ios/icons/icon-50.png",
+                        icon50x2: "../distrib/mobile/ios/icons/icon-50@2x.png",
                         icon72: "../distrib/mobile/ios/icons/icon-72.png",
-                        icon72x2: "../distrib/mobile/ios/icons/icon-72@2x.png"
+                        icon72x2: "../distrib/mobile/ios/icons/icon-72@2x.png",
+                        icon76: "../distrib/mobile/ios/icons/icon-76.png",
+                        icon76x2: "../distrib/mobile/ios/icons/icon-76@2x.png"
                     }
                 }
             }
