@@ -335,10 +335,12 @@ module.exports = function (grunt) {
                 cordova : "../distrib/mobile/phonegap/.cordova",
                 path : "phonegap",
                 plugins : [
-                    "http://github.com/phonegap-build/BarcodeScanner.git"
-                ],
+					 "http://github.com/phonegap-build/BarcodeScanner.git ",
+                     "https://github.com/mkuklis/phonegap-websocket"
+            	],
                 platforms : [
-                    //"ios"
+                    "ios",
+                    "android"
                 ],
                 maxBuffer : 200, // You may need to raise this for iOS.
                 verbose : false,
