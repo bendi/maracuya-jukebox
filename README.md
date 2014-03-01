@@ -44,10 +44,10 @@ Commands
 ----------------------
 Maracuyá jukebox is javascript-everywhere project, so there's variety of build commands which produce different results and have some configuration options (all of them need to be issued from maracuya-jukebox/maracuya directory):
 
-| **Command**               | **Description**
-|:--------------------------|:---------------------------------------------------------------
+| **Command**               | **Description**                                           | **Options**
+|:--------------------------|:----------------------------------------------------------|:----------------
 | `default`                 | Invokes `jshint` and builds performs static code analysis
-| `build:mobile`            | Builds maracuyá jukebox mobile client (JavaScript client layer, no `phonegap` yet)
+| `build:mobile`            | Builds maracuyá jukebox mobile client (JavaScript client layer, no `phonegap` yet) | --env (production/dev) [dev] --mobiles (ios,android) [android]
 | `build:web`               | Builds maracuyá jukebox headless/server (might be part of [debian](https://github.com/bendi/maracuya-jukebox/tree/master/distrib/headless/debinstall) build)
 | `build:demo`              | Builds [demo application](http://maracuya-jukebox.com/demo/)
 | `release:mobile`          | Builds and signs mobile application, currently `android` only.
