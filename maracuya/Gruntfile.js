@@ -36,6 +36,13 @@ module.exports = function (grunt) {
         weinreUrl = getWeinreUrlForEnv(envVars.NODE_ENV, grunt.option("weinreurl"), grunt.option("weinre"));
 
     envVars.PLATFORM = grunt.option("platform") || "web";
+    
+    var mobiles = ["android"],
+        m = grunt.option("mobiles");
+    
+    if (typeof(m) === "string" && m.length) {
+        mobiles = m.split(",");
+    }
 
     if (weinreUrl) {
         envVars.WEINRE_URL = weinreUrl;
@@ -338,10 +345,7 @@ module.exports = function (grunt) {
                     "http://github.com/phonegap-build/BarcodeScanner.git ",
                     "https://github.com/mkuklis/phonegap-websocket"
                 ],
-                platforms : [
-                    "ios",
-                    "android"
-                ],
+                platforms : mobiles,
                 maxBuffer : 200, // You may need to raise this for iOS.
                 verbose : false,
                 releases : "releases",
