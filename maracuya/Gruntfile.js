@@ -335,9 +335,9 @@ module.exports = function (grunt) {
                 cordova : "../distrib/mobile/phonegap/.cordova",
                 path : "phonegap",
                 plugins : [
-					 "http://github.com/phonegap-build/BarcodeScanner.git ",
-                     "https://github.com/mkuklis/phonegap-websocket"
-            	],
+                    "http://github.com/phonegap-build/BarcodeScanner.git ",
+                    "https://github.com/mkuklis/phonegap-websocket"
+                ],
                 platforms : [
                     "ios",
                     "android"
@@ -348,6 +348,9 @@ module.exports = function (grunt) {
                 releaseName : function () {
                     var pkg = grunt.file.readJSON("package.json");
                     return (pkg.name + "-" + pkg.version);
+                },
+                versionCode: function () {
+                    return 7;
                 },
                 key: {
                     store: "../distrib/mobile/phonegap/android.keystore",
