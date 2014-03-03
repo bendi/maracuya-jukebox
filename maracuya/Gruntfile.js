@@ -395,6 +395,20 @@ module.exports = function (grunt) {
                         icon76: "../distrib/mobile/ios/icons/icon-76.png",
                         icon76x2: "../distrib/mobile/ios/icons/icon-76@2x.png"
                     }
+                },
+                screens: {
+                    ios: {
+                        // ipad landscape
+                        ipadLand: "../distrib/mobile/ios/splash/Default-Landscape~ipad.png",
+                        ipadLandx2: "../distrib/mobile/ios/splash/Default-Landscape@2x~ipad.png",
+                        // ipad portrait
+                        ipadPortrait: "../distrib/mobile/ios/splash/Default-Portrait~ipad.png",
+                        ipadPortraitx2: "../distrib/mobile/ios/splash/Default-Portrait@2x~ipad.png",
+                        // iphone portrait
+                        iphonePortrait: "../distrib/mobile/ios/splash/Default~iphone.png",
+                        iphonePortraitx2: "../distrib/mobile/ios/splash/Default@2x~iphone.png",
+                        iphone568hx2: "../distrib/mobile/ios/splash/Default-568h@2x~iphone.png"
+                    }
                 }
             }
         },
