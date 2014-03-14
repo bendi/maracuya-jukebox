@@ -6,6 +6,7 @@ chmod 0755 /etc/init.d/maracuya-jukebox
 chmod 0755 /usr/local/bin/addmaracuya
 
 mkdir /home/pi/.virtual-jukebox
+touch /home/pi/.virtual-jukebox/jukebox.db
 chown -R pi:pi /home/pi/.virtual-jukebox
 
 update-rc.d maracuya-jukebox defaults
