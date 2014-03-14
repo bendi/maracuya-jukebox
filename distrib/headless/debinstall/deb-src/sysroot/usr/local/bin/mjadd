@@ -1,0 +1,5 @@
+#!/bin/bash
+
+NODE_PATH=/opt/node-${VER}-linux-${ARCH}
+
+$NODE_PATH /opt/maracuya/maracuya-jukebox/src/run.js  -d /home/pi/.virtual-jukebox insert "$PWD/$1"
