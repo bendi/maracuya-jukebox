@@ -43,8 +43,8 @@ sed s"/\$ARCH/${ARCH}/" -i ${DEBIAN}/control
 
 sed s"/\@NODE_VERSION/${NODE_VERSION}/" -i ${DEBIAN}/preinst
 
-sed s"/\$ARCH/${ARCH}/" -i ${SYSROOT}/usr/local/bin/mjadd
-sed s"/\@NODE_VERSION/${NODE_VERSION}/" -i ${SYSROOT}/usr/local/bin/mjadd
+sed s"/\$ARCH/${ARCH}/" -i ${SYSROOT}/usr/local/bin/addmaracuya
+sed s"/\@NODE_VERSION/${NODE_VERSION}/" -i ${SYSROOT}/usr/local/bin/addmaracuya
 
 chmod 755 ${DEBIAN}/*
  

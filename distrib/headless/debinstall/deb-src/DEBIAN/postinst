@@ -5,6 +5,7 @@ chown -R root:root /opt/maracuya
 chmod 0755 /etc/init.d/maracuya-jukebox
 chmod 0755 /usr/local/bin/mjadd
 
+mkdir /home/pi/.virtual-jukebox
 chown -R pi:pi /home/pi/.virtual-jukebox
 
 update-rc.d maracuya-jukebox defaults
