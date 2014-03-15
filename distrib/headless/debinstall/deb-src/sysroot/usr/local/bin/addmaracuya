@@ -9,4 +9,4 @@ else
     NODE_PATH=/opt/node-$VER-linux-$ARCH
 fi
 
-$NODE_PATH /opt/maracuya/maracuya-jukebox/src/run.js  -d /home/pi/.virtual-jukebox insert "$PWD/$1"
+$NODE_PATH/bin/node /opt/maracuya/maracuya-jukebox/src/run.js  -d /home/pi/.virtual-jukebox insert "$PWD/$1"
