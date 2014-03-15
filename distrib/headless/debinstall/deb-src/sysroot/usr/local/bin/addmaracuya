@@ -2,6 +2,11 @@
 
 VER="@NODE_VERSION"
 
-NODE_PATH=/opt/node-$VER-linux-$ARCH
+ARCH=$ARCH
+if [ $ARCH == "armhf" ]; then
+    NODE_PATH=/opt/node-$VER-linux-arm-pi
+else
+    NODE_PATH=/opt/node-$VER-linux-$ARCH
+fi
 
 $NODE_PATH /opt/maracuya/maracuya-jukebox/src/run.js  -d /home/pi/.virtual-jukebox insert "$PWD/$1"
