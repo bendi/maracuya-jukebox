@@ -35,9 +35,6 @@ popd
 
 rsync -a ../../../maracuya/build/* ${SYSROOT}/opt/maracuya/maracuya-jukebox/ --exclude=node_modules/grunt* --delete
 
-let SIZE=`du -s ${SYSROOT} | sed s'/\s\+.*//'`+8
-
-sed s"/\$SIZE/${SIZE}/" -i ${DEBIAN}/control
 sed s"/\$VERSION/${VERSION}/" -i ${DEBIAN}/control
 sed s"/\$ARCH/${ARCH}/" -i ${DEBIAN}/control
 
@@ -45,6 +42,9 @@ sed s"/\@NODE_VERSION/${NODE_VERSION}/" -i ${DEBIAN}/preinst
 
 sed s"/\$ARCH/${ARCH}/" -i ${SYSROOT}/usr/local/bin/addmaracuya
 sed s"/\@NODE_VERSION/${NODE_VERSION}/" -i ${SYSROOT}/usr/local/bin/addmaracuya
+
+let SIZE=`du -s ${SYSROOT} | sed s'/\s\+.*//'`+8
+sed s"/\$SIZE/${SIZE}/" -i ${DEBIAN}/control
 
 chmod 755 ${DEBIAN}/*
  
