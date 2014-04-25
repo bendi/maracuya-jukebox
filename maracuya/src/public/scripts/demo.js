@@ -12,7 +12,21 @@ define([
     var mBus = router.getRoute("demo"),
         startTime,
         pauseTime,
-        currentTrack;
+        currentTrack,
+		tracks = [{
+            title: "Scorpions - send me an angel",
+            duration: 230,
+            playedFor: 0,
+            paused: false,
+			id: 1
+        },
+		{
+            title: "Blur - Song2",
+            duration: 250,
+            playedFor: 0,
+            paused: false,
+			id: 2
+        }];
 
     // should stay empty
     function jumpHandler(fn) {
@@ -35,12 +49,7 @@ define([
 
     mBus.addListener("play", function (data) {
         startTime = new Date();
-        currentTrack = {
-            title: "Scorptions - send me an angel",
-            duration: 230,
-            playedFor: 0,
-            paused: false,
-        };
+        currentTrack = tracks[Math.min(tracks.length - 1, data.id - 1)];
         onPlay(currentTrack, true);
     });
 

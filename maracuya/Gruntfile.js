@@ -138,7 +138,11 @@ module.exports = function (grunt) {
                 files: [
                     {cwd: "sample-data", expand: true, src: ["data/**", "mp3/**"], dest: "webkitbuilds/releases/nw/mac/nw.app/Contents/Resources/app.nw"}
                 ]
-            }
+            },
+			demo: {
+				src: "build/src/public/scripts/demoApp.js",
+				dest: "build/src/public/app.js"
+			}
         },
 
         curl: {
@@ -219,7 +223,8 @@ module.exports = function (grunt) {
                         "jqm" :         "../external/jquery.mobile-1.4.0",
                         "editinplace" : "../external/jquery.editinplace",
                         "jqr" :         "../external/jquery.qrcode.min",
-                        "app" :         "demoApp",
+                        "io" :          "empty:",
+						"app":			"demoApp"
                     },
                     removeCombined : true,
                     skipDirOptimize : true,
@@ -450,7 +455,7 @@ module.exports = function (grunt) {
     grunt.registerTask("default", "jshint");
     grunt.registerTask("build:mobile", [ "env:dev", "jshint", "clean:build", "copy:main", "requirejs:mobile", "imageEmbed:mobile", "preprocess:mobile", "clean:post-mobile", "copy:mobileBuildOutput", "phonegap:build" ]);
     grunt.registerTask("build:web", [ "env:dev", "jshint", "clean:build", "copy:main", "copy:node_modules", "requirejs:web", "imageEmbed:web", "preprocess:web", "clean:post-web" ]);
-    grunt.registerTask("build:demo", [ "env:dev", "jshint", "clean:build", "copy:main", "requirejs:demo", "imageEmbed:web", "preprocess:web", "clean:post-web" ]);
+    grunt.registerTask("build:demo", [ "env:dev", "jshint", "clean:build", "copy:main", "requirejs:demo", "copy:demo", "imageEmbed:web", "preprocess:web", "clean:post-web" ]);
 
     grunt.registerTask("release:mobile", [ "env:mobile", "jshint", "clean:build", "copy:main", "requirejs:mobile", "imageEmbed:mobile", "preprocess:mobile", "clean:post-mobile", "copy:mobileBuildOutput", "phonegap:build", "phonegap:release" ]);
     grunt.registerTask("release:web", [ "env:web", "jshint", "clean:build", "copy:main", "copy:node_modules", "requirejs:web", "imageEmbed:web", "preprocess:web", "clean:post-web" ]);
