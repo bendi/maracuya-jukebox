@@ -1,0 +1,10 @@
+#!/bin/bash
+
+pushd /etc/init.d/
+update-rc.d pipoint start 99 2
+popd
+
+service hostapd restart
+service dnsmasq restart
+
+service WifiAP restart

@@ -1,0 +1,11 @@
+Package: maracuya-jukebox-wifi
+Version: $VERSION
+Section: base
+Priority: optional
+Architecture: $ARCH
+Installed-Size: $SIZE
+Depends: rfkill zd1211-firmware hostapd hostap-utils iw dnsmasq
+Pre-Depends: rfkill zd1211-firmware hostapd hostap-utils iw dnsmasq
+Maintainer: Marek Bedkowski <marek@bedkowski.pl>
+Description: maracuyá is an mp3 player that can be controlled from a browser. With this package you install support for wifi/access point.
+
