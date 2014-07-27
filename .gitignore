@@ -17,3 +17,5 @@ maracuya/webkitbuilds/
 distrib/mobile/phonegap/platforms/ios
 maracuya/tmp
 maracuya/dist
+*.deb
+epaper/wiringPi
