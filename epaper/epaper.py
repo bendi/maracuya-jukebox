@@ -12,27 +12,27 @@ im = Image.new('RGB', (264, 176), 'white')
 
 import base64
 from urlparse import urlparse
+displayQr = True;
 
-#linestring = open('qr.gif', 'r').read()
-
-
-linestring = sys.argv[1]
-up = urlparse(linestring)
-(head, data) = up.path.split(',', 1)
-bits = head.split(';')
-mime_type = bits[0] if bits[0] else 'text/plain'
-(charset, b64) = ('ASCII', False)
-for bit in bits[1]:
+if displayQr:
+  linestring = sys.argv[1]
+  up = urlparse(linestring)
+  (head, data) = up.path.split(',', 1)
+  bits = head.split(';')
+  mime_type = bits[0] if bits[0] else 'text/plain'
+  (charset, b64) = ('ASCII', False)
+  for bit in bits[1]:
     if bit.startswith('charset='):
-        charset = bit[8:]
+      charset = bit[8:]
     elif bit == 'base64':
-        b64 = True
+      b64 = True
 
-# Do something smart with charset and b64 instead of assuming
-plaindata = base64.b64decode(data)
+  # Do something smart with charset and b64 instead of assuming
+  plaindata = base64.b64decode(data)
 
-#qrr = Image.fromstring("RGB", (164, 164), plaindata)
-qrr = Image.open(StringIO.StringIO(plaindata))
+  qrr = Image.open(StringIO.StringIO(plaindata))
+else:
+  qrr = Image.open('marakuja-logo-epaper.png', 'r')
 
 im.paste(qrr, (10,10))
 
