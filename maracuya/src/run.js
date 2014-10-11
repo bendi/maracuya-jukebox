@@ -15,6 +15,7 @@ var myArgs = require("optimist")
     model = require("./db/model"),
     app = require("./modules/app"),
     insert = require("./modules/insert"),
+    remove = require("./modules/remove"),
     grace = require("grace"),
     statusNotifier = require("./util/StatusNotifier")(myArgs.s);
 
@@ -47,6 +48,16 @@ graceApp.on("start", function () {
             console.log("Running insert mode.");
             insert = insert(db, model);
             insert();
+        }
+        break;
+    case "remove":
+        var pathToFile = myArgs._[1];
+        if (!pathToFile) {
+            console.log("Path to file not specified");
+        } else {
+            console.log("Running insert mode.");
+            remove = remove(db, model);
+            remove();
         }
         break;
     case "server":

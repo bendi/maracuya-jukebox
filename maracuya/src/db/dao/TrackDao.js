@@ -159,4 +159,13 @@ TrackDao.prototype.findPrev = function (id) {
     return model.Track.q().where("id").lt(id).order("-id").one();
 };
 
+TrackDao.prototype.removeByPath = function (path, fn) {
+    model.Track.destroy({path: path})
+        .error(fn)
+        .success(function (affectedRows) {
+            console.log("Deleted: ", path, affectedRows);
+            fn(null, affectedRows);
+        });
+};
+
 module.exports = new TrackDao();
