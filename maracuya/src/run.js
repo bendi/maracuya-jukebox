@@ -39,9 +39,10 @@ graceApp.on("start", function () {
         graceApp.shutdown(1);
     });
 
+    var pathToFile;
     switch (myArgs._[0]) {
     case "insert":
-        var pathToFile = myArgs._[1];
+        pathToFile = myArgs._[1];
         if (!pathToFile) {
             console.log("Path to file not specified");
         } else {
@@ -51,7 +52,7 @@ graceApp.on("start", function () {
         }
         break;
     case "remove":
-        var pathToFile = myArgs._[1];
+        pathToFile = myArgs._[1];
         if (!pathToFile) {
             console.log("Path to file not specified");
         } else {
