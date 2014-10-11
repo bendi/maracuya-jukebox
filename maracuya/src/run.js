@@ -40,9 +40,14 @@ graceApp.on("start", function () {
 
     switch (myArgs._[0]) {
     case "insert":
-        console.log("Running insert mode.");
-        insert = insert(db, model);
-        insert(myArgs._[1]);
+        var pathToFile = myArgs._[1];
+        if (!pathToFile) {
+            console.log("Path to file not specified");
+        } else {
+            console.log("Running insert mode.");
+            insert = insert(db, model);
+            insert();
+        }
         break;
     case "server":
         /* falls through */
