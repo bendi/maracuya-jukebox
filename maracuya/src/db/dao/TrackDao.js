@@ -160,12 +160,15 @@ TrackDao.prototype.findPrev = function (id) {
 };
 
 TrackDao.prototype.removeByPath = function (path, fn) {
-    model.Track.destroy({path: path})
-        .error(fn)
-        .success(function (affectedRows) {
-            console.log("Deleted: ", path, affectedRows);
-            fn(null, affectedRows);
-        });
+    model.Track.find({path: path})
+        .success(function (track) {
+            track.destroy()
+               .error(fn)
+               .success(function() {
+                   console.log("Deleted", path);           
+                   fn(null);
+                });
+         });
 };
 
 module.exports = new TrackDao();
