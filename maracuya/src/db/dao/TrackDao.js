@@ -163,12 +163,12 @@ TrackDao.prototype.removeByPath = function (path, fn) {
     model.Track.find({path: path})
         .success(function (track) {
             track.destroy()
-               .error(fn)
-               .success(function() {
-                   console.log("Deleted", path);           
-                   fn(null);
+                .error(fn)
+                .success(function () {
+                    console.log("Deleted", path);
+                    fn(null);
                 });
-         });
+        });
 };
 
 module.exports = new TrackDao();
