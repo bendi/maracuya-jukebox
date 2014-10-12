@@ -160,7 +160,7 @@ TrackDao.prototype.findPrev = function (id) {
 };
 
 TrackDao.prototype.removeByPath = function (path, fn) {
-    model.Track.find({path: path})
+    model.Track.find({where: {path: path}})
         .success(function (track) {
             track.destroy()
                 .error(fn)
