@@ -48,7 +48,7 @@ graceApp.on("start", function () {
         } else {
             console.log("Running insert mode.");
             insert = insert(db, model);
-            insert();
+            insert(path);
         }
         break;
     case "remove":
@@ -58,7 +58,7 @@ graceApp.on("start", function () {
         } else {
             console.log("Running insert mode.");
             remove = remove(db, model);
-            remove();
+            remove(path);
         }
         break;
     case "server":
