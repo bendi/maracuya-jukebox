@@ -48,7 +48,7 @@ graceApp.on("start", function () {
         } else {
             console.log("Running insert mode.");
             insert = insert(db, model);
-            insert(path);
+            insert(pathToFile);
         }
         break;
     case "remove":
@@ -56,9 +56,9 @@ graceApp.on("start", function () {
         if (!pathToFile) {
             console.log("Path to file not specified");
         } else {
-            console.log("Running insert mode.");
+            console.log("Running remove mode.");
             remove = remove(db, model);
-            remove(path);
+            remove(pathToFile);
         }
         break;
     case "server":
