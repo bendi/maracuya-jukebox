@@ -162,12 +162,17 @@ TrackDao.prototype.findPrev = function (id) {
 TrackDao.prototype.removeByPath = function (path, fn) {
     model.Track.find({where: {path: path}})
         .success(function (track) {
-            track.destroy()
-                .error(fn)
-                .success(function () {
-                    console.log("Deleted", path);
-                    fn(null);
-                });
+            if (track) {
+                track.destroy()
+                    .error(fn)
+                    .success(function () {
+                        console.log("Deleted", path);
+                        fn(null);
+                    });
+            } else {
+                console.log("Not found", path);
+                fn(null);
+            }
         });
 };
 
