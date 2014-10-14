@@ -151,6 +151,10 @@ TrackDao.prototype.create = function (data, fn) {
         });
 };
 
+TrackDao.prototype.findByPath = function (path) {
+    return model.Track.q().where("path").eq(path).one();
+};
+
 TrackDao.prototype.findNext = function (id) {
     return model.Track.q().where("id").gt(id).order("id").one();
 };

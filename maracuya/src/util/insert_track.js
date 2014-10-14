@@ -4,13 +4,7 @@ var trackDao = require("../db/dao/TrackDao"),
     mp3info = require("mp3info"),
     ID3 = require("id3");
 
-function insertTrack(path, title, fn) {
-    if (typeof(title) === "function") {
-        fn = title;
-        title = "";
-    }
-    console.log("PATH: " + path);
-
+function doInsert(path, title, fn) {
     mp3info(path, function (error, data) {
         if (error) {
             return fn(error);
@@ -32,12 +26,28 @@ function insertTrack(path, title, fn) {
                 return fn(err);
             }
 
-            console.log("Created: " + JSON.stringify(mp3data));
-
             fn();
         });
 
     });
+}
+
+function insertTrack(path, title, fn) {
+    if (typeof(title) === "function") {
+        fn = title;
+        title = "";
+    }
+    console.log("PATH: " + path);
+
+    trackDao.findByPath(path)
+        .success(function (data) { 
+            if (data) {
+               fn(null); 
+            } else {
+               doInsert(path, title, fn); 
+            }
+        })
+        .error(fn);
 }
 
 module.exports = {

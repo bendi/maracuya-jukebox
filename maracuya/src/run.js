@@ -66,20 +66,20 @@ graceApp.on("start", function () {
     default:
         console.log("Running http server mode.");
         app(db, model);
+
+        stdin.resume();
+        stdin.setEncoding("utf8");
+        stdin.on("data", function (line) {
+            console.log("line: " + line);
+            line = line.replace(/^\s*|\s*$/g, "");
+            if (line === "stop") {
+                graceApp.shutdown(0);
+            }
+        });
         break;
     }
 
     statusNotifier.updateStatus("running");
-
-    stdin.resume();
-    stdin.setEncoding("utf8");
-    stdin.on("data", function (line) {
-        console.log("line: " + line);
-        line = line.replace(/^\s*|\s*$/g, "");
-        if (line === "stop") {
-            graceApp.shutdown(0);
-        }
-    });
 });
 
 graceApp.on("shutdown", function (cb) {
