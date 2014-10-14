@@ -40,11 +40,11 @@ function insertTrack(path, title, fn) {
     console.log("PATH: " + path);
 
     trackDao.findByPath(path)
-        .success(function (data) { 
+        .success(function (data) {
             if (data) {
-               fn(null); 
+                fn(null);
             } else {
-               doInsert(path, title, fn); 
+                doInsert(path, title, fn);
             }
         })
         .error(fn);

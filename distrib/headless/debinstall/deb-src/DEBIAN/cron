@@ -1,0 +1,1 @@
+*/5 * * * * dropbox_sync.sh >> /var/log/maracuya-jukebox-sync.log 2>&1
