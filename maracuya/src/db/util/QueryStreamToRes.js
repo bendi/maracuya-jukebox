@@ -14,6 +14,10 @@ function QueryStreamToRes(collection) {
             return doc;
         };
         this._handleLast = function () {
+            if (this.first) {
+                this.emit("data", "[");
+                this.first = false;
+            }
             this.emit("data", "]");
         };
     } else {

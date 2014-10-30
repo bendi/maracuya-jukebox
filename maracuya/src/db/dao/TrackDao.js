@@ -26,58 +26,61 @@ TrackDao.prototype.getCurrentlyPlaying = function (currentTrackId, pageSize, fn)
     // get numer of items from start to current
     model.Track.count()
         .error(fn)
-        .success(function (total) {
+        .then(function (total) {
             data.total = total;
             var criteria = {where: "id <= " + currentTrackId};
-            model.Track.count(criteria)
-                .error(fn)
-                .success(function (n) {
-                    data.page = Math.ceil(n / pageSize) - 1;
-                    var skipTracks = data.page * pageSize;
-                    findWithRadius(currentTrackId, skipTracks, pageSize, true)
-                        .success(function (lTracks) {
-                            if (pageSize > 1) {
-                                var limit = pageSize - lTracks.length;
-                                console.log("LIMIT: ", limit);
-                                if (!limit) {
-                                    data.items = Track.lean(lTracks);
-                                    fn(null, data);
-                                    return;
-                                }
-                                findWithRadius(currentTrackId, 0, limit)
-                                    .success(function (rTracks) {
-                                        data.items = Track.lean(lTracks).concat(Track.lean(rTracks));
-                                        fn(null, data);
-                                    });
-                            } else {
-                                data.items = Track.lean(lTracks);
-                                fn(null, data);
-                            }
-                        });
-                });
-        });
+            return model.Track.count(criteria);
+        })
+        .then(function (n) {
+            data.page = Math.ceil(n / pageSize) - 1;
+            var skipTracks = data.page * pageSize;
+            return findWithRadius(currentTrackId, skipTracks, pageSize, true);
+        })
+        .then(function (lTracks) {
+            if (pageSize > 1) {
+                var limit = pageSize - lTracks.length;
+                console.log("LIMIT: ", limit);
+                if (!limit) {
+                    data.items = Track.lean(lTracks);
+                    return data;
+                }
+                return findWithRadius(currentTrackId, 0, limit)
+                    .then(function (rTracks) {
+                        data.items = Track.lean(lTracks).concat(Track.lean(rTracks));
+                        return data;
+                    });
+            } else {
+                data.items = Track.lean(lTracks);
+                return data;
+            }
+        })
+        .success(function (data) {
+            fn(null, data);
+        })
+        .error(fn);
 };
 
 TrackDao.prototype.findWithLimit = function (pageSize, offset, fn) {
     var q = model.Track.q().order("id");
 
-    model.Track.count().success(function (c) {
-        if (pageSize > 0) {
-            q = q.limit(pageSize);
-        }
+    model.Track.count()
+        .then(function (c) {
+            if (pageSize > 0) {
+                q = q.limit(pageSize);
+            }
 
-        if (offset > 0 && c > offset) {
-            q = q.skip(offset);
-        }
+            if (offset > 0 && c > offset) {
+                q = q.skip(offset);
+            }
 
-        q.all().success(function (tracks) {
+            return [c, q.all()];
+        })
+        .success(function (c, tracks) {
             fn(null, c, new QueryToQueryStream(tracks));
+        })
+        .error(function (err) {
+            fn(err);
         });
-
-    })
-    .error(function (err) {
-        fn(err);
-    });
 };
 
 TrackDao.prototype.search = function (txt, skip, limit, fn) {
@@ -94,14 +97,14 @@ TrackDao.prototype.search = function (txt, skip, limit, fn) {
 
     model.Track.count(criteria)
         .error(fn)
-        .success(function (total) {
+        .then(function (total) {
             criteria.limit = limit;
             criteria.offset = skip;
             criteria.order = "id ASC";
-            model.Track.findAll(criteria)
-                .success(function (tracks) {
-                    fn(null, total, new QueryToQueryStream(tracks));
-                });
+            return [total, model.Track.findAll(criteria)];
+        })
+        .success(function (total, tracks) {
+            fn(null, total, new QueryToQueryStream(tracks));
         });
 };
 
@@ -131,13 +134,12 @@ TrackDao.prototype.getById = function (id) {
 
 TrackDao.prototype.updateById = function (id, data, fn) {
     model.Track.q().where("id").eq(id).one()
+        .then(function (track) {
+            return track.updateAttributes(data);
+        })
         .error(fn)
-        .success(function (err, track) {
-            track.updateAttributes(data)
-                .error(fn)
-                .success(function () {
-                    fn(null, 1);
-                });
+        .success(function () {
+            fn(null, 1);
         });
 };
 
