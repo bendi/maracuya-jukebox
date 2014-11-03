@@ -1,9 +1,20 @@
-#necessary imports first
 from PIL import Image
 from epyper.displayCOGProcess import Display
 from epyper.displayController import DisplayController
 import StringIO
 import sys
+import argparse
+import os
+
+
+file_path = os.path.dirname(__file__)
+if file_path != "":
+    os.chdir(file_path)
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--logo', help='Should i display logo', action='store_true')
+args = parser.parse_args()
 
 #create DisplayController instance specifying display type as an argument
 display = DisplayController(Display.EPD_TYPE_270)
@@ -12,7 +23,7 @@ im = Image.new('RGB', (264, 176), 'white')
 
 import base64
 from urlparse import urlparse
-displayQr = True;
+displayQr = not args.logo;
 
 if displayQr:
   linestring = sys.argv[1]
@@ -32,7 +43,7 @@ if displayQr:
 
   qrr = Image.open(StringIO.StringIO(plaindata))
 else:
-  qrr = Image.open('marakuja-logo-epaper.png', 'r')
+  qrr = Image.open('marakuja-logo-epaper.png', 'r').transpose(Image.FLIP_TOP_BOTTOM).transpose(Image.FLIP_LEFT_RIGHT)
 
 im.paste(qrr, (10,10))
 
