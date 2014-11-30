@@ -1,7 +1,7 @@
 var express = require("express"),
     app = express(),
     cors = require("cors"),
-    socketio = require("socket.io"),
+    SocketIOServer = require("socket.io"),
     EventEmitter = require("events").EventEmitter,
     mBus = new EventEmitter(),
     sockets = require("../util/sockets"),
@@ -30,13 +30,11 @@ module.exports = function (model, db, standalone) {
     }
 
     var server = require("http").createServer(app),
-        io = socketio.listen(server);
-
-    io.configure(function () {
-        io.set("log level", 1);
-        io.set("transports", ["flashsocket", "websocket", "xhr-polling"]);
-        io.set("polling duration", 2);
-    });
+        io = new SocketIOServer(server, {
+            "log level": 1,
+            "transports": ["flashsocket", "websocket", "polling"],
+            "polling duration": 2
+        });
 
     getIp.port(port);
 

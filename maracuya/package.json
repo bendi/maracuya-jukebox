@@ -18,7 +18,7 @@
     "sqlite3": ">=2.0.0",
     "sequelize": "~2.0.0-rc2",
     "optimist": "~0.3.5",
-    "socket.io": "*",
+    "socket.io": "~1.2.1",
     "requireindex": "~1.0.0",
     "mkdirp": "0.3.4",
     "node-promise": "~0.5.10",
