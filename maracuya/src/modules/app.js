@@ -43,6 +43,7 @@ module.exports = function (model, db, standalone) {
     app.configure(function () {
         app.set("port", port);
         app.use(express.logger("dev"));
+        app.use(express.compress());
         app.use(express.bodyParser());
         app.use(express.cookieParser());
         app.use(cors());
