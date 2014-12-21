@@ -1,7 +1,7 @@
 var  fs = require("fs"),
     mkdirp = require("mkdirp"),
     userHome = process.env[(process.platform === "win32") ? "USERPROFILE" : "HOME"],
-    appDir = userHome + "/.virtual-jukebox";
+    appDir = userHome + "/.maracuya-jukebox";
 
 function get(dir) {
     if (dir) {
