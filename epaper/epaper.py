@@ -14,6 +14,7 @@ if file_path != "":
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--logo', help='Should i display logo', action='store_true')
+parser.add_argument('image', metavar='I', help='Image to display (when no logo option was specified)')
 args = parser.parse_args()
 
 #create DisplayController instance specifying display type as an argument
