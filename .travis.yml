@@ -4,6 +4,6 @@ node_js:
 env:
   - NODE_MPG123N_CI=true
 before_script: 
-  - npm install -g grunt-cli node-pre-gyp@0.4.1
+  - npm install -g grunt-cli node-pre-gyp@0.5.5
   - cd maracuya
   - npm install
