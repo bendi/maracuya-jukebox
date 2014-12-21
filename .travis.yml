@@ -4,6 +4,7 @@ node_js:
 env:
   - NODE_MPG123N_CI=true
 before_script: 
+  - sudo apt-get install -y libasound2-dev
   - npm install -g grunt-cli node-pre-gyp@0.5.5
   - cd maracuya
   - npm install
