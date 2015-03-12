@@ -9,7 +9,7 @@ define([
     "server",
     "stream",
     "mbusRouter",
-    "common"
+    "es6!common"
 ],
 function ($, jqm, jqr, editinplace, _, config, eventHandler, server, stream, router, common) {
 
