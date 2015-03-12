@@ -1,7 +1,7 @@
 define([
     "underscore",
     "console",
-    "common",
+    "es6!common",
     "playlist"
 ],
 function (_, console, common, playlist) {

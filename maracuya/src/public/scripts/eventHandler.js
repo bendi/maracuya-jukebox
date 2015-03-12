@@ -3,7 +3,7 @@ define([
     "jqm",
     "console",
     "mbusRouter",
-    "common"
+    "es6!common"
 ],
 function ($, jqm, console, router, common) {
 

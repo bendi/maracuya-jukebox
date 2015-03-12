@@ -1,7 +1,7 @@
 define([
     "underscore",
     "config",
-    "common",
+    "es6!common",
     "console"
 ], function (_, config, common, console) {
 

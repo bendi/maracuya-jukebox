@@ -49,7 +49,7 @@ function upload(url, fileName, formData, listener, next) {
 	xhr.send(formData);
 }
 
-export (homeUrl, mediaLibrarySelector, listener) => {
+export default function(homeUrl, mediaLibrarySelector, listener) {
 	$(mediaLibrarySelector)
 		.on("dragover", function () {
 			$(this).addClass("hover");

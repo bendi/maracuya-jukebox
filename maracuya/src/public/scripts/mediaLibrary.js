@@ -4,7 +4,7 @@ define([
     "console",
     "underscore",
     "config",
-    "upload"
+    "es6!upload"
 ], function ($, jqm, console, _, config, upload) {
 
     var PAGE_SIZE = config("playlistPageSize"),
