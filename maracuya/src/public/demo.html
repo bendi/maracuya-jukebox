@@ -45,7 +45,7 @@ require.config({
       "jqm": "../external/jquery.mobile-1.4.0",
       "editinplace": "../external/jquery.editinplace",
       "jqr": "../external/jquery.qrcode.min",
-      "app": "../app"
+      "app": "./demoApp"
       <!-- @endexclude -->
   }
   <!-- @exclude -->
@@ -132,7 +132,18 @@ require(['app'], function(app) {
     <div class="config"></div>
   </header>
   <div class="playlistHeader"></div>
-  <div class="playlistContainer"><div class="playlist"></div></div>
+  <div class="playlistContainer"><div class="playlist">
+  	<div data-id="1">
+    	<span class="num">1.</span>
+  		<span class="name">Scorpions - Send me an angel</span>
+  		<span class="duration">3:22</span>
+    </div>
+    <div data-id="2">
+    	<span class="num">2.</span>
+  		<span class="name">Blair - Song2</span>
+  		<span class="duration">4:05</span>
+  	</div>
+  </div></div>
   <div class="playlistFooter"></div>
 </div>
 <div class="qrCode">

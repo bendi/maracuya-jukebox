@@ -1,9 +1,11 @@
-define(function () {
-    if (typeof(console) === "undefined") {
-        return {
-            log: function () {}
-        };
-    } else {
-        return console;
-    }
-});
+
+var c;
+if (typeof(console) === "undefined") {
+    c = {
+        log: function () {}
+    };
+} else {
+    c = console;
+}
+
+export default c;

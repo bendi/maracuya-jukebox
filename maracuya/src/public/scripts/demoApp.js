@@ -3,9 +3,9 @@ define([
     "jqm",
     "editinplace",
     "underscore",
-    "mbusRouter",
+    "es6!mbusRouter",
     "es6!common",
-    "demo"
+    "es6!demo"
 ],
 function ($, jqm, editinplace, _, router, common, demo) {
     return {

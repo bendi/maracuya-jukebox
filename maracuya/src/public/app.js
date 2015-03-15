@@ -4,11 +4,11 @@ define([
     "jqr",
     "editinplace",
     "underscore",
-    "config",
-    "eventHandler",
-    "server",
-    "stream",
-    "mbusRouter",
+    "es6!config",
+    "es6!eventHandler",
+    "es6!server",
+    "es6!stream",
+    "es6!mbusRouter",
     "es6!common"
 ],
 function ($, jqm, jqr, editinplace, _, config, eventHandler, server, stream, router, common) {

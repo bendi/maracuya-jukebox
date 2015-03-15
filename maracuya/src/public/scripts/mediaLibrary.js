@@ -1,11 +1,10 @@
-define([
-    "jquery",
-    "jqm",
-    "console",
-    "underscore",
-    "config",
-    "es6!upload"
-], function ($, jqm, console, _, config, upload) {
+import $ from 'jquery';
+import jqm from 'jqm';
+import _ from 'underscore';
+
+import console from 'es6!console';
+import config from 'es6!config';
+import upload from 'es6!upload';
 
     var PAGE_SIZE = config("playlistPageSize"),
         homeUrl = config("homeUrl");
@@ -124,6 +123,7 @@ define([
 
     $(function () {
         var files;
+        debugger
         upload(homeUrl, "#jukebox .mediaLibrary", {
             init: function (files_) {
                 files = _.toArray(files_);
