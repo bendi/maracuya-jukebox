@@ -1,70 +1,68 @@
-define([
-    "jquery",
-    "jqm",
-    "jqr",
-    "editinplace",
-    "underscore",
-    "es6!config",
-    "es6!eventHandler",
-    "es6!server",
-    "es6!stream",
-    "es6!mbusRouter",
-    "es6!common"
-],
-function ($, jqm, jqr, editinplace, _, config, eventHandler, server, stream, router, common) {
+import $ from "jquery";
+import jqr from "jqr";
+import jqm from "jqm";
+import editinplace from "editinplace";
+import _ from "underscore";
+import {init as configInit} from "es6!config";
+import config from "es6!config";
+import eventHandler from "es6!eventHandler";
+import server from "es6!server";
+import stream from "es6!stream";
+import router from "es6!mbusRouter";
+import {isAndroid, isIE} from "es6!common";
 
-    var MODULE_SERVER = "server",
-        MODULE_STREAM = "stream";
 
-    var currentModule;
+const MODULE_SERVER = "server",
+    MODULE_STREAM = "stream";
 
-    return {
-        MODULE_SERVER: MODULE_SERVER,
-        MODULE_STREAM: MODULE_STREAM,
+var currentModule;
 
-        init: function (module, homeUrl) {
-            config.init(homeUrl);
+return {
+    MODULE_SERVER: MODULE_SERVER,
+    MODULE_STREAM: MODULE_STREAM,
 
-            if (currentModule) {
-                currentModule.destroy();
-            }
+    init: function (module, homeUrl) {
+        configInit(homeUrl);
 
-            if (common.isAndroid()) {
-                $(".playlistContainer").css({overflow: "", height: "auto"});
-            }
-
-            var mBus = router.useRoute(module);
-
-            mBus.addListener("appReady", function (data) {
-                eventHandler.init(data.paused);
-            });
-
-            var starting = currentModule ? false : true;
-
-            switch (module) {
-            case MODULE_SERVER:
-                currentModule = server.init({
-                    homeUrl: config("homeUrl"),
-                    pageSize: config("playlistPageSize")
-                });
-                break;
-            case MODULE_STREAM:
-                currentModule = stream.init();
-                break;
-            }
-
-            if (starting) {
-                $.get("/ping")
-                    .done(function (data) {
-                        var settings = {
-                            text: "http://" + data.ips.join(":" + data.port + ", http://") + ":" + data.port
-                        };
-                        if (common.isIE()) {
-                            settings.render = "table";
-                        }
-                        $(".qrCode").qrcode(settings);
-                    });
-            }
+        if (currentModule) {
+            currentModule.destroy();
         }
-    };
-});
+
+        if (isAndroid()) {
+            $(".playlistContainer").css({overflow: "", height: "auto"});
+        }
+
+        var mBus = router.useRoute(module);
+
+        mBus.addListener("appReady", function (data) {
+            eventHandler.init(data.paused);
+        });
+
+        var starting = currentModule ? false : true;
+
+        switch (module) {
+        case MODULE_SERVER:
+            currentModule = server.init({
+                homeUrl: config("homeUrl"),
+                pageSize: config("playlistPageSize")
+            });
+            break;
+        case MODULE_STREAM:
+            currentModule = stream.init();
+            break;
+        }
+
+        if (starting) {
+            $.get("/ping")
+                .done(function (data) {
+                    var settings = {
+                        text: "http://" + data.ips.join(":" + data.port + ", http://") + ":" + data.port
+                    };
+                    if (isIE()) {
+                        settings.render = "table";
+                    }
+                    $(".qrCode").qrcode(settings);
+                });
+        }
+    }
+};

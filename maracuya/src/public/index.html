@@ -67,7 +67,7 @@ require.config({
   <!-- @endexclude -->
 });
 
-require(['app'], function(app) {
+require(['es6!app'], function(app) {
     $(document).ready(function() {
         app.init(app.MODULE_SERVER, homeUrl);
     });

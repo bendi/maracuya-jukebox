@@ -3,14 +3,13 @@ var config = {
     homeUrl: location.protocol + "//" + location.host
 };
 
-function get(key) {
+export default function(key) {
     return config[key];
 };
 
-get.init = function (homeUrl) {
+export function init(homeUrl) {
     if (homeUrl) {
         config.homeUrl = homeUrl;
     }
 };
 
-export default  get;
