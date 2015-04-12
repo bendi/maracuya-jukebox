@@ -1,6 +1,6 @@
-var QueryBuilder = require("../util/QueryBuilder");
+import QueryBuilder from "../util/QueryBuilder";
 
-module.exports = function (sequelize, DataTypes) {
+export default function (sequelize, DataTypes) {
     return sequelize.define("Track", {
         title : DataTypes.STRING,
         artist : DataTypes.STRING,

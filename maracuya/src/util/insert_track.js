@@ -1,10 +1,9 @@
+import trackDao from "../db/dao/TrackDao";
+import fs from "fs";
+import mp3info from "mp3info";
+import ID3 from "id3";
 
-var trackDao = require("../db/dao/TrackDao"),
-    fs = require("fs"),
-    mp3info = require("mp3info"),
-    ID3 = require("id3");
-
-function doInsert(path, title, fn) {
+export function doInsert(path, title, fn) {
     mp3info(path, function (error, data) {
         if (error) {
             return fn(error);
@@ -32,7 +31,7 @@ function doInsert(path, title, fn) {
     });
 }
 
-function insertTrack(path, title, fn) {
+export function insertTrack(path, title, fn) {
     if (typeof(title) === "function") {
         fn = title;
         title = "";
@@ -50,6 +49,3 @@ function insertTrack(path, title, fn) {
         .error(fn);
 }
 
-module.exports = {
-    insertTrack: insertTrack
-};

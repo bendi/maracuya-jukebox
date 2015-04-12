@@ -1,13 +1,14 @@
-var express = require("express"),
-    app = express(),
-    cors = require("cors"),
-    SocketIOServer = require("socket.io"),
-    EventEmitter = require("events").EventEmitter,
+import express from "express";
+import cors from "cors";
+import SocketIOServer from "socket.io";
+import {EventEmitter} from "events";
+import sockets from "../util/sockets";
+import appDir from "../util/appDir";
+import getIp from "../util/getMyIp";
+import routes from "../routes";
+
+var app = express(),
     mBus = new EventEmitter(),
-    sockets = require("../util/sockets"),
-    appDir = require("../util/appDir"),
-    getIp = require("../util/getMyIp"),
-    routes = require("../routes"),
     port = process.env.PORT || 8280,
     epaper;
 
@@ -24,7 +25,7 @@ function clientErrorHandler(err, req, res, next) {
     }
 }
 
-module.exports = function (model, db, standalone) {
+export default function (model, db, standalone) {
     if (!standalone) {
         epaper = require("../util/runEpaper.js");
     }

@@ -1,5 +1,5 @@
-var TrackDao = require("../db/dao/TrackDao"),
-    fs = require("fs");
+import TrackDao from "../db/dao/TrackDao";
+import fs from "fs";
 
 var MEDIA_TYPE = {
     mp3: "audio/mpeg",
@@ -102,6 +102,6 @@ function index(req, res) {
         });
 }
 
-module.exports = {
+export default {
     index: index
 };

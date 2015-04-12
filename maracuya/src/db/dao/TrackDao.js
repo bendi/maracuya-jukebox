@@ -1,6 +1,6 @@
-var model = require("../model"),
-    QueryToQueryStream = require("../util/QueryToQueryStream"),
-    Promise = require("node-promise").Promise;
+import model from "../model";
+import QueryToQueryStream from "../util/QueryToQueryStream";
+import {Promise} from "node-promise";
 
 function findWithRadius(id, skip, radius, lt) {
     var q = model.Track.q().order("id");
@@ -182,4 +182,4 @@ TrackDao.prototype.removeByPath = function (path, fn) {
         });
 };
 
-module.exports = new TrackDao();
+export default new TrackDao();

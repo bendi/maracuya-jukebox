@@ -1,5 +1,5 @@
-var TrackDao = require("../db/dao/TrackDao"),
-    PlayController = require("./playController");
+import TrackDao from "../db/dao/TrackDao";
+import PlayController from "./playController";
 
 function socketConnected(playController, mBus, socket) {
     function emit() {
@@ -131,7 +131,7 @@ function socketConnected(playController, mBus, socket) {
     });
 }
 
-module.exports = function (io, mBus, standalone) {
+export default function (io, mBus, standalone) {
     var playController = new PlayController(standalone);
 
     io.sockets.on("connection", socketConnected.bind(this, playController, mBus));

@@ -1,5 +1,6 @@
-var getIp = require("../util/getMyIp"),
-    port;
+import getIp from "../util/getMyIp";
+
+var port;
 
 function index(req, res) {
     var ips = getIp();
@@ -9,7 +10,7 @@ function index(req, res) {
     });
 }
 
-module.exports = {
+export default {
     index: index,
     init: function (p) {
         port = p;

@@ -1,4 +1,4 @@
-var insert = require("../util/insert_track").insertTrack;
+import {insertTrack as insert} from "../util/insert_track";
 
 //
 // Track.remove({}, function (err) {
@@ -14,7 +14,7 @@ var insert = require("../util/insert_track").insertTrack;
 //
 // return;
 
-module.exports = function (db, model) {
+export default function (db, model) {
     return function (path) {
         insert(path, function (err) {
             if (err) {

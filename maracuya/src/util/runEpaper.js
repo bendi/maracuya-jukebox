@@ -1,7 +1,7 @@
-var getIp = require("../util/getMyIp"),
-    exec = require("child_process").spawn;
+import getIp from "../util/getMyIp";
+import {spawn as exec} from "child_process";
 
-function run(port) {
+export default function run(port) {
     var ips = getIp(),
         out = [];
     ips.forEach(function (ip) {
@@ -19,4 +19,3 @@ function run(port) {
 
 }
 
-module.exports = run;

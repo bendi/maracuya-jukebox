@@ -1,6 +1,6 @@
 
 
-module.exports = function (routes, optionsFn) {
+export default function (routes, optionsFn) {
     optionsFn("/", function (req, res) {
         res.contentType("application/json");
 

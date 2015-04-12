@@ -1,5 +1,7 @@
-var  fs = require("fs"),
-    mkdirp = require("mkdirp"),
+import fs from "fs";
+import mkdirp from "mkdirp";
+
+var
     userHome = process.env[(process.platform === "win32") ? "USERPROFILE" : "HOME"],
     appDir = userHome + "/.maracuya-jukebox";
 
@@ -25,4 +27,4 @@ get.init = function (appDir_) {
     return get;
 };
 
-module.exports = get;
+export default get;

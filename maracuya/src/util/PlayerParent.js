@@ -1,6 +1,7 @@
-var inherits = require("util").inherits,
-    EventEmitter = require("events").EventEmitter,
-    pwd = __dirname;
+import {inherits} from "util";
+import {EventEmitter} from "events";
+
+var pwd = __dirname;
 
 console.log("PWD: ", pwd);
 
@@ -45,7 +46,7 @@ function PlayerParent() {
 
 inherits(PlayerParent, EventEmitter);
 
-module.exports = PlayerParent;
+export default PlayerParent;
 
 PlayerParent.prototype.play = function () {
     message.call(this, "play", arguments);

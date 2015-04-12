@@ -1,5 +1,5 @@
-var os = require("os"),
-    http = require("http");
+import os from "os";
+import http from "http";
 
 function getIpsNoLocalhost() {
     var networkInterfaces = os.networkInterfaces();
@@ -41,4 +41,4 @@ getIp.port = function (p) {
     port = p;
 };
 
-module.exports = getIp;
+export default getIp;

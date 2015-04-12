@@ -45,4 +45,4 @@ QueryStreamToRes.prototype.end = function () {
     this.emit("end");
 };
 
-module.exports = QueryStreamToRes;
+export default QueryStreamToRes;

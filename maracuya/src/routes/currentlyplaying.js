@@ -1,5 +1,6 @@
-var TrackDao = require("../db/dao/TrackDao"),
-    currentTrackId;
+import TrackDao from "../db/dao/TrackDao";
+
+var currentTrackId;
 
 /**
  *
@@ -34,7 +35,7 @@ function index(req, res) {
 
 }
 
-module.exports = {
+export default {
     /**
      *
      * @param p

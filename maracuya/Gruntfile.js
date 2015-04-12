@@ -16,6 +16,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-curl");
     grunt.loadNpmTasks("grunt-contrib-compress");
     grunt.loadNpmTasks("grunt-tar.gz");
+	grunt.loadNpmTasks("grunt-babel");
 
     function getWeinreUrlForEnv(nodeEnv, weinreUrl, weinre) {
         if (!weinreUrl && weinre) {
@@ -448,7 +449,20 @@ module.exports = function (grunt) {
                     "./build/**"
                 ]
             }
-        }
+        },
+		'babel': {
+			options: {
+				sourceMap: true
+			},
+			dist: {
+				files: [{
+					expand: true,
+					cwd: 'src/',
+					src: ['run.js', '**/*.js', '!public/**/*.js'],
+					dest: 'build'		
+				}]
+			}
+		}
     });
 
     // Default task.
@@ -465,4 +479,5 @@ module.exports = function (grunt) {
     grunt.registerTask("release:standalone", [ "env:standalone", "jshint", "clean:build", "copy:main", "copy:node_modules", "requirejs:web", "imageEmbed:web", "preprocess:web", "clean:post-web" ]);
 
     grunt.registerTask("test", ["jshint"]);
+    grunt.registerTask("babel", ["babel"]);
 };

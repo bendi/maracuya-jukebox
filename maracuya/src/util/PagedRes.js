@@ -38,4 +38,4 @@ PagedRes.prototype.end = function () {
     this.emit("end");
 };
 
-module.exports = PagedRes;
+export default PagedRes;

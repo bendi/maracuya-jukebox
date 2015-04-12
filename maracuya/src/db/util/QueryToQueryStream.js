@@ -14,4 +14,4 @@ function QueryToQueryStream(data) {
 // Inherit from base stream class.
 require("util").inherits(QueryToQueryStream, require("stream"));
 
-module.exports = QueryToQueryStream;
+export default QueryToQueryStream;

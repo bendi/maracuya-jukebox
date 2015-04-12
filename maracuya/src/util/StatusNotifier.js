@@ -1,4 +1,4 @@
-var fs = require("fs");
+import fs from "fs";
 
 function StatusNotifier(path) {
     this.path = path;
@@ -8,6 +8,6 @@ StatusNotifier.prototype.updateStatus = function (status) {
     fs.writeFileSync(this.path, "status: " + status);
 };
 
-module.exports = function (path) {
+export default function (path) {
     return new StatusNotifier(path);
 };

@@ -2,7 +2,7 @@ function QueryBuilder(ctx, state) {
     this.state = state || {};
     this.ctx = ctx;
 }
-module.exports = QueryBuilder;
+export default QueryBuilder;
 
 function build(state) {
     var criteria = {};

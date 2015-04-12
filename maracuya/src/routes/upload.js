@@ -1,6 +1,7 @@
-var fs = require("fs"),
-    insert = require("../util/insert_track").insertTrack,
-    targetDir;
+import fs from "fs";
+import {insertTrack as insert} from "../util/insert_track";
+
+var targetDir;
 
 function handleFile(file, next) {
     console.log(file, ", targetDir: ", targetDir, ", currentdir: " + process.cwd());
@@ -69,7 +70,7 @@ function post(req, res) {
     run();
 }
 
-module.exports = {
+export default {
     /**
      *
      * @param p

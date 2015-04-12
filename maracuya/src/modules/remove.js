@@ -1,6 +1,6 @@
-var remove = require("../util/remove_track").removeTrack;
+import {removeTrack as remove} from "../util/remove_track";
 
-module.exports = function (db, model) {
+export default function (db, model) {
     return function (path) {
         remove(path, function (err) {
             if (err) {

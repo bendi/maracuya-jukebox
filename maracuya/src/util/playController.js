@@ -1,5 +1,5 @@
-var Track = require("../db/model").Track,
-	appDir = require("../util/appDir");
+import Track from "../db/model";
+import appDir from "../util/appDir";
 
 var currentlyPlaying,
     startTime,
@@ -169,5 +169,5 @@ PlayController.prototype.getVolume = function (volume_) {
     return volume;
 };
 
-module.exports = PlayController;
+export default PlayController;
 

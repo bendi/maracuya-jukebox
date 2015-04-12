@@ -1,6 +1,6 @@
-var TrackDao = require("../db/dao/TrackDao"),
-    QueryStreamToRes = require("../db/util/QueryStreamToRes"),
-    PagedRes = require("../util/PagedRes");
+import TrackDao from "../db/dao/TrackDao";
+import QueryStreamToRes from "../db/util/QueryStreamToRes";
+import PagedRes from "../util/PagedRes";
 
 /**
  *
@@ -80,7 +80,7 @@ function update(req, res) {
     });
 }
 
-module.exports = {
+export default {
     index: index,
     update: update
 };

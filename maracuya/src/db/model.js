@@ -6,4 +6,4 @@ model.init = function (sequelize) {
     };
 };
 
-module.exports = model;
+export default model;

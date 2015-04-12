@@ -17,7 +17,7 @@ const MODULE_SERVER = "server",
 
 var currentModule;
 
-return {
+export default {
     MODULE_SERVER: MODULE_SERVER,
     MODULE_STREAM: MODULE_STREAM,
 
