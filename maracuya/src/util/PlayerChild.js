@@ -1,5 +1,3 @@
-// es6-ify :)
-require("babel/register");
 
 var Player = require("./Player"),
     player = new Player();

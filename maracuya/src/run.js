@@ -1,8 +1,5 @@
 #!/usr/bin/env node
 
-// es6-ify :)
-require("babel/register");
-
 var myArgs = require("optimist")
     .usage("Node jukebox - usage: \n node run.js - to start server mode \n node run.js - insert [file to insert]")
     .alias("d", "datadir")
