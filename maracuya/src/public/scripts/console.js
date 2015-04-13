@@ -1,6 +1,6 @@
 
 var c;
-if (typeof(console) === "undefined") {
+if (typeof console === "undefined") {
     c = {
         log: function () {}
     };

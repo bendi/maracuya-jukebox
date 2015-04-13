@@ -1,11 +1,11 @@
 
-import $ from 'jquery';
-import _ from 'underscore';
-import io from 'io';
+import $ from "jquery";
+import _ from "underscore";
+import io from "io";
 
-import player from 'es6!player';
-import router from 'es6!mbusRouter';
-import playlist from 'es6!playlist';
+import player from "es6!player";
+import router from "es6!mbusRouter";
+import playlist from "es6!playlist";
 
 // FIXME - should be moved into common
 var PROGRES_LENGTH = 260,

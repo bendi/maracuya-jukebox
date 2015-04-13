@@ -1,8 +1,5 @@
 import $ from "jquery";
-import jqr from "jqr";
-import jqm from "jqm";
-import editinplace from "editinplace";
-import _ from "underscore";
+
 import {init as configInit} from "es6!config";
 import config from "es6!config";
 import eventHandler from "es6!eventHandler";

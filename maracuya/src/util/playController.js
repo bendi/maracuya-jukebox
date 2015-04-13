@@ -1,4 +1,3 @@
-import Track from "../db/model";
 import appDir from "../util/appDir";
 
 var currentlyPlaying,
@@ -48,7 +47,7 @@ function PlayController(standalone) {
     }
     this.player = new Player();
     this.isMute = false;
-    this._standalone = standalone;
+    this.standalone = standalone;
 }
 
 require("util").inherits(PlayController, require("events").EventEmitter);
@@ -82,7 +81,7 @@ PlayController.prototype.play = function (track) {
         this.player.volume(0);
     }
     var trackPath = track.path;
-    if (this._standalone) {
+    if (this.standalone) {
         trackPath = appDir(trackPath);
     }
     console.log(trackPath);
@@ -165,7 +164,7 @@ PlayController.prototype.volume = function (volume_) {
     return volume;
 };
 
-PlayController.prototype.getVolume = function (volume_) {
+PlayController.prototype.getVolume = function () {
     return volume;
 };
 

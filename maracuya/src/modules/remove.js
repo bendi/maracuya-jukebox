@@ -6,8 +6,6 @@ export default function (db, model) {
             if (err) {
                 throw err;
             }
-
-            process.exit();
         });
     };
-};
+}

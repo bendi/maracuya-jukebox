@@ -5,11 +5,11 @@ var config = {
 
 export default function(key) {
     return config[key];
-};
+}
 
 export function init(homeUrl) {
     if (homeUrl) {
         config.homeUrl = homeUrl;
     }
-};
+}
 

@@ -1,11 +1,11 @@
 
-import $ from 'jquery';
-import _ from 'underscore';
+import $ from "jquery";
+import _ from "underscore";
 
-import console from 'es6!console';
-import player from 'es6!player';
-import router from 'es6!mbusRouter';
-import playlist from 'es6!playlist';
+import console from "es6!console";
+import player from "es6!player";
+import router from "es6!mbusRouter";
+import playlist from "es6!playlist";
 
 var stop, play, pause, resume, jump, volume, mute, unmute,
     PROGRES_LENGTH = 260,

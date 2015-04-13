@@ -1,5 +1,4 @@
 import os from "os";
-import http from "http";
 
 function getIpsNoLocalhost() {
     var networkInterfaces = os.networkInterfaces();

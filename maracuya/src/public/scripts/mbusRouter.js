@@ -17,7 +17,7 @@ function MBus() {
  * @param p.once
  */
 MBus.prototype.addListener = function (p, fn) {
-    if (typeof(p) === "string") {
+    if (typeof p === "string") {
         var event = p;
         p = {
             event: event,
@@ -45,7 +45,7 @@ MBus.prototype.removeListener = function (p) {
         return false;
     }
 
-    if (typeof(p.fn) !== "function") {
+    if (typeof p.fn !== "function") {
         this.listeners[p.event] = [];
         return true;
     }
@@ -71,7 +71,7 @@ MBus.prototype.removeListener = function (p) {
  */
 MBus.prototype.removeListeners = function (p) {
     var event = p;
-    if (event && typeof(event) === "object") {
+    if (event && typeof event === "object") {
         event = p.event;
     }
     if (!this.listeners[event]) {
@@ -89,7 +89,7 @@ MBus.prototype.removeListeners = function (p) {
  * @param p.data
  */
 MBus.prototype.notify = function (event, data) {
-    if (typeof(event) !== "string") {
+    if (typeof event !== "string") {
         data = event.data;
         event = event.event;
     }
@@ -129,12 +129,12 @@ var m = {
         return _.keys(routes);
     },
     notify: function (event, data) {
-        if (typeof(event) !== "string") {
+        if (typeof event !== "string") {
             data = event.data;
             event = event.event;
         }
         currentRoute.notify(event, data);
     }
-};  
+};
 
 export default m;

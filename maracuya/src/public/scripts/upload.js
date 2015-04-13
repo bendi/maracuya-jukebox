@@ -1,3 +1,6 @@
+
+import $ from "jquery";
+
 function uploadFiles(url, files, listener) {
 	console.log("got files: ", files);
 

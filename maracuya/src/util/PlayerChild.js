@@ -1,6 +1,7 @@
 
-var Player = require("./Player"),
-    player = new Player();
+var Player = require("./Player");
+
+var player = new Player();
 
 player.on("end", function () {
     process.send({event: "end"});

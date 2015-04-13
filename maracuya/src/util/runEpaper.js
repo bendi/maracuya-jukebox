@@ -1,5 +1,6 @@
 import getIp from "../util/getMyIp";
 import {spawn as exec} from "child_process";
+import {join} from "path";
 
 export default function run(port) {
     var ips = getIp(),
@@ -7,7 +8,7 @@ export default function run(port) {
     ips.forEach(function (ip) {
         out.push("http://" + ip + ":" + port);
     });
-    var child = exec(__dirname + "/../../../epaper/epaper.js", [out.join()]);
+    var child = exec(join(__dirname, "../../../epaper/epaper.js"), [out.join()]);
 
     child.stderr.on("data", function (data) {
         console.log("" + data);

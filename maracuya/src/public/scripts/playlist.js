@@ -1,4 +1,5 @@
 
+import $ from "jquery";
 import _ from "underscore";
 import config from "es6!config";
 import console from "es6!console";

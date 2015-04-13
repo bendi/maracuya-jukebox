@@ -6,4 +6,4 @@ export default function (routes, optionsFn) {
 
         res.send(routes);
     });
-};
+}

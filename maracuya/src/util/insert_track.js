@@ -32,7 +32,7 @@ export function doInsert(path, title, fn) {
 }
 
 export function insertTrack(path, title, fn) {
-    if (typeof(title) === "function") {
+    if (typeof title === "function") {
         fn = title;
         title = "";
     }

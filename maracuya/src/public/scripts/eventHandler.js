@@ -1,8 +1,5 @@
 
-"use strict";
-
 import $ from "jquery";
-import jqm from "jqm";
 
 import console from "es6!console";
 import router from "es6!mbusRouter";

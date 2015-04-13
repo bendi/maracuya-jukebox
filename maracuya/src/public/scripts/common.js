@@ -1,3 +1,6 @@
+
+import $ from "jquery";
+
 var TZ_OFFSET = new Date().getTimezoneOffset() * 60000;
 var android = navigator.userAgent.indexOf("Android") >= 0,
 	firefox = navigator.userAgent.indexOf("Firefox") >= 0;

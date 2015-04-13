@@ -1,6 +1,5 @@
 import model from "../model";
 import QueryToQueryStream from "../util/QueryToQueryStream";
-import {Promise} from "node-promise";
 
 function findWithRadius(id, skip, radius, lt) {
     var q = model.Track.q().order("id");

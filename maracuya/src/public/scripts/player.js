@@ -1,3 +1,5 @@
+
+import $ from "jquery";
 import _ from "underscore";
 import console from "es6!console";
 import playlist from "es6!playlist";
@@ -163,5 +165,5 @@ Player.prototype.done = function () {
     }, this), 100);
 };
 
-return new Player();
+export default new Player();
 

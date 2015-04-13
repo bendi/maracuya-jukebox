@@ -1,3 +1,5 @@
+
+import {join} from "path";
 import express from "express";
 import cors from "cors";
 import SocketIOServer from "socket.io";
@@ -6,6 +8,7 @@ import sockets from "../util/sockets";
 import appDir from "../util/appDir";
 import getIp from "../util/getMyIp";
 import routes from "../routes";
+
 
 var app = express(),
     mBus = new EventEmitter(),
@@ -49,7 +52,7 @@ export default function (model, db, standalone) {
         app.use(express.cookieParser());
         app.use(cors());
         app.use(app.router);
-        app.use(express.static(__dirname + "/../public"));
+        app.use(express.static(join(__dirname, "/../public")));
         app.use(logErrors);
         app.use(clientErrorHandler);
     });
@@ -88,4 +91,4 @@ export default function (model, db, standalone) {
     if (epaper) {
         epaper(port);
     }
-};
+}

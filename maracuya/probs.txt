@@ -1,0 +1,60 @@
+[31m>> [39mLocal Npm module "grunt-contrib-requirejs" not found. Is it installed?
+[31m>> [39mLocal Npm module "grunt-contrib-copy" not found. Is it installed?
+[31m>> [39mLocal Npm module "grunt-image-embed" not found. Is it installed?
+[31m>> [39mLocal Npm module "grunt-preprocess" not found. Is it installed?
+[31m>> [39mLocal Npm module "grunt-contrib-clean" not found. Is it installed?
+[31m>> [39mLocal Npm module "grunt-env" not found. Is it installed?
+[31m>> [39mLocal Npm module "grunt-phonegap" not found. Is it installed?
+[31m>> [39mLocal Npm module "grunt-node-webkit-builder" not found. Is it installed?
+[31m>> [39mLocal Npm module "grunt-curl" not found. Is it installed?
+[31m>> [39mLocal Npm module "grunt-contrib-compress" not found. Is it installed?
+[31m>> [39mLocal Npm module "grunt-tar.gz" not found. Is it installed?
+
+[4mRunning "eslint:all" (eslint) task[24m
+[31m>> [39msrc/nw/run.js: line 17, col 4, Warning - Do not mix 'require' and other declarations.
+[31m>> [39msrc/public/scripts/eventHandler.js: line 10, col 4, Warning - VOLUME_LENGTH is defined but never used
+[31m>> [39msrc/public/scripts/mediaLibrary.js: line 18, col 12, Warning - Identifier 'update_value' is not in camel case.
+[31m>> [39msrc/public/scripts/mediaLibrary.js: line 20, col 16, Warning - Unexpected alert.
+[31m>> [39msrc/public/scripts/mediaLibrary.js: line 54, col 8, Warning - active is defined but never used
+[31m>> [39msrc/public/scripts/mediaLibrary.js: line 111, col 8, Warning - Unexpected alert.
+[31m>> [39msrc/public/scripts/mediaLibrary.js: line 140, col 28, Warning - Unexpected use of '|'.
+[31m>> [39msrc/public/scripts/mediaLibrary.js: line 154, col 15, Warning - Expected error to be handled.
+[31m>> [39msrc/public/scripts/playlist.js: line 19, col 22, Warning - "_displayTracks" used outside of binding context.
+[31m>> [39msrc/public/scripts/playlist.js: line 42, col 8, Warning - "load" used outside of binding context.
+[31m>> [39msrc/public/scripts/playlist.js: line 61, col 8, Warning - "load" used outside of binding context.
+[31m>> [39msrc/public/scripts/playlist.js: line 124, col 8, Warning - "updateCurrentTrack" used outside of binding context.
+[31m>> [39msrc/public/scripts/playlist.js: line 159, col 8, Warning - "activateCurrent" used outside of binding context.
+[31m>> [39msrc/public/scripts/server.js: line 13, col 4, Warning - VOLUME_OFFSET_LEFT is defined but never used
+[31m>> [39msrc/public/scripts/server.js: line 203, col 1, Warning - Newline required at end of file but not found.
+[31m>> [39msrc/public/scripts/stream.js: line 192, col 9, Warning - timeupdateFn is defined but never used
+[31m>> [39msrc/public/scripts/stream.js: line 195, col 8, Warning - pos is defined but never used
+[31m>> [39msrc/public/scripts/upload.js: line 11, col 16, Warning - getUploadFn was used before it was defined
+[31m>> [39msrc/public/scripts/upload.js: line 11, col 16, Warning - "getUploadFn" used outside of binding context.
+[31m>> [39msrc/public/scripts/upload.js: line 15, col 13, Warning - "getUploadFn" used outside of binding context.
+[31m>> [39msrc/public/scripts/upload.js: line 27, col 2, Warning - upload was used before it was defined
+[31m>> [39msrc/public/scripts/upload.js: line 27, col 2, Warning - "upload" used outside of binding context.
+[31m>> [39msrc/routes/playlist.js: line 19, col 8, Warning - playlistId is defined but never used
+[31m>> [39msrc/run.js: line 3, col 0, Warning - Do not mix 'require' and other declarations.
+[31m>> [39msrc/util/getMyIp.js: line 13, col 25, Warning - "getIfaceIps" used outside of binding context.
+[31m>> [39msrc/util/sockets.js: line 29, col 25, Warning - playNext was used before it was defined
+[31m>> [39msrc/mobile/external/requirejs-2.1.2.js: line 0, col 0, Warning - File ignored because of your .eslintignore file. Use --no-ignore to override.
+[31m>> [39msrc/mobile/scripts/eventHandler.js: line 0, col 0, Warning - File ignored because of your .eslintignore file. Use --no-ignore to override.
+[31m>> [39msrc/mobile/scripts/mobile.js: line 0, col 0, Warning - File ignored because of your .eslintignore file. Use --no-ignore to override.
+[31m>> [39msrc/mobile/scripts/playlist.js: line 0, col 0, Warning - File ignored because of your .eslintignore file. Use --no-ignore to override.
+[31m>> [39msrc/mobile/scripts/scanner.js: line 0, col 0, Warning - File ignored because of your .eslintignore file. Use --no-ignore to override.
+[31m>> [39msrc/public/external/babel-4.6.6.min.js: line 0, col 0, Warning - File ignored because of your .eslintignore file. Use --no-ignore to override.
+[31m>> [39msrc/public/external/es6.js: line 0, col 0, Warning - File ignored because of your .eslintignore file. Use --no-ignore to override.
+[31m>> [39msrc/public/external/html5shiv.js: line 0, col 0, Warning - File ignored because of your .eslintignore file. Use --no-ignore to override.
+[31m>> [39msrc/public/external/jquery-1.8.3.min.js: line 0, col 0, Warning - File ignored because of your .eslintignore file. Use --no-ignore to override.
+[31m>> [39msrc/public/external/jquery.editinplace.js: line 0, col 0, Warning - File ignored because of your .eslintignore file. Use --no-ignore to override.
+[31m>> [39msrc/public/external/jquery.mobile-1.4.0.js: line 0, col 0, Warning - File ignored because of your .eslintignore file. Use --no-ignore to override.
+[31m>> [39msrc/public/external/jquery.qrcode.min.js: line 0, col 0, Warning - File ignored because of your .eslintignore file. Use --no-ignore to override.
+[31m>> [39msrc/public/external/lodash-1.0.0-rc.3.js: line 0, col 0, Warning - File ignored because of your .eslintignore file. Use --no-ignore to override.
+[31m>> [39msrc/public/external/plugins/domReady-2.0.1.js: line 0, col 0, Warning - File ignored because of your .eslintignore file. Use --no-ignore to override.
+[31m>> [39msrc/public/external/requirejs-2.1.2.js: line 0, col 0, Warning - File ignored because of your .eslintignore file. Use --no-ignore to override.
+[31m>> [39msrc/public/external/socket.io.min.js: line 0, col 0, Warning - File ignored because of your .eslintignore file. Use --no-ignore to override.
+
+[31m>> [39m42 problems
+[33mWarning: Task "eslint:all" failed. Use --force to continue.[39m
+
+[31mAborted due to warnings.[39m

@@ -1,7 +1,9 @@
+import {join} from "path";
+
 var model = {};
 
 model.init = function (sequelize) {
-    model.Track = sequelize["import"](__dirname + "/model/Track");
+    model.Track = sequelize.import(join(__dirname, "model/Track"));
     this.init = function () {
     };
 };

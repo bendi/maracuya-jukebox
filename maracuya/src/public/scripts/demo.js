@@ -1,12 +1,9 @@
 
-import $ from "jquery";
 import _ from "underscore";
 
 import console from "es6!console";
-import config from "es6!config";
 import player from "es6!player";
 import router from "es6!mbusRouter";
-import eh from "es6!eventHandler";
 import playlist from "es6!playlist";
 
 var mBus = router.getRoute("demo"),

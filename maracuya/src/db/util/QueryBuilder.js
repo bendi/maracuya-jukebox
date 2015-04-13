@@ -33,9 +33,9 @@ QueryBuilder.prototype._clone = function () {
     var state = {};
     if (this.state.where) {
         state.where = {
-            col : this.state.where.col,
-            op : this.state.where.op,
-            val : this.state.where.val
+            col: this.state.where.col,
+            op: this.state.where.op,
+            val: this.state.where.val
         };
     }
     if (this.state.order) {

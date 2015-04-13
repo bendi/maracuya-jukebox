@@ -10,4 +10,4 @@ StatusNotifier.prototype.updateStatus = function (status) {
 
 export default function (path) {
     return new StatusNotifier(path);
-};
+}

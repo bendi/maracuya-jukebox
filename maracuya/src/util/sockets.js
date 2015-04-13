@@ -64,21 +64,21 @@ function socketConnected(playController, mBus, socket) {
             });
     });
 
-    socket.on("next", function (data) {
+    socket.on("next", function () {
         if (!playController.isPlaying()) {
             return error("Cannot run next when not playing.");
         }
         playNext();
     });
 
-    socket.on("prev", function (data) {
+    socket.on("prev", function () {
         if (!playController.isPlaying()) {
             return error("Cannot run prev when not playing.");
         }
         playPrev();
     });
 
-    socket.on("stop", function (data) {
+    socket.on("stop", function () {
         try {
             playController.stop();
             emit("stop");
@@ -87,7 +87,7 @@ function socketConnected(playController, mBus, socket) {
         }
     });
 
-    socket.on("pause", function (data) {
+    socket.on("pause", function () {
         try {
             playController.pause();
             emit("pause");
@@ -96,7 +96,7 @@ function socketConnected(playController, mBus, socket) {
         }
     });
 
-    socket.on("resume", function (data) {
+    socket.on("resume", function () {
         try {
             var currentlyPlaying = playController.resume();
             console.log("emitting resume");
@@ -135,4 +135,4 @@ export default function (io, mBus, standalone) {
     var playController = new PlayController(standalone);
 
     io.sockets.on("connection", socketConnected.bind(this, playController, mBus));
-};
+}
