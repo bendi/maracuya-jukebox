@@ -7,7 +7,7 @@ function socketConnected(playController, mBus, socket) {
         socket.emit.apply(socket, arguments);
         socket.broadcast.emit.apply(socket, arguments);
     }
-
+    var play, playNext;
 
     /**
      * @param msg {String}
@@ -17,7 +17,17 @@ function socketConnected(playController, mBus, socket) {
         socket.emit("error", msg, err);
     }
 
-    function play(track) {
+    playNext = function (currentId) {
+        currentId = currentId || playController.currentId();
+        emit("done");
+        TrackDao.findNext(currentId)
+            .success(play)
+            .error(function (err) {
+                error("Error when fetching track", err);
+            });
+    }
+
+    play = function (track) {
         if (!track) {
             console.log("No more tracks in the list.");
             return;
@@ -27,16 +37,6 @@ function socketConnected(playController, mBus, socket) {
         playController
             .removeAllListeners("end")
             .once("end", playNext);
-    }
-
-    function playNext(currentId) {
-        currentId = currentId || playController.currentId();
-        emit("done");
-        TrackDao.findNext(currentId)
-            .success(play)
-            .error(function (err) {
-                error("Error when fetching track", err);
-            });
     }
 
     function playPrev(currentId) {

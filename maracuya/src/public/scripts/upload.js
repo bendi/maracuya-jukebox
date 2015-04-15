@@ -1,33 +1,6 @@
 
 import $ from "jquery";
 
-function uploadFiles(url, files, listener) {
-	console.log("got files: ", files);
-
-	if (!files.length) {
-		return;
-	}
-
-	var uploadFn = getUploadFn(url, files[0], listener);
-
-	for (var i = 1, file; i < files.length; ++i) {
-		file = files[i];
-		uploadFn = getUploadFn(url, file, listener, uploadFn);
-	}
-
-	uploadFn();
-}
-
-function getUploadFn(url, file, listener, next) {
-	return function () {
-		var formData = new FormData();
-		console.log("Starting file upload: ", file.name);
-		listener.start(file);
-		formData.append(file.name, file);
-		upload(url, file.name, formData, listener, next);
-	};
-}
-
 function upload(url, fileName, formData, listener, next) {
 	var xhr = new XMLHttpRequest();
 
@@ -50,6 +23,33 @@ function upload(url, fileName, formData, listener, next) {
 	xhr.open("POST", url, true);
 
 	xhr.send(formData);
+}
+
+function getUploadFn(url, file, listener, next) {
+	return function () {
+		var formData = new FormData();
+		console.log("Starting file upload: ", file.name);
+		listener.start(file);
+		formData.append(file.name, file);
+		upload(url, file.name, formData, listener, next);
+	};
+}
+
+function uploadFiles(url, files, listener) {
+	console.log("got files: ", files);
+
+	if (!files.length) {
+		return;
+	}
+
+	var uploadFn = getUploadFn(url, files[0], listener);
+
+	for (var i = 1, file; i < files.length; ++i) {
+		file = files[i];
+		uploadFn = getUploadFn(url, file, listener, uploadFn);
+	}
+
+	uploadFn();
 }
 
 export default function(homeUrl, mediaLibrarySelector, listener) {

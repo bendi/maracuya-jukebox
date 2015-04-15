@@ -14,10 +14,9 @@ MediaLibrary.prototype.mediaLibraryItem = function (type, $item, track) {
     $("." + type, $item)
         .html(track[type])
         .editInPlace({
-            url: homeUrl + "/track/" + track.id,
-            update_value: type,
-            error: function (e) {
-                alert("Couldn't save your change.");
+            "url": homeUrl + "/track/" + track.id,
+            "update_value": type,
+            "error": function (e) {
                 console.log("ERROR: ", e);
             }
         });
@@ -50,8 +49,7 @@ $(document).on("keyup", "#jukebox .mediaLibrary .search input", function (e) {
 $(document).on("vclick", "#jukebox .mediaLibrary .menu span", function (e) {
     var $target = $(e.target),
         li = $target.closest("li"),
-        selected = li.hasClass("selected"),
-        active = $target.hasClass("active");
+        selected = li.hasClass("selected");
 
     $("#jukebox .mediaLibrary .menu .active").removeClass("active");
     if (!selected) {
@@ -108,7 +106,7 @@ $(document).on("vclick", "#jukebox .mediaLibrary .content .services-video-downlo
                 console.log("Request sent!");
             });
     } else {
-        alert("Unsupported media supplier.");
+        console.log("Unsupported media supplier: ", url);
         return false;
     }
 });
@@ -137,7 +135,7 @@ $(function () {
         },
         progress: function (fileName, curr, total) {
             // update progress bar
-            var complete = (curr / total * 100 | 0);
+            var complete = (curr / total * 100 || 0);
             console.log("File uploaded: " + fileName + ", curr: " + curr + ", total: " + total + ", percent: " + complete);
         },
         end: function (fileName, hasNext) {
@@ -152,7 +150,9 @@ $(function () {
             }
         },
         error: function (err, file) {
-            // if anything goes wrong...
+            if (err) {
+                console.log("Something went wrong!");
+            }
         }
     });
 });

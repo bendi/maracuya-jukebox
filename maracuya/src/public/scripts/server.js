@@ -9,8 +9,7 @@ import playlist from "es6!playlist";
 
 // FIXME - should be moved into common
 var PROGRES_LENGTH = 260,
-    VOLUME_LENGTH = 87,
-    VOLUME_OFFSET_LEFT = 195;
+    VOLUME_LENGTH = 87;
 
 var socket,
     PAGE_SIZE,

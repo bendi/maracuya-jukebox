@@ -7,7 +7,6 @@ import {isAndroid, offset as calculateOffset} from "es6!common";
 
 // constants
 var PROGRES_LENGTH = 260,
-    VOLUME_LENGTH = 87,
     VOLUME_OFFSET_LEFT = 195;
 
 var KEY = {

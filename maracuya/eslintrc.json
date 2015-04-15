@@ -5,7 +5,7 @@
     "mocha": true,
     "browser": true,
     "builtin": true,
-	"es6": true
+	  "es6": true
   },
   "ecmaFeatures": {
     "modules": true
@@ -72,6 +72,7 @@
     "no-sequences": 2,
     "no-shadow": 0,
     "no-undef": 2,
+    "no-mixed-requires": 0,
     "no-unused-vars": [
 		2,
 		{

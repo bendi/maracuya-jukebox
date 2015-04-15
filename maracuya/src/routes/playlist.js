@@ -16,8 +16,7 @@ import PagedRes from "../util/PagedRes";
 function index(req, res) {
     res.contentType("application/json; charset=utf-8");
 
-    var playlistId = req.params.id,
-        pageSize = req.param("pageSize"),
+    var pageSize = req.param("pageSize"),
         page = req.param("page") || 0,
         offset = page * pageSize;
 
